@@ -76,7 +76,7 @@ class UserObject extends EnemyObject {
     }
 }
 
-class Map {
+class World {
     constructor(idCanvas, width,  height) {
         this.width = width;
         this.height = height;
@@ -91,6 +91,14 @@ class Map {
 
     get basicCenter() {
         return {x: this.map.canvas.width / 2, y: this.map.canvas.height / 2};
+    }
+
+    get getWidth() {
+        return this.width;
+    }
+
+    get getHeight() {
+        return this.height;
     }
 
     initScene(nameUser) {
@@ -108,7 +116,7 @@ class Map {
 
     /** Fabric draw **/
     newShape(position, radius, color, visible) {
-        let circle = new createjs.Shape;
+        let circle = new createjs.Shape();
         circle.visibility = visible || true;
 
         let pos = position || {x: 0, y: 0};
@@ -124,6 +132,23 @@ class Map {
 
         this.map.addChild(line);
         return line;
+    }
+
+    newImage(file, visible) {
+        /*var box = new createjs.Shape();
+        box.graphics.beginLinearGradientFill(["#ff0000", "#0000ff"], [0, 1], 0, 0, 0, 100);
+        box.graphics.drawCircle(0, 0, 100);
+        box.cache(0, 0, 100, 100);
+
+        let image = new createjs.Bitmap(file);
+        image.filters = [
+            new createjs.AlphaMapFilter(box.cacheCanvas)
+        ];*/
+
+        let image = new createjs.Bitmap(file);
+
+        this.map.addChild(image);
+        return image;
     }
 
 }

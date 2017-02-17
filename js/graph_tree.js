@@ -5,7 +5,7 @@ class GraphTree {
         this.tree = new Tree;
         this.currentVertex = null;
 
-        this.shapes = new WeakMap();
+        this.shapes = new Map();
         this.graphLine = null;
     }
 
@@ -34,7 +34,15 @@ class GraphTree {
         return this.currentVertex;
     }
 
-    showNodes() {
+    destruct() {
+        this.map.stage.removeChild(this.graphLine);
+        console.log(this.shapes);
+        this.shapes.forEach((value, key) => {
+            this.map.stage.removeChild(value);
+        });
+    }
+
+    showNodes(dataCenter) {
         this.graphLine = this.graphLine || this.map.newLine("red");
         this.graphLine.graphics.clear();
 
@@ -59,8 +67,18 @@ class GraphTree {
                 this.graphLine.graphics.moveTo(last_x, last_y);
 
                 if(this.shapes.has(data.data)) {
-                    this.shapes.get(data.data).x = data.data.x;
-                    this.shapes.get(data.data).y = data.data.y;
+                    let drawObject = this.shapes.get(data.data);
+                    let needX = data.data.x, needY = data.data.y;
+
+                    if("image" in drawObject) {
+                        console.log("^)");
+                        needX -= drawObject.image.width / 2;
+                        needY -= drawObject.image.height / 2;
+                    }
+
+                    this.shapes.get(data.data).x = needX;
+                    this.shapes.get(data.data).y = needY;
+
                 } else {
                     this.shapes.set(data.data, this.map.newShape({x: 0, y: 0}, 10, "blue"));
                 }
