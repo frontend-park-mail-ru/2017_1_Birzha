@@ -30,13 +30,13 @@
 
 <script>
     /*server = new ServerConnect("ws://192.168.0.56:8080", function () {
-        server.sendData({"dx": 10, "dy": 10});
+        // server.sendData({"dx": 10, "dy": 10});
     });
 
     server.onMessage = function(json) {
         console.log(json);
-    };
-    */
+    };*/
+
 
     needFilesForProjectManifest = [
         {id: "playButton", src: "/acyclic/img/play.png"}
@@ -45,8 +45,12 @@
     const startGame = function() {
         menuPage.stopPage();
 
-        new PlayPage(world).startPage(null);
-        world.update();
+        const run = function() {
+            new PlayPage(world, userService).startPage(null);
+            world.update();
+        };
+
+        userService = new UserService(run);
     };
 
     world = new World("cyclic-canvas");

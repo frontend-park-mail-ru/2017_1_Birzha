@@ -15,20 +15,26 @@ class DrawerObject {
 }
 
 class EnemyObject extends DrawerObject {
-    constructor(map, nameUser, color) {
+    constructor(map, point, nameUser, color) {
         super(map);
         this.name = nameUser;
 
         let posCenter = map.basicCenter;
-        this.positionX = posCenter.x;
-        this.positionY = posCenter.y;
+        this.positionX = point.x || posCenter.x;
+        this.positionY = point.y || posCenter.y;
 
         this.userSize = 5; // CONST
 
-        this.userCircle = this.map.newShape({x: posCenter.x, y: posCenter.y}, this.userSize, color || "DeepSkyBlue");
+        this.userCircle = null;
     }
 
-    drawObject() {}
+    get myPosition() {
+        return {x: this.positionX, y: this.positionY};
+    }
+
+    drawObject() {
+        this.userCircle = this.map.newShape({x: posCenter.x, y: posCenter.y}, this.userSize, color || "DeepSkyBlue");
+    }
 
     animation(dx, dy) {
         this.positionX += dx;
@@ -37,8 +43,8 @@ class EnemyObject extends DrawerObject {
 }
 
 class UserObject extends EnemyObject {
-    constructor(map, nameUser) {
-        super(map, nameUser);
+    constructor(map, point, nameUser) {
+        super(map, point, nameUser);
 
         map.setCallBack("stagemousemove", this.eventMove.bind(this));
 
@@ -46,6 +52,9 @@ class UserObject extends EnemyObject {
 
         this.probablyCircle = this.map.newShape(null, this.userSize, "DeepSkyBlue", false);
         this.probablyCircle.on("click", this.eventPutNewVertex.bind(this));
+
+        this.myGraph = new GraphTree(map);
+        this.myGraph.addNewVertexToCurrent(this.myPosition);
     }
 
     eventMove(event) {
@@ -66,10 +75,16 @@ class UserObject extends EnemyObject {
     }
 
     eventPutNewVertex(event) {
-        alert("Click");
+        let newX = parseInt(event.target.x), newY = parseInt(event.target.y);
+        this.myGraph.addNewVertexToCurrent({x: newX, y: newY});
+
+        this.positionX = newX;
+        this.positionY = newY;
     }
 
-    drawObject() {}
+    drawObject() {
+        this.myGraph.showNodes();
+    }
 
     set visible(flag) {
         this.probablyCircle.visibility = flag;
@@ -101,12 +116,7 @@ class World {
         return this.height;
     }
 
-    initScene(nameUser) {
-        this.userObject = new UserObject(this, nameUser || "Wonder");
-    }
-
     update() {
-        // this.userObject.drawObject();
         this.stage.update();
     }
 

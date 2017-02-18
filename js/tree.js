@@ -33,6 +33,9 @@ class Tree {
                     this.stackImpl.pop();
 
                     this.currentNode = (function down(node, stack, stop_value, callback) {
+                        if (node == null) {
+                            return null;
+                        }
                         let last = stack[stack.length - 1];
                         if(node.nextNode.length > last) {
                             return node;
