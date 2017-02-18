@@ -15,6 +15,13 @@
     <script src="js/graph_tree.js"></script>
     <script src="js/loader.js"></script>
 
+
+    <script src="js/base_page.js"></script>
+
+    <script src="js/system.js"></script>
+
+    <!-- Load pages -->
+    <script src="js/menu.js"></script>
     <script src="js/play.js"></script>
 </head>
 <body>
@@ -35,9 +42,20 @@
         {id: "playButton", src: "/acyclic/img/play.png"}
     ];
 
+    const startGame = function() {
+        menuPage.stopPage();
+
+        new PlayPage(world).startPage(null);
+        world.update();
+    };
+
+    world = new World("cyclic-canvas");
+    menuPage = new MenuPage(world, startGame);
+
     new Loader(needFilesForProjectManifest, function(result) {
         console.log(result);
-        startProjectWithResource(result);
+
+        menuPage.startPage(result);
     });
 
 </script>

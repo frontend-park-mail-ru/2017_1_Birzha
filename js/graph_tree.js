@@ -42,7 +42,7 @@ class GraphTree {
         });
     }
 
-    showNodes(dataCenter) {
+    showNodes() {
         this.graphLine = this.graphLine || this.map.newLine("red");
         this.graphLine.graphics.clear();
 
