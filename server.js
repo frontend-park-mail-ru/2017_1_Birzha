@@ -1,11 +1,11 @@
 'use strict';
 
-var express = require('express');
-var app = express();
+const expr = require("express");
 
-app.use(express.static('templates'));
-app.use('/static', express.static('static'));
+const app = expr();
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+app.use(expr.static('./'));
+
+app.listen(process.env.PORT || 3000, function () {
+    console.log(`Example app listening on port ${process.env.PORT || 3000} !`);
 });
