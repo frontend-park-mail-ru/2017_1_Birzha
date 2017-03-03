@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>ACyclyc</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/cover.css" rel="stylesheet">
+</head>
+<body>
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand" id="AcyclicReference">ACyclyc</h3>
+                    <ul class="nav masthead-nav">
+                        <li id="Registered">Player_nick</li>
+                        <li id="aboutReference">About</li>
+                    </ul>
+                </div>
+            </div>
+
+        <div id="menu">
+
+                <div class="inner cover">
+                    <div class="col-md-3"></div>
+                    <form class="form-horizontal col-md-6">
+
+                        <button type="button" class="btn btn-success btn-block" id="playPressed">Play</button>
+                        <button type="button" class="btn btn-info btn-block" id="leaderbordPressed">Leaderboard</button>
+                        <button type="button" class="btn btn-danger btn-block" style="margin-top: 50px;" id="logoutPressed">Logout</button>
+
+                    </form>
+                    <div class="col-md-3"></div>
+                </div>
+
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>Acyclyc, 2017. All rights reserved</p>
+                    </div>
+                </div>
+        </div>
+
+        <div id="login">
+
+                <div class="inner cover">
+                    <div class="col-md-3"></div>
+                    <form class="form-horizontal col-md-6">
+                        <!--<div class="form-group">
+                            <div class="col-md-8">
+                                <div class=" alert alert-danger" role="alert">Ошибка авторизации</div>
+                            </div>
+                        </div>-->
+
+                        <div class="form-group form-input">
+                            <!--<label for="inputLogin" class="col-md-2 control-label" style="text-align:left;">Login</label>-->
+
+                            <input type="text" class="form-control" id="inputLogin" placeholder="Login">
+                        </div>
+
+                        <div class="form-group form-input">
+                            <!--<label for="inputPassword" class="col-md-2 control-label"  style="text-align:left;">Password</label>-->
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        </div>
+
+                            <button type="button" class="btn btn-default" id="loginPressed">Log in!</button>
+
+                        <div class="create_new_account_link" style="margin-top: 10px;" id="RegisterPageId">
+                            Create new account
+                        </div>
+                    </form>
+                    <div class="col-md-3"></div>
+                </div>
+
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>Acyclyc, 2017. All rights reserved</p>
+                    </div>
+                </div>
+        </div>
+
+        <div id="leaderboard">
+
+                <div class="inner cover">
+                    <h1 class="cover-heading">Leaderboard</h1>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <table  class="table table-bordered table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Nickname</th>
+                                <th>Score</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Serega</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Masha</td>
+                                <td>99</td>
+                            </tr>
+                            <tr>
+                                <td>Loshara3000</td>
+                                <td>56</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-3"></div>
+                </div>
+
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>Acyclyc, 2017. All rights reserved</p>
+                    </div>
+                </div>
+        </div>
+
+        <div id="about">
+
+                <div class="inner cover">
+                    <h1 class="cover-heading">About</h1>
+                    <p class="lead">
+                        Acyclic is a very interesting game, but we still have to do a lot of work to make it work.
+                        Now you can see only this sample text and some other pages in this promo site.
+                    </p>
+                    <div style="margin-top: 10px;">
+                        <h3 id="ToMain">Back</h3>
+                    </div>
+                </div>
+
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>Acyclyc, 2017. All rights reserved</p>
+                    </div>
+                </div>
+        </div>
+
+        <div id="game">
+            <h1>this is very nice canvas here!</h1>
+        </div>
+
+        <div id="register">
+
+                <div class="inner cover">
+                    <div class="col-md-3"></div>
+                    <form class="form-horizontal col-md-6">
+                        <!--<div class="form-group">
+                            <div class="col-md-8">
+                                <div class=" alert alert-danger" role="alert">Ошибка авторизации</div>
+                            </div>
+                        </div>-->
+
+                        <div class="form-group form-input">
+                            <!--<label for="inputLogin" class="col-md-2 control-label" style="text-align:left;">Login</label>-->
+
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        </div>
+
+                        <div class="form-group form-input">
+                            <!--<label for="inputLogin" class="col-md-2 control-label" style="text-align:left;">Login</label>-->
+
+                            <input type="text" class="form-control" id="inputLogin2" placeholder="Nickname">
+                        </div>
+
+                        <div class="form-group form-input">
+                            <!--<label for="inputPassword" class="col-md-2 control-label"  style="text-align:left;">Password</label>-->
+                            <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                        </div>
+
+                        <div class="form-group form-input">
+                            <!--<label for="inputPassword" class="col-md-2 control-label"  style="text-align:left;">Password</label>-->
+                            <input type="password" class="form-control" id="inputPasswordR" placeholder="Repeat password">
+                        </div>
+
+                        <button type="Login" class="btn btn-default" id="RegisterPressed">Register</button>
+
+                        <div style="margin-top: 10px;">
+                            Back
+                        </div>
+                    </form>
+                    <div class="col-md-3"></div>
+                </div>
+
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>Acyclyc, 2017. All rights reserved</p>
+                    </div>
+                </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+
+<!-- Spa script -->
+<script src="../static/js/main.js"></script>
+</body>
+</html>
+
