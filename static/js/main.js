@@ -3,6 +3,11 @@
  */
 'use strict';
 
+/// TODO
+let loginForm = Form;
+///
+
+
 // Получаем ссылки на элементы страницы
 const menu = document.getElementById('menu');
 const login = document.getElementById('login');
