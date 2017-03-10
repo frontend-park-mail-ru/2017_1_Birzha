@@ -15,10 +15,31 @@
 
     <!-- Custom styles for this template -->
     <link href="../static/css/cover.css" rel="stylesheet">
+
+
+    <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+    <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
+    <script src="https://code.createjs.com/preloadjs-0.6.2.min.js"></script>
+
+    <script src="../static/js/graph/server.js"></script>
+    <script src="../static/js/graph/base.js"></script>
+
+    <script src="../static/js/graph/tree.js"></script>
+    <script src="../static/js/graph/graph_tree.js"></script>
+    <script src="../static/js/graph/loader.js"></script>
+
+
+    <script src="../static/js/graph/base_page.js"></script>
+
+    <script src="../static/js/graph/system.js"></script>
+
+    <!-- Load pages -->
+    <script src="../static/js/graph/menu.js"></script>
+    <script src="../static/js/graph/play.js"></script>
+
 </head>
 
 <body>
-
 
 <div class="site-wrapper">
 
@@ -41,10 +62,27 @@
 
                     <div class="col-md-3"></div>
 
-                    <div id="menu"></div>
+                    <div id="menu">
 
-                    <div class="col-md-3"></div>
+                    </div>
 
+                    <div class="col-md-3">
+
+                    </div>
+                    <canvas id="cyclic-canvas" width="700" height="400" style="z-index: -1" ></canvas>
+                    <script>
+
+                        const startGame = function() {
+                            mmenuPage.stopPage();
+                            new PlayPage(world).startPage(null);
+                            world.update();
+                        };
+
+                        world = new World("cyclic-canvas");
+                        mmenuPage = new MenuPage(world, startGame);
+                        mmenuPage.startPage();
+
+                    </script>
                 </div>
 
                 <div id="login" class="inner cover">
