@@ -6,6 +6,8 @@ let loginPage = document.querySelector('#login');
 let registrationPage = document.querySelector('#registrationPage');
 const menuPage = document.querySelector('#menuPage');
 
+alert()
+
 let menuForm = new Form({
     el: document.createElement('div'),
     data: {
