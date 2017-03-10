@@ -190,7 +190,12 @@ const AboutReference = document.getElementById('aboutReference');
 const AcyclicReference = document.getElementById('AcyclicReference');
 const RegisterReference = document.getElementById('RegisterPageId');
 
-
+const pages = [loginPage, registrationPage, menuPage, leaderPage, gamePage, aboutPage];
+const changeScreen = function (linker) {
+    pages.map((el) => {
+        el.hidden = (el != linker);
+    });
+};
 aboutPage.innerHTML = template();
 
 leaderPage.hidden = true;
@@ -198,86 +203,40 @@ gamePage.hidden = true;
 aboutPage.hidden = true;
 
 buttonPlay.addEventListener('click', function (event) {
-
     event.preventDefault();
-
-    loginPage.hidden = true;
-    registrationPage.hidden = true;
-    menuPage.hidden = true;
-
-    leaderPage.hidden = true;
-    gamePage.hidden = false;
-    aboutPage.hidden = true;
+    changeScreen(gamePage);
 });
 
 buttonLogout.addEventListener('click', function (event) {
-
     event.preventDefault();
-
-    loginPage.hidden = false;
-    registrationPage.hidden = true;
-    menuPage.hidden = true;
-
-    leaderPage.hidden = true;
-    gamePage.hidden = true;
-    aboutPage.hidden = true;
+    changeScreen(loginPage);
 });
 
 buttonLeader.addEventListener('click', function (event) {
-
     event.preventDefault();
-
-    loginPage.hidden = true;
-    registrationPage.hidden = true;
-    menuPage.hidden = true;
-
-    leaderPage.hidden = false;
-    gamePage.hidden = true;
-    aboutPage.hidden = true;
+    changeScreen(leaderPage);
 });
 
 
 AcyclicReference.addEventListener('click', function (event) {
-
     event.preventDefault();
-
-    loginPage.hidden = true;
-    registrationPage.hidden = true;
-    menuPage.hidden = false;
-
-    leaderPage.hidden = true;
-    gamePage.hidden = true;
-    aboutPage.hidden = true;
+    changeScreen(menuPage);
 });
 
 AboutReference.addEventListener('click', function (event) {
 
     event.preventDefault();
 
-    FlagRegistered.innerHTML = 'Nick_name';
-    loginPage.hidden = true;
-    registrationPage.hidden = true;
-    menuPage.hidden = true;
-
-    leaderPage.hidden = true;
-    gamePage.hidden = true;
-    aboutPage.hidden = false;
+    FlagRegistered.innerHTML = 'Nick_name'; // TODO Nick name
+    changeScreen(aboutPage);
 });
 
 RegisterReference.addEventListener('click', function (event) {
 
     FlagRegistered.innerHTML = '';
-    loginPage.hidden = true;
-    registrationPage.hidden = false;
-    menuPage.hidden = true;
-
-    leaderPage.hidden = true;
-    gamePage.hidden = true;
-    aboutPage.hidden = true;
+    changeScreen(registrationPage);
 });
 
-loginPage.hidden = true;
-registrationPage.hidden = true;
-menuPage.hidden = false;
+changeScreen(menuPage);
 
 })();
