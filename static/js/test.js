@@ -6,8 +6,6 @@ let loginPage = document.querySelector('#login');
 let registrationPage = document.querySelector('#registrationPage');
 const menuPage = document.querySelector('#menuPage');
 
-alert()
-
 let menuForm = new Form({
     el: document.createElement('div'),
     data: {
@@ -138,6 +136,8 @@ const AboutReference = document.getElementById('aboutReference');
 const AcyclicReference = document.getElementById('AcyclicReference');
 const RegisterReference = document.getElementById('RegisterPageId');
 
+
+aboutPage.innerHTML = template();
 
 leaderPage.hidden = true;
 gamePage.hidden = true;
