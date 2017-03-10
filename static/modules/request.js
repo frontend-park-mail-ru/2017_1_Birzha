@@ -28,46 +28,60 @@
     const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
 
     class Request {
-        constructor() {
+        constructor(server) {
+            this.server = server;
+
             this.funcs = [function(response) {
                 if(response.status >= 200 && response.status < 300) {
                     return Promise.resolve(response)
                 } else {
-                    return Promise.reject(new Error(response.statusText))
+                    throw new Error(response.statusText);
                 }
             }, function(response) {
-                console.log(response);
                 return response.json()
             }];
 
             this.baseCatch = function (error) {
                 console.log('[FAIL] ', error);
-            }
+            };
+
+            this.json = '{}';
         }
 
-        addResponse(func) {
-            this.funcs.push(func);
+        addResponse(_func) {
+            this.funcs.push(_func);
             return this;
         }
 
-        request(url, data) {
+        addJson(_params)  {
+            this.json = JSON.stringify(_params);
+            return this;
+        }
+
+        error(_errorCallback) {
+            this.baseCatch = _errorCallback;
+            return this;
+        }
+
+        request(path, data) {
             data = data || {};
 
-            if(!(data['method']) || data['method'] in ALLOWED_METHODS)
+            if(!(data['method'] && (data['method'] in ALLOWED_METHODS)))
                 data['method'] = data['method'] || 'GET';
-            else
-                alert`1`; // TODO Exception
 
-            data['headers'] = data['headers'] || new Headers();
+            data['headers'] = data['headers'] || {"Content-Type": "application/json"};
             data['mode'] = data['mode'] || 'CORS';
             data['cache'] = data['cache'] || 'default';
 
-            let fetchPromise = fetch(url, data);
+            data['body'] = this.json;
+
+            let fetchPromise = fetch(this.server + path, data);
+
+            let me = this;
             this.funcs.map(function(el) {
-                fetchPromise.then(el);
+                fetchPromise.then(el).catch(me.baseCatch);
             });
 
-            fetchPromise.catch(this.baseCatch);
         }
     }
 
