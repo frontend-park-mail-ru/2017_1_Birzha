@@ -191,6 +191,8 @@ const AcyclicReference = document.getElementById('AcyclicReference');
 const RegisterReference = document.getElementById('RegisterPageId');
 
 
+aboutPage.innerHTML = template();
+
 leaderPage.hidden = true;
 gamePage.hidden = true;
 aboutPage.hidden = true;

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run pug && node server.js",
-    "pug": "./node_modules/.bin/pug -c -D -E pug.js -n chat_tmpl static/blocks/**/*.pug"
+    "pug": "./node_modules/.bin/pug -c -D -E pug.js static/blocks/**/*.pug"
+
   },
   "keywords": [],
   "author": "",
