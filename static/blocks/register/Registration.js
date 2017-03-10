@@ -1,10 +1,12 @@
+
+
 (function () {
     'use strict';
 
     // import
     let Button = window.Button;
 
-    class MenuForm {
+    class RegistrationForm {
 
         /**
          * Конструктор класса Form
@@ -43,6 +45,7 @@
 					</div>
 					<div class="js-controls">
 					</div>
+					<div id="BackButton">Back</div>
 				</form>
 			`;
         }
@@ -99,5 +102,5 @@
     }
 
     //export
-    window.MenuForm = MenuForm;
+    window.RegistrationForm = RegistrationForm;
 })();

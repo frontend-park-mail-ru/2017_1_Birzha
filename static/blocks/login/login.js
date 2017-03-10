@@ -1,10 +1,11 @@
+
 (function () {
     'use strict';
 
     // import
     let Button = window.Button;
 
-    class MenuForm {
+    class LoginForm {
 
         /**
          * Конструктор класса Form
@@ -36,14 +37,19 @@
          */
         _updateHtml () {
             this.el.innerHTML = `
-				<form class="form-horizontal col-md-6">
+                <div class="col-md-3"></div>
+				    <form class="form-horizontal col-md-6">
 					<h1>${this.data.title || ''}</h1>
 					<div class="form-group form-input">
 						${this._getFields()}
 					</div>
 					<div class="js-controls">
 					</div>
+					<div class="create_new_account_link" style="margin-top: 10px;" id="RegisterPageId">
+                            Create new account
+                     </div>
 				</form>
+				<div class="col-md-3"></div>
 			`;
         }
 
@@ -99,5 +105,5 @@
     }
 
     //export
-    window.MenuForm = MenuForm;
+    window.LoginForm = LoginForm;
 })();

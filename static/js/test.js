@@ -2,11 +2,11 @@ let login = document.querySelector('#login');
 let registration = document.querySelector('#registration');
 let menu = document.querySelector('#menu')
 
-let loginPage = document.querySelector('#loginPage');
+let loginPage = document.querySelector('#login');
 let registrationPage = document.querySelector('#registrationPage');
 const menuPage = document.querySelector('#menuPage');
 
-let menuForm = new Form({
+let menuForm = new MenuForm({
     el: document.createElement('div'),
     data: {
         title: '',
@@ -15,7 +15,7 @@ let menuForm = new Form({
             {
                 text: 'Play',
                 attrs: {
-                    type: 'submit',
+                    type: 'click',
                     class: 'btn btn-success btn-block',
                     id: 'playPressed'
                 }
@@ -40,7 +40,7 @@ let menuForm = new Form({
     }
 });
 
-let loginForm = new Form({
+let loginForm = new LoginForm({
     el: document.createElement('div'),
     data: {
         title: 'Login',
@@ -68,7 +68,7 @@ let loginForm = new Form({
     }
 });
 
-let registrationForm = new Form({
+let registrationForm = new RegistrationForm({
     el: document.createElement('div'),
     data: {
         title: 'Registration',
@@ -113,8 +113,8 @@ menu.appendChild(menuForm.el);
 
 loginForm.on('submit', event => {
     event.preventDefault();
-    loginPage.hidden = true;
-    menuPage.hidden = false;
+
+
 });
 
 registrationForm.on('submit', event => {
@@ -122,6 +122,7 @@ registrationForm.on('submit', event => {
     loginPage.hidden = true;
     registrationPage.hidden = true;
 });
+
 
 const leaderPage = document.getElementById('leaderboard');
 const gamePage = document.getElementById('game');
@@ -133,15 +134,12 @@ const buttonLogout = document.getElementById('logoutPressed');
 const buttonLeader = document.getElementById('leaderboardPressed');
 const AboutReference = document.getElementById('aboutReference');
 const AcyclicReference = document.getElementById('AcyclicReference');
-const buttonLogin = document.getElementById('loginPressed');
 const RegisterReference = document.getElementById('RegisterPageId');
-const RegisterPressed = document.getElementById('RegisterPressed');
+
 
 leaderPage.hidden = true;
 gamePage.hidden = true;
 aboutPage.hidden = true;
-
-
 
 buttonPlay.addEventListener('click', function (event) {
 
@@ -182,6 +180,7 @@ buttonLeader.addEventListener('click', function (event) {
     aboutPage.hidden = true;
 });
 
+
 AcyclicReference.addEventListener('click', function (event) {
 
     event.preventDefault();
@@ -199,6 +198,7 @@ AboutReference.addEventListener('click', function (event) {
 
     event.preventDefault();
 
+    FlagRegistered.innerHTML = 'Nick_name';
     loginPage.hidden = true;
     registrationPage.hidden = true;
     menuPage.hidden = true;
@@ -206,6 +206,18 @@ AboutReference.addEventListener('click', function (event) {
     leaderPage.hidden = true;
     gamePage.hidden = true;
     aboutPage.hidden = false;
+});
+
+RegisterReference.addEventListener('click', function (event) {
+
+    FlagRegistered.innerHTML = '';
+    loginPage.hidden = true;
+    registrationPage.hidden = false;
+    menuPage.hidden = true;
+
+    leaderPage.hidden = true;
+    gamePage.hidden = true;
+    aboutPage.hidden = true;
 });
 
 loginPage.hidden = true;
