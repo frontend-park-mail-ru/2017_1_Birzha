@@ -1,6 +1,10 @@
+(function () {
+
+let confData = JSON.parse($("#conf").html());
+
 let login = document.querySelector('#login');
 let registration = document.querySelector('#registration');
-let menu = document.querySelector('#menu')
+let menu = document.querySelector('#menu');
 
 let loginPage = document.querySelector('#login');
 let registrationPage = document.querySelector('#registrationPage');
@@ -46,14 +50,14 @@ let loginForm = new LoginForm({
         title: 'Login',
         fields: [
             {
-                name: 'user',
+                name: 'login',
                 type: 'text',
-                placeholder: 'name'
+                placeholder: 'Login...'
             },
             {
-                name: 'email',
-                type: 'email',
-                placeholder: 'email'
+                name: 'password',
+                type: 'password',
+                placeholder: ''
             }
         ],
         controls: [
@@ -74,24 +78,34 @@ let registrationForm = new RegistrationForm({
         title: 'Registration',
         fields: [
             {
-                name: 'user',
+                name: 'login',
                 type: 'text',
-                placeholder: 'name'
+                placeholder: 'Login'
+            },
+            {
+                name: 'firstName',
+                type: 'text',
+                placeholder: 'Firstname'
+            },
+            {
+                name: 'lastName',
+                type: 'text',
+                placeholder: 'Lastname'
             },
             {
                 name: 'email',
                 type: 'email',
-                placeholder: 'email'
+                placeholder: 'Email'
             },
             {
                 name: 'password',
                 type: 'password',
-                placeholder: 'enter your Password'
+                placeholder: 'Password'
             },
             {
-                name: 'password',
+                name: 'password_repeat',
                 type: 'password',
-                placeholder: 'repeate your Password'
+                placeholder: 'Repeat'
             }
         ],
         controls: [
@@ -111,16 +125,56 @@ login.appendChild(loginForm.el);
 registration.appendChild(registrationForm.el);
 menu.appendChild(menuForm.el);
 
+let server = confData['server'];
+
 loginForm.on('submit', event => {
     event.preventDefault();
 
+    const ifError = function(error) {
+        $("#login_warning").html("error");
+    };
 
+    new Request(server)
+        .addResponse(function (json) {
+            console.log(json);
+        })
+        .addJson(loginForm.getFormData())
+        .error(function () {
+            
+        })
+        .error(ifError)
+        .request('/login', {
+            method: 'POST'
+        });
 });
 
 registrationForm.on('submit', event => {
     event.preventDefault();
+
+    const ifError = function(error) {
+        $("#registration_warning").html(error);
+    };
+
+    let regData = registrationForm.getFormData();
+
+    if(regData['password'] !== regData['password_repeat']) {
+        ifError("Password is not equals!");
+        return;
+    }
+
+    delete regData['password_repeat'];
+
+    new Request(server)
+        .addResponse(function (json) {
+            console.log(json);
+        })
+        .addJson(regData)
+        .error(ifError)
+        .request('/user', {
+            method: 'PUT'
+        });
+
     loginPage.hidden = true;
-    registrationPage.hidden = true;
 });
 
 
@@ -136,6 +190,8 @@ const AboutReference = document.getElementById('aboutReference');
 const AcyclicReference = document.getElementById('AcyclicReference');
 const RegisterReference = document.getElementById('RegisterPageId');
 
+
+aboutPage.innerHTML = template();
 
 leaderPage.hidden = true;
 gamePage.hidden = true;
@@ -224,3 +280,4 @@ loginPage.hidden = true;
 registrationPage.hidden = true;
 menuPage.hidden = false;
 
+})();
