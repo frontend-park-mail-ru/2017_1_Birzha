@@ -33,12 +33,10 @@
 
             this.funcs = [function(response) {
                 if(response.status >= 200 && response.status < 300) {
-                    return Promise.resolve(response)
+                    return response.json();
                 } else {
-                    throw new Error(response.statusText);
+                    throw new Error();
                 }
-            }, function(response) {
-                return response.json()
             }];
 
             this.baseCatch = function (error) {
@@ -78,10 +76,11 @@
             let fetchPromise = fetch(this.server + path, data);
 
             let me = this;
-            this.funcs.map(function(el) {
-                fetchPromise.then(el).catch(me.baseCatch);
+            this.funcs.map(function(el, index) {
+                fetchPromise.then(el);
             });
 
+            fetchPromise.catch(me.baseCatch); // TODO catch
         }
     }
 
