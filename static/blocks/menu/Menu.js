@@ -4,7 +4,7 @@
     // import
     let Button = window.Button;
 
-    class MenuForm {
+    class Menu {
 
         /**
          * Конструктор класса Form
@@ -21,15 +21,6 @@
             this._installControls();
         }
 
-        /**
-         * Вернуть поля формы
-         * @return {string}
-         */
-        _getFields () {
-            let { fields = [] } = this.data;
-
-            return fields.map(field => { return `<input type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" class="form-control">` }).join(' ');
-        }
 
         /**
          * Обновить html компонента
@@ -37,10 +28,6 @@
         _updateHtml () {
             this.el.innerHTML = `
 				<form class="form-horizontal col-md-6">
-					<h1>${this.data.title || ''}</h1>
-					<div class="form-group form-input">
-						${this._getFields()}
-					</div>
 					<div class="js-controls">
 					</div>
 				</form>
@@ -68,36 +55,8 @@
             this.el.addEventListener(type, callback);
         }
 
-        /**
-         * Взять данные формы
-         * @return {object}
-         */
-        getFormData () {
-            let form = this.el.querySelector('form');
-            let elements = form.elements;
-            let fields = {};
-
-            Object.keys(elements).forEach(element => {
-                let name = elements[element].name;
-                let value = elements[element].value;
-
-                if (!name) {
-                    return;
-                }
-
-                fields[name] = value;
-            });
-
-            return fields;
-        }
-
-        getControlls () {
-            return this.data.controls;
-        }
-
-
     }
 
     //export
-    window.MenuForm = MenuForm;
+    window.Menu = Menu;
 })();
