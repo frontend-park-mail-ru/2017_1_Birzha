@@ -66,7 +66,7 @@ class GraphTree {
                 this.graphLine.graphics.setStrokeStyle(1).beginStroke("#00ff00");
                 this.graphLine.graphics.moveTo(last_x, last_y);
 
-                if(this.shapes.has(data.data)) {
+                if(this.shapes.has(data.data)) { // TODO create changes objects
                     let drawObject = this.shapes.get(data.data);
                     let needX = data.data.x, needY = data.data.y;
 

@@ -62,7 +62,7 @@ class PlayPage extends BasePage {
     }
 
     updateAllUsers(json) {
-        // TODO Noraml method
+        // TODO Noraml method`
         console.log("receive");
         let objects = json["newUsersPositions"];
         for(let key in objects) {

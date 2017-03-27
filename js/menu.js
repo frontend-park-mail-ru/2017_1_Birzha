@@ -12,6 +12,7 @@ class MenuPage extends BasePage {
     }
 
     startPage(resource) {
+        console.log(resource);
         let cenX = this.base.basicCenter.x, cenY = this.base.basicCenter.y;
 
         this.buttonMenu = this.base.newImage(resource.getResult("playButton"));
@@ -47,8 +48,6 @@ class MenuPage extends BasePage {
     stopPage() {
         createjs.Ticker.setPaused(true);
         createjs.Ticker.removeEventListener("tick", this.tick);
-
-        console.log("!");
 
         this.menuGraph.destruct();
         this.base.stage.removeChild(this.buttonMenu);
