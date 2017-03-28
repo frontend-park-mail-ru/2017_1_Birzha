@@ -1,6 +1,6 @@
 let login = document.querySelector('#login');
 let registration = document.querySelector('#registration');
-let menu = document.querySelector('#menu')
+let menu = document.querySelector('#menu');
 
 let loginPage = document.querySelector('#login');
 let registrationPage = document.querySelector('#registrationPage');
@@ -134,9 +134,11 @@ const AboutReference = document.getElementById('aboutReference');
 const AcyclicReference = document.getElementById('AcyclicReference');
 const RegisterReference = document.getElementById('RegisterPageId');
 
-
-aboutPage.innerHTML = template();
-
+//let aboutObject = new About();
+//aboutPage.innerHTML = aboutObject.getElement();
+let aboutObject = new About();
+let content = aboutObject.getElement()();
+aboutPage.innerHTML = "hello world";
 leaderPage.hidden = true;
 gamePage.hidden = true;
 aboutPage.hidden = true;
