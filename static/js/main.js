@@ -15,11 +15,9 @@
     let registrationPage = document.querySelector('#registrationPage');
     const menuPage = document.querySelector('#menuPage');
 
-    let menuForm = new Form({
+    let menuForm = new Menu({
         el: document.createElement('div'),
         data: {
-            title: '',
-            fields: [],
             controls: [
                 {
                     text: 'Play',

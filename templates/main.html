@@ -49,14 +49,14 @@
             <div class="inner cover">
 
                 <div class="masthead clearfix">
-                <div class="inner">
-                    <h3 class="masthead-brand" id="AcyclicReference">ACyclyc</h3>
-                    <ul class="nav masthead-nav">
-                        <li id="Registered">Player_nick</li>
-                        <li id="aboutReference">About</li>
-                    </ul>
+                    <div class="inner">
+                        <h3 class="masthead-brand" id="AcyclicReference">ACyclyc</h3>
+                        <ul class="nav masthead-nav">
+                            <li id="Registered">Player_nick</li>
+                            <li id="aboutReference">About</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
                 <div id="menuPage">
 
@@ -71,17 +71,14 @@
                     </div>
                     <canvas id="cyclic-canvas" width="700" height="400" style="z-index: -1" ></canvas>
                     <script>
-
                         const startGame = function() {
                             mmenuPage.stopPage();
                             new PlayPage(world).startPage(null);
                             world.update();
                         };
-
                         world = new World("cyclic-canvas");
                         mmenuPage = new MenuPage(world, startGame);
                         mmenuPage.startPage();
-
                     </script>
                 </div>
 
@@ -91,43 +88,43 @@
 
                 <div id="leaderboard">
 
-                <div class="inner cover">
-                    <h1 class="cover-heading">Leaderboard</h1>
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <table  class="table table-bordered table-condensed">
-                            <thead>
-                            <tr>
-                                <th>Nickname</th>
-                                <th>Score</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Serega</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>Masha</td>
-                                <td>99</td>
-                            </tr>
-                            <tr>
-                                <td>Loshara3000</td>
-                                <td>56</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="inner cover">
+                        <h1 class="cover-heading">Leaderboard</h1>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <table  class="table table-bordered table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Nickname</th>
+                                    <th>Score</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Serega</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>Masha</td>
+                                    <td>99</td>
+                                </tr>
+                                <tr>
+                                    <td>Loshara3000</td>
+                                    <td>56</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-md-3"></div>
                     </div>
 
-                    <div class="col-md-3"></div>
-                </div>
-
-                <div class="mastfoot">
-                    <div class="inner">
-                        <p>Acyclyc, 2017. All rights reserved</p>
+                    <div class="mastfoot">
+                        <div class="inner">
+                            <p>Acyclyc, 2017. All rights reserved</p>
+                        </div>
                     </div>
                 </div>
-        </div>
 
                 <div id="about">
 
@@ -141,20 +138,20 @@
 
                     <div class="col-md-3"></div>
 
-                        <div id="registration" class="inner cover">
+                    <div id="registration" class="inner cover">
 
-                </div>
+                    </div>
 
                     <div class="col-md-3"></div>
 
                     <div id="registration_warning"></div>
-            </div>
+                </div>
 
                 <div class="mastfoot">
-                <div class="inner">
-                    <p>Acyclyc, 2017. All rights reserved</p>
+                    <div class="inner">
+                        <p>Acyclyc, 2017. All rights reserved</p>
+                    </div>
                 </div>
-            </div>
 
             </div>
 
@@ -176,7 +173,7 @@
 <script src="../static/blocks/form/form.js"></script>
 <script src="../static/blocks/login/login.js"></script>
 <script src="../static/blocks/register/Registration.js"></script>
-<script src="../static/blocks/menu/menuForm.js"></script>
+<script src="../static/blocks/menu/Menu.js"></script>
 
 <!-- Spa script -->
 <!-- <script src="../static/js/main.js"></script> -->
@@ -187,4 +184,3 @@
 <script src="../static/modules/request.js"></script>
 </body>
 </html>
-

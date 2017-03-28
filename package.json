@@ -15,5 +15,8 @@
     "express": "4.x.x",
     "pug": "^2.0.0-beta11",
     "pug-cli": "^1.0.0-alpha6"
+  },
+  "devDependencies": {
+    "jasmine": "^2.5.3"
   }
 }
