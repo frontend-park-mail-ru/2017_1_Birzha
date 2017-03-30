@@ -5,7 +5,7 @@
         return data.json();
     }).then(function(result) {
         window.conf = result;
-    });
+    }).catch(error => "Error");
 
     let login = document.querySelector('#login');
     let registration = document.querySelector('#registration');
@@ -175,7 +175,6 @@
                 method: 'PUT'
             });
 
-        loginPage.hidden = true;
     });
 
 

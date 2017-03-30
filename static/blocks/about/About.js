@@ -3,7 +3,7 @@
 
     class About {
         constructor(names) {
-            this.about = template;
+            this.about = template();
         }
 
         getElement(){
