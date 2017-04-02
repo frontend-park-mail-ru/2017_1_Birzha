@@ -1,9 +1,10 @@
 class UserService {
     constructor(finishConnect) {
-        this.socket = new ServerConnect("ws://192.168.0.56:8080", finishConnect);
+    //    this.socket = new ServerConnect("ws://192.168.0.56:8080", finishConnect);
 
-        this.socket.onMessage = this.onMessage.bind(this);
+   //     this.socket.onMessage = this.onMessage.bind(this);
 
+        debugger;
         this.eventMessage = null;
     }
 
@@ -30,13 +31,16 @@ class UserService {
 class PlayPage extends BasePage {
     constructor(map, userService) {
         super(map);
-
+/*
         this.userService = userService;
         this.userService.eventReceive = this.updateAllUsers.bind(this);
-
+*/
+        this.map = map;
         this.enemies =  [];
         this.userObject = null;
+
     }
+
 
     startPage(resource) {
         this.initScene("player1");

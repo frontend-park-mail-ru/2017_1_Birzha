@@ -20,6 +20,7 @@ class EnemyObject extends DrawerObject {
         this.name = nameUser;
 
         let posCenter = map.basicCenter;
+        posCenter = area.getExactPosition(posCenter.x, posCenter.y);
         this.positionX = point.x || posCenter.x;
         this.positionY = point.y || posCenter.y;
 
@@ -76,10 +77,11 @@ class UserObject extends EnemyObject {
 
     eventPutNewVertex(event) {
         let newX = parseInt(event.target.x), newY = parseInt(event.target.y);
-        this.myGraph.addNewVertexToCurrent({x: newX, y: newY});
+        let newPos = area.getExactPosition(newX, newY);
+        this.myGraph.addNewVertexToCurrent(newPos);
 
-        this.positionX = newX;
-        this.positionY = newY;
+        this.positionX = newPos.x;
+        this.positionY = newPos.y;
     }
 
     drawObject() {
@@ -92,12 +94,26 @@ class UserObject extends EnemyObject {
 }
 
 class World {
-    constructor(idCanvas, width,  height) {
-        this.width = width;
-        this.height = height;
+    constructor(area) {
+        this.canvas = document.createElement("canvas");
+        this.canvas.id = "canvas-game";
+        this.canvas.style.position = "absolute";
+        this.canvas.style.zIndex = 1;
+        this.canvas.style.top = 0;
+        this.canvas.style.left = 0;
+        this.canvas.style.background = "transparent";
 
-        this.map = new createjs.Stage(idCanvas);
+        this.canvas.height = document.documentElement.clientHeight;
+        this.canvas.width = document.documentElement.clientWidth;
+
+        document.body.appendChild(this.canvas);
+
+        this.map = new createjs.Stage(this.canvas.id);
         createjs.Touch.enable(this.map);
+        this.width = this.canvas.width;
+        this.height = this.canvas.height;
+
+        this.area = area;
     }
 
     get stage() {
@@ -126,10 +142,12 @@ class World {
 
     /** Fabric draw **/
     newShape(position, radius, color, visible) {
+        debugger;
         let circle = new createjs.Shape();
         circle.visibility = visible || true;
 
         let pos = position || {x: 0, y: 0};
+     //   pos = this.area.getExactPosition(pos.x, pos.y);
         circle.graphics.beginFill(color).drawCircle(pos.x, pos.y, radius);
         this.map.stage.addChild(circle);
         return circle;
