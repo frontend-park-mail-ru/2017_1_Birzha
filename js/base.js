@@ -82,6 +82,8 @@ class UserObject extends EnemyObject {
 
         this.positionX = newPos.x;
         this.positionY = newPos.y;
+        let e = new Event("upd", {bubbles: true, cancelable: false});
+        this.map.canvas.dispatchEvent(e);
     }
 
     drawObject() {
@@ -142,12 +144,11 @@ class World {
 
     /** Fabric draw **/
     newShape(position, radius, color, visible) {
-        debugger;
         let circle = new createjs.Shape();
         circle.visibility = visible || true;
 
         let pos = position || {x: 0, y: 0};
-     //   pos = this.area.getExactPosition(pos.x, pos.y);
+
         circle.graphics.beginFill(color).drawCircle(pos.x, pos.y, radius);
         this.map.stage.addChild(circle);
         return circle;

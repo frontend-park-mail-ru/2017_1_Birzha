@@ -30,7 +30,7 @@ class GraphTree {
         let curX = this.currentVertex.data.x;
         let curY = this.currentVertex.data.y;
 
-        this.currentVertex = this.tree.addNode({x: curX + dx, y: curY + dy}, this.currentVertex)
+        this.currentVertex = this.tree.addNode({x: curX + dx, y: curY + dy}, this.currentVertex);
         return this.currentVertex;
     }
 
