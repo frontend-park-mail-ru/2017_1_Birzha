@@ -1,9 +1,13 @@
-export class BasePage {
-    constructor(map) {
-        this.base = map;
+window.BasePage =
+    class BasePage {
+        constructor(map) {
+            this.base = map;
+        }
+
+        startPage(resource) {
+        }
+
+        stopPage() {
+        }
     }
-
-    startPage(resource) {}
-
-    stopPage() {}
-}
+;

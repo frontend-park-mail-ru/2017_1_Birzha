@@ -1,14 +1,15 @@
-/* DEBUG method */
-export class DrawerObject {
-    constructor(map) {
-        this.map = map;
-    }
+window.DrawerObject =
+    class DrawerObject {
+        constructor(map) {
+            this.map = map;
+        }
 
-    drawObject() {
-        console.log("Draw NoObject!");
-    }
+        drawObject() {
+            console.log("Draw NoObject!");
+        }
 
-    animation(dx, dy) {
-        console.log("Animate NoObject!");
+        animation(dx, dy) {
+            console.log("Animate NoObject!");
+        }
     }
-}
+;
