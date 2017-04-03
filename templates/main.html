@@ -58,13 +58,14 @@
                     </div>
                 </div>
 
-                <div id="menuPage">
+                <div id="menuPage" class="menu-view view">
 
                     <div class="col-md-3"></div>
 
                     <div id="menu">
 
                     </div>
+                    <a href="/login">test1</a>
 
                     <div class="col-md-3">
 
@@ -82,11 +83,11 @@
                     </script>
                 </div>
 
-                <div id="login" class="inner cover">
+                <div id="login" class="inner cover login-view view">
                 </div>
                 <div id="login_warning"></div>
 
-                <div id="leaderboard">
+                <div id="leaderboard" class="leaderboard-view view">
 
                     <div class="inner cover">
                         <h1 class="cover-heading">Leaderboard</h1>
@@ -126,15 +127,15 @@
                     </div>
                 </div>
 
-                <div id="about">
+                <div id="about" class="about-view view">
 
                 </div>
 
-                <div id="game">
+                <div id="game" class="game-view view">
                     <h1>this is very nice canvas here!</h1>
                 </div>
 
-                <div id="registrationPage">
+                <div id="registrationPage" class="registrationPage-view view">
 
                     <div class="col-md-3"></div>
 
@@ -167,6 +168,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="../static/js/bootstrap.min.js"></script>
 
+
+<!-- Views -->
+<script src="../static/views/baseView.js"></script>
+<script src="../static/views/mainView.js"></script>
+<script src="../static/views/loginView.js"></script>
+<script src="../static/modules/router.js"></script>
 <!-- Blocks' Scripts -->
 <script src="../static/blocks/template/template.pug.js"></script>
 <script src="../static/blocks/button/button.js"></script>

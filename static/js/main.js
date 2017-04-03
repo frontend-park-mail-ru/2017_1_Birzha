@@ -7,6 +7,20 @@
         window.conf = result;
     }).catch(error => "Error");
 
+    const Router = window.Router;
+    const MainView = window.mainView;
+    const LoginView = window.loginView;
+
+    let router = new Router(window.document.documentElement);
+
+    let mainView = new MainView(document.querySelector('.menu-view'));
+    let loginView = new LoginView(document.querySelector('.login-view'));
+
+    router.register('/', mainView);
+    router.register('/login', loginView);
+
+    router.start();
+
     let login = document.querySelector('#login');
     let registration = document.querySelector('#registration');
     let menu = document.querySelector('#menu');
