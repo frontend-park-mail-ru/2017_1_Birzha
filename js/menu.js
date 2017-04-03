@@ -28,11 +28,12 @@ window.MenuPage  =
             let children = [];
 
             this.menuGraph = new GraphTree(this.base);
-            children.push(this.menuGraph.addNewVertexToCurrent({x: cenX + 100, y: cenY + 100}));
-            children.push(this.menuGraph.addNewVertexByMove(50, 50));
-            children.push(this.menuGraph.addNewVertexByNode({x: 50, y: 100}, this.menuGraph.getCurrentVertex));
-            children.push(this.menuGraph.addNewVertexByMove(10, 30));
-            children.push(this.menuGraph.addNewVertexByMove(100, -50));
+            let cellPos = area.getCellPosition(cenX, cenY);
+            children.push(this.menuGraph.addNewVertexToCurrent({x: cellPos.x + 3, y: cellPos.y + 4}));
+            children.push(this.menuGraph.addNewVertexByMove(5, 5));
+            children.push(this.menuGraph.addNewVertexByNode({x: 5, y: 10}, this.menuGraph.getCurrentVertex));
+            children.push(this.menuGraph.addNewVertexByMove(7, 13));
+            children.push(this.menuGraph.addNewVertexByMove(7, -5));
             this.children = children;
 
             this.menuShapes = [

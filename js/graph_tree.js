@@ -18,20 +18,21 @@ window.GraphTree =
             return this.currentVertex;
         }
 
-        addNewVertexToCurrent(point) {
-            this.currentVertex = this.tree.addNode(point, this.currentVertex);
+        addNewVertexToCurrent(data) {
+            this.currentVertex = this.tree.addNode(data, this.currentVertex);
             return this.currentVertex;
         }
 
-        addNewVertexByNode(point, node) {
-            return this.tree.addNode(point, node)
+        addNewVertexByNode(data, node) {
+            return this.tree.addNode(data, node)
         }
 
         addNewVertexByMove(dx, dy) {
-            let curX = this.currentVertex.data.x;
-            let curY = this.currentVertex.data.y;
+            let data = this.currentVertex.data;
+            data.x += dx;
+            data.x += dy;
 
-            this.currentVertex = this.tree.addNode({x: curX + dx, y: curY + dy}, this.currentVertex);
+            this.currentVertex = this.tree.addNode(data, this.currentVertex);
             return this.currentVertex;
         }
 
@@ -46,9 +47,10 @@ window.GraphTree =
         showNodes() {
             this.graphLine = this.graphLine || this.map.newLine("red");
             this.graphLine.graphics.clear();
-
+            debugger;
             let setBack = function (toNode, fromNode) {
-                this.graphLine.graphics.moveTo(toNode.data.x, toNode.data.y);
+                let pxPoint = area.getPixelPoint(toNode.data.x, toNode.data.y);
+                this.graphLine.graphics.moveTo(pxPoint.x, pxPoint.y);
             };
 
             let iter = this.tree.iterator(setBack.bind(this));
@@ -56,20 +58,21 @@ window.GraphTree =
             let last_x, last_y;
 
             for (; ;) {
-                let data = iter.nextNode();
-                if (!data)
+                let node = iter.nextNode();
+                if (!node)
                     break;
 
-                if (data === this.tree.root) {
-                    last_x = data.data.x;
-                    last_y = data.data.y;
+                if (node === this.tree.root) {
+                    let pxPoint = area.getPixelPoint(node.data.x, node.data.y);
+                    last_x = pxPoint.x;
+                    last_y = pxPoint.y;
 
                     this.graphLine.graphics.setStrokeStyle(1).beginStroke("#00ff00");
                     this.graphLine.graphics.moveTo(last_x, last_y);
 
-                    if (this.shapes.has(data.data)) { // TODO create changes objects
-                        let drawObject = this.shapes.get(data.data);
-                        let needX = data.data.x, needY = data.data.y;
+                    if (this.shapes.has(node.data)) { // TODO create changes objects
+                        let drawObject = this.shapes.get(node.data);
+                        let needX = node.data.x, needY = node.data.y;
 
                         if ("image" in drawObject) {
                             console.log("^)");
@@ -77,26 +80,29 @@ window.GraphTree =
                             needY -= drawObject.image.height / 2;
                         }
 
-                        this.shapes.get(data.data).x = needX;
-                        this.shapes.get(data.data).y = needY;
+                        let pxPoint = area.getPixelPoint(needX, needY);
+                        this.shapes.get(node.data).x = pxPoint.x;
+                        this.shapes.get(node.data).y = pxPoint.y;
 
                     } else {
-                        this.shapes.set(data.data, this.map.newShape({x: 0, y: 0}, 10, "blue"));
+                        this.shapes.set(node.data, this.map.newShape({x: 0, y: 0}, 10, "blue"));
                     }
                     continue;
                 }
 
-                if (this.shapes.has(data.data)) {
-                    this.shapes.get(data.data).x = data.data.x;
-                    this.shapes.get(data.data).y = data.data.y;
+                if (this.shapes.has(node.data)) {
+                    let pxPoint = area.getPixelPoint(node.data.x, node.data.y);
+                    this.shapes.get(node.data).x = pxPoint.x;
+                    this.shapes.get(node.data).y = pxPoint.y;
                 } else {
-                    this.shapes.set(data.data, this.map.newShape({x: 0, y: 0}, 10, "blue"));
+                    this.shapes.set(node.data, this.map.newShape({x: 0, y: 0}, 10, "blue"));
                 }
 
-                this.graphLine.graphics.lineTo(data.data.x, data.data.y);
+                let pxPoint = area.getPixelPoint(node.data.x, node.data.y);
+                this.graphLine.graphics.lineTo(pxPoint.x, pxPoint.y);
 
-                last_x = data.data.x;
-                last_y = data.data.y;
+                last_x = pxPoint.x;
+                last_y = pxPoint.y;
             }
 
             this.graphLine.graphics.endStroke();

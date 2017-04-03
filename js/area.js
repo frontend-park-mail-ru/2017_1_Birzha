@@ -51,17 +51,29 @@ window.Area =
             cy += this.rectSize / 2 | 0;
             cx += this.borderSize / 2;
             cy += this.borderSize / 2;
-            this.markSelectedCell(cx, cy);
             return {x: cx, y: cy};
+        }
+
+        getCellPosition(x, y) {
+            let cx = x / this.rectSize | 0;
+            let cy = y / this.rectSize | 0;
+            return {x: cx, y: cy};
+        }
+
+        getPixelPoint(x, y) {
+            let px = x * this.rectSize + (this.rectSize + this.borderSize) / 2;
+            let py = y * this.rectSize + (this.rectSize + this.borderSize) / 2;
+            return {x: px, y: py}
         }
 
         markSelectedCell(x, y) {
             let rectSize = this.rectSize;
             let borderSize = this.borderSize;
-            x -= rectSize / 2;
-            y -= rectSize / 2;
+            x *= rectSize;
+            y *= rectSize;
+
             let cell = new createjs.Shape();
-            cell.graphics.beginFill("#beffb1").drawRect(x + borderSize / 2, y + borderSize / 2, rectSize - borderSize, rectSize - borderSize).endFill();
+            cell.graphics.beginFill("#beffb1").drawRect(x + borderSize, y + borderSize, rectSize - borderSize, rectSize - borderSize).endFill();
             this.map.stage.addChild(cell);
             this.map.stage.update();
         }

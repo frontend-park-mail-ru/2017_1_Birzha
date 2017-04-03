@@ -31,7 +31,7 @@ window.PlayPage =
             /****************/
 
             this.userObject.drawObject();
-            this.userObject.drawObject();
+ //           this.userObject.drawObject();
             this.base.update();
         }
 
