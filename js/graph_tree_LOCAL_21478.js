@@ -18,21 +18,20 @@ window.GraphTree =
             return this.currentVertex;
         }
 
-        addNewVertexToCurrent(data) {
-            this.currentVertex = this.tree.addNode(data, this.currentVertex);
+        addNewVertexToCurrent(point) {
+            this.currentVertex = this.tree.addNode(point, this.currentVertex);
             return this.currentVertex;
         }
 
-        addNewVertexByNode(data, node) {
-            return this.tree.addNode(data, node)
+        addNewVertexByNode(point, node) {
+            return this.tree.addNode(point, node)
         }
 
         addNewVertexByMove(dx, dy) {
-            let data = this.currentVertex.data;
-            data.posX += dx;
-            data.posX += dy;
+            let curX = this.currentVertex.data.posX;
+            let curY = this.currentVertex.data.posY;
 
-            this.currentVertex = this.tree.addNode(data, this.currentVertex);
+            this.currentVertex = this.tree.addNode({posX: curX + dx, posY: curY + dy}, this.currentVertex);
             return this.currentVertex;
         }
 
@@ -44,12 +43,9 @@ window.GraphTree =
             });
         }
 
-        setNode(keyAndValues, nowPoint) {
-            debugger;
-
+        setNode(keyAndValues) {
             let points = keyAndValues.points;
-            let coordinatesX = keyAndValues.posX, coordinatesY = keyAndValues.posY;
-            let posX = keyAndValues.posX, posY = keyAndValues.posY;
+            let needX = keyAndValues.posX, needY = keyAndValues.posY;
 
             let type = keyAndValues.type || 0;
 
@@ -57,11 +53,11 @@ window.GraphTree =
             if(this.shapes.has(keyAndValues)) {
                 town = this.shapes.get(keyAndValues);
             } else {
-                town = new Tower(this.map, posX, posY, type, points);
+                town = new Tower(this.map, needX, needY, type, points);
                 this.shapes.set(keyAndValues, town);
             }
 
-            town.setRealCoordinates(coordinatesX, coordinatesY);
+            town.setCoordinates(needX, needY);
             town.draw();
         }
 
@@ -70,8 +66,7 @@ window.GraphTree =
             this.graphLine.graphics.clear();
 
             let setBack = function (toNode, fromNode) {
-                let pxPoint = area.getPixelPoint(toNode.data.posX, toNode.data.posY);
-                this.graphLine.graphics.moveTo(pxPoint.posX, pxPoint.posY);
+                this.graphLine.graphics.moveTo(toNode.data.posX, toNode.data.posY);
             };
 
             let iter = this.tree.iterator(setBack.bind(this));
@@ -79,31 +74,27 @@ window.GraphTree =
             let last_x, last_y;
 
             for (;;) {
-                let node = iter.nextNode();
-                if (!node)
+                let data = iter.nextNode();
+                if (!data)
                     break;
 
-                debugger;
-
-                let nowPoint = area.getPixelPoint(node.data.posX, node.data.posY);
-
-                if (node === this.tree.root) {
-                    last_x = nowPoint.posX;
-                    last_y = nowPoint.posY;
+                if (data === this.tree.root) {
+                    last_x = data.data.posX;
+                    last_y = data.data.posY;
 
                     this.graphLine.graphics.setStrokeStyle(1).beginStroke("#00ff00");
                     this.graphLine.graphics.moveTo(last_x, last_y);
 
-                    this.setNode(node.data);
+                    this.setNode(data.data);
                     continue;
                 }
 
-                this.setNode(node.data);
+                this.setNode(data.data);
 
-                this.drawWireBetweenTowers(nowPoint, {posX: last_x, posY: last_y});
+                this.drawWireBetweenTowers(data.data, {posX: last_x, posY: last_y});
 
-                last_x = nowPoint.posX;
-                last_y = nowPoint.posY;
+                last_x = data.data.posX;
+                last_y = data.data.posY;
             }
 
             this.graphLine.graphics.endStroke();

@@ -1,5 +1,4 @@
 'use strict';
-
 window.PlayPage =
     class PlayPage extends window.BasePage {
         constructor(map) {
@@ -13,6 +12,7 @@ window.PlayPage =
             this.userObject = null;
 
         }
+
 
         startPage(resource) {
             this.initScene("player1");
@@ -31,7 +31,7 @@ window.PlayPage =
             /****************/
 
             this.userObject.drawObject();
-            this.userObject.drawObject();
+ //           this.userObject.drawObject();
             this.base.update();
         }
 
@@ -48,4 +48,5 @@ window.PlayPage =
                 }));
             }
         }
-    };
+    }
+;
