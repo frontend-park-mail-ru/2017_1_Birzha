@@ -1,4 +1,10 @@
 'use strict';
+
+window.conf = {
+    radiusTower: 28,
+    betweenTowersPadding: 15
+};
+
 (function (window) {
     const World = window.World;
     const Area = window.Area;

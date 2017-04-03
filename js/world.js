@@ -47,6 +47,10 @@ window.World =
             this.map.on(event, func)
         }
 
+        appendOnMap(child) {
+            this.map.stage.addChild(child); // TODO normal coor
+        }
+
         /** Fabric draw **/
         newShape(position, radius, color, visible) {
             let circle = new createjs.Shape();

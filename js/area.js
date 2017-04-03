@@ -20,7 +20,7 @@ window.Area =
             this.width = this.canvas.width;
             this.height = this.canvas.height;
 
-            this.rectSize = 50;
+            this.rectSize = 80;
             this.borderSize = 8;
 
             this.initArea();

@@ -96,5 +96,4 @@ window.MenuPage  =
                 this.base.update();
             }
         }
-    }
-;
+    };

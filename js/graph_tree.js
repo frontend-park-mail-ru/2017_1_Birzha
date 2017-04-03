@@ -39,8 +39,26 @@ window.GraphTree =
             this.map.stage.removeChild(this.graphLine);
             console.log(this.shapes);
             this.shapes.forEach((value, key) => {
-                this.map.stage.removeChild(value);
+                value.destruct();
             });
+        }
+
+        setNode(keyAndValues) {
+            let points = keyAndValues.points;
+            let needX = keyAndValues.x, needY = keyAndValues.y;
+
+            let type = keyAndValues.type || 0;
+
+            let town;
+            if(this.shapes.has(keyAndValues)) {
+                town = this.shapes.get(keyAndValues);
+            } else {
+                town = new Tower(this.map, needX, needY, type, points);
+                this.shapes.set(keyAndValues, town);
+            }
+
+            town.setCoordinates(needX, needY);
+            town.draw();
         }
 
         showNodes() {
@@ -55,7 +73,7 @@ window.GraphTree =
 
             let last_x, last_y;
 
-            for (; ;) {
+            for (;;) {
                 let data = iter.nextNode();
                 if (!data)
                     break;
@@ -67,33 +85,13 @@ window.GraphTree =
                     this.graphLine.graphics.setStrokeStyle(1).beginStroke("#00ff00");
                     this.graphLine.graphics.moveTo(last_x, last_y);
 
-                    if (this.shapes.has(data.data)) { // TODO create changes objects
-                        let drawObject = this.shapes.get(data.data);
-                        let needX = data.data.x, needY = data.data.y;
-
-                        if ("image" in drawObject) {
-                            console.log("^)");
-                            needX -= drawObject.image.width / 2;
-                            needY -= drawObject.image.height / 2;
-                        }
-
-                        this.shapes.get(data.data).x = needX;
-                        this.shapes.get(data.data).y = needY;
-
-                    } else {
-                        this.shapes.set(data.data, this.map.newShape({x: 0, y: 0}, 10, "blue"));
-                    }
+                    this.setNode(data.data);
                     continue;
                 }
 
-                if (this.shapes.has(data.data)) {
-                    this.shapes.get(data.data).x = data.data.x;
-                    this.shapes.get(data.data).y = data.data.y;
-                } else {
-                    this.shapes.set(data.data, this.map.newShape({x: 0, y: 0}, 10, "blue"));
-                }
+                this.setNode(data.data);
 
-                this.graphLine.graphics.lineTo(data.data.x, data.data.y);
+                this.drawWireBetweenTowers(data.data, {x: last_x, y: last_y});
 
                 last_x = data.data.x;
                 last_y = data.data.y;
@@ -101,5 +99,23 @@ window.GraphTree =
 
             this.graphLine.graphics.endStroke();
         }
-    }
-;
+
+        drawWireBetweenTowers(to, from, anim) {
+            let x = to.x, y = to.y;
+            let l = Math.sqrt((x - from.x)**2 + (y - from.y)**2);
+
+            const byLine = (lamda) => {
+                return {x: (from.x + lamda * x) / (1 + lamda), y: (from.y + lamda * y) / (1 + lamda)};
+            };
+
+            let radius = conf.radiusTower + conf.betweenTowersPadding;
+            let lamda = (l - radius) / radius;
+
+            let fromPoint = byLine(1 / lamda);
+            let toPoint = byLine(lamda);
+
+            this.graphLine.graphics.moveTo(fromPoint.x, fromPoint.y);
+            this.graphLine.graphics.lineTo(toPoint.x, toPoint.y);
+            this.graphLine.graphics.moveTo(x, y);
+        }
+    };
