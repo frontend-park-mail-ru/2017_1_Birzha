@@ -45,22 +45,28 @@ class PlayPage extends BasePage {
     startPage(resource) {
         this.initScene("player1");
 
-        createjs.Ticker.addEventListener("tick", this.tick.bind(this));
+/*        createjs.Ticker.addEventListener("upd", this.upd());
         createjs.Ticker.setInterval(100);
         createjs.Ticker.setFPS(40);
+*/
+        this.map.canvas.addEventListener("upd", this.upd.bind(this));
+
+
+//        addEventListener("upd", this.upd(), false);
     }
 
     initScene(nameUser) {
         this.userObject = new UserObject(this.base, nameUser || "Wonder");
     }
 
-    tick(event) {
+    upd() {
         /* draw enimies */
         this.enemies.forEach(function(items) {
             items.drawObject();
         });
         /****************/
 
+        this.userObject.drawObject();
         this.userObject.drawObject();
         this.base.update();
     }

@@ -33,8 +33,8 @@ class Area {
         let cell = new createjs.Shape();
         for(let i=0; i<xCount; i++){
             for(let j=0; j<yCount; j++) {
-                cell.graphics.beginFill("#fffbf7").drawRect(i*rectSize, j*rectSize, rectSize*(i+1), rectSize*(j+1)).
-                beginFill("#dbffd0").drawRect(i*rectSize+borderSize, j*rectSize+borderSize, i*rectSize+rectSize-borderSize, j*rectSize+rectSize-borderSize);
+                cell.graphics.beginFill("#fffbf7").drawRect(i*rectSize, j*rectSize, rectSize, rectSize).
+                beginFill("#dbffd0").drawRect(i*rectSize+borderSize, j*rectSize+borderSize, rectSize-borderSize, rectSize-borderSize).endFill();
             }
         }
         this.map.stage.addChild(cell);
@@ -49,6 +49,19 @@ class Area {
         cy += this.rectSize / 2 | 0;
         cx += this.borderSize / 2;
         cy += this.borderSize / 2;
+        this.markSelectedCell(cx,cy);
         return {x:cx, y:cy};
+    }
+
+    markSelectedCell(x, y){
+        let rectSize = this.rectSize;
+        let borderSize = this.borderSize;
+        x -= rectSize / 2;
+        y -= rectSize / 2;
+        let cell = new createjs.Shape();
+        cell.graphics.
+        beginFill("#beffb1").drawRect(x+borderSize/2, y+borderSize/2, rectSize-borderSize, rectSize-borderSize).endFill();
+        this.map.stage.addChild(cell);
+        this.map.stage.update();
     }
 }
