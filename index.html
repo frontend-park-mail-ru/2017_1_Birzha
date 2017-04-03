@@ -7,22 +7,6 @@
     <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
     <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
     <script src="https://code.createjs.com/preloadjs-0.6.2.min.js"></script>
-
-    <script src="js/server.js"></script>
-    <script src="js/base.js"></script>
-
-    <script src="js/tree.js"></script>
-    <script src="js/graph_tree.js"></script>
-    <script src="js/loader.js"></script>
-
-    <script src="js/base_page.js"></script>
-
-    <script src="js/system.js"></script>
-
-    <!-- Load pages -->
-    <script src="js/menu.js"></script>
-    <script src="js/play.js"></script>
-    <script src="js/area.js"></script>
 </head>
 <body>
 
@@ -34,6 +18,14 @@
     server.onMessage = function(json) {
         console.log(json);
     };*/
+
+    import { Area } from '/js/area';
+    import { World } from 'js/world'
+
+    import { MenuPage } from 'js/menu'
+    import { PlayPage } from 'js/play'
+
+    import { Loader } from 'js/loader'
 
     const area = new Area();
 

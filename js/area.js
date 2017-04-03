@@ -1,4 +1,4 @@
-class Area {
+export class Area {
     constructor() {
         this.canvas = document.createElement("canvas");
         this.canvas.id = "canvas-area";

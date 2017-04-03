@@ -1,5 +1,5 @@
 
-class Loader {
+export class Loader {
     constructor(srcManifest, callback) {
         this.queue = new createjs.LoadQueue(true);
         this.queue.loadManifest(srcManifest);

@@ -1,6 +1,6 @@
 /* Cyclic graph */
 
-class Tree {
+export class Tree {
     constructor() {
         this.rootNode = null;
     }
@@ -84,8 +84,9 @@ class Tree {
 function NodeImpl(data, parentNode) {
     this.nextNode = [];
     this.parentNode = parentNode;
-
-    this.data = data;
+    // Это нода
+    this.data = data; // in data we need id игрока,цвет игрока, И КООРДИНАТЫ, КОТОРЫЕ В ДВУХМЕРНОМ МАССИВЕ
+    // ЕЩЕ нужно хранить количество поинтов в данный момент
 }
 
 NodeImpl.prototype.addNode = function(node) {

@@ -1,4 +1,6 @@
-class GraphTree {
+import { Tree } from 'tree'
+
+export class GraphTree {
     constructor(map) {
         this.map = map;
 

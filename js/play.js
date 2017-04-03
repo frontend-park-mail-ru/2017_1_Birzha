@@ -1,4 +1,7 @@
-class UserService {
+import { UserObject } from 'me'
+import { ServerConnect } from 'server'
+
+export class UserService {
     constructor(finishConnect) {
     //    this.socket = new ServerConnect("ws://192.168.0.56:8080", finishConnect);
 
@@ -28,7 +31,7 @@ class UserService {
     }
 }
 
-class PlayPage extends BasePage {
+export class PlayPage extends BasePage {
     constructor(map, userService) {
         super(map);
 /*
@@ -44,15 +47,7 @@ class PlayPage extends BasePage {
 
     startPage(resource) {
         this.initScene("player1");
-
-/*        createjs.Ticker.addEventListener("upd", this.upd());
-        createjs.Ticker.setInterval(100);
-        createjs.Ticker.setFPS(40);
-*/
         this.map.canvas.addEventListener("upd", this.upd.bind(this));
-
-
-//        addEventListener("upd", this.upd(), false);
     }
 
     initScene(nameUser) {
