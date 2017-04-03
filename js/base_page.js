@@ -1,11 +1,9 @@
-class BasePage {
+export class BasePage {
     constructor(map) {
         this.base = map;
     }
 
-    startPage(resource) {
-
-    }
+    startPage(resource) {}
 
     stopPage() {}
 }

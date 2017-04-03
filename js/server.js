@@ -1,6 +1,6 @@
 'use strict';
 
-class ServerConnect {
+export class ServerConnect {
     /**
      * @param server as string
      */

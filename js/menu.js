@@ -1,4 +1,6 @@
-class MenuPage extends BasePage {
+import { GraphTree } from 'graph_tree'
+
+export class MenuPage extends BasePage {
     constructor(map, callBackIfRun) {
         super(map);
         this.callbackIfRun = callBackIfRun;
