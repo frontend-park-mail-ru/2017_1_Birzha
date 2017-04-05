@@ -89,8 +89,8 @@ window.MenuPage  =
                 this.children.forEach(function (item, index) {
                     menuShapes[index].angle += window.randomInteger(-20, 20) * (Math.PI / 180); // randomInteger(0, 360) * (Math.PI / 180);
 
-                    item.data.x += 3 * Math.cos(menuShapes[index].angle);
-                    item.data.y += 3 * Math.sin(menuShapes[index].angle);
+                    item.data.x += Math.cos(menuShapes[index].angle);
+                    item.data.y += Math.sin(menuShapes[index].angle);
                 });
 
                 this.menuGraph.showNodes();

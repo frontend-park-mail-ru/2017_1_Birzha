@@ -9,7 +9,7 @@ window.UserObject =
 
             this.probablyCircle = this.map.newShape(null, this.userSize, "DeepSkyBlue", false);
             this.probablyCircle.on("click", this.eventPutNewVertex.bind(this));
-
+            debugger;
             this.myGraph = new GraphTree(map);
             this.myGraph.addNewVertexToCurrent(this.myPosition);
         }
@@ -23,7 +23,8 @@ window.UserObject =
             //
             this.probablyLine.graphics.clear();
             this.probablyLine.graphics.setStrokeStyle(1).beginStroke("#00ff00");
-            this.probablyLine.graphics.moveTo(this.positionX, this.positionY);
+            let pxPoint = area.getPixelPoint(this.positionX, this.positionY);
+            this.probablyLine.graphics.moveTo(pxPoint.x, pxPoint.y);
 
             this.probablyLine.graphics.lineTo(event.stageX, event.stageY);
             this.probablyLine.graphics.endStroke();
@@ -33,7 +34,7 @@ window.UserObject =
 
         eventPutNewVertex(event) {
             let newX = parseInt(event.target.x), newY = parseInt(event.target.y);
-            let newPos = area.getExactPosition(newX, newY);
+            let newPos = area.getCellPosition(newX, newY);
             this.myGraph.addNewVertexToCurrent(newPos);
 
             this.positionX = newPos.x;

@@ -48,8 +48,8 @@ window.GraphTree =
             debugger;
 
             let points = keyAndValues.points;
-            let coordinatesX = keyAndValues.posX, coordinatesY = keyAndValues.posY;
-            let posX = keyAndValues.posX, posY = keyAndValues.posY;
+            let coordinatesX = keyAndValues.x, coordinatesY = keyAndValues.y;
+            let posX = keyAndValues.x, posY = keyAndValues.y;
 
             let type = keyAndValues.type || 0;
 
@@ -70,8 +70,8 @@ window.GraphTree =
             this.graphLine.graphics.clear();
 
             let setBack = function (toNode, fromNode) {
-                let pxPoint = area.getPixelPoint(toNode.data.posX, toNode.data.posY);
-                this.graphLine.graphics.moveTo(pxPoint.posX, pxPoint.posY);
+                let pxPoint = area.getPixelPoint(toNode.data.x, toNode.data.y);
+                this.graphLine.graphics.moveTo(pxPoint.x, pxPoint.y);
             };
 
             let iter = this.tree.iterator(setBack.bind(this));
@@ -85,11 +85,11 @@ window.GraphTree =
 
                 debugger;
 
-                let nowPoint = area.getPixelPoint(node.data.posX, node.data.posY);
+                let nowPoint = area.getPixelPoint(node.data.x, node.data.y);
 
                 if (node === this.tree.root) {
-                    last_x = nowPoint.posX;
-                    last_y = nowPoint.posY;
+                    last_x = nowPoint.x;
+                    last_y = nowPoint.y;
 
                     this.graphLine.graphics.setStrokeStyle(1).beginStroke("#00ff00");
                     this.graphLine.graphics.moveTo(last_x, last_y);
@@ -102,15 +102,15 @@ window.GraphTree =
 
                 this.drawWireBetweenTowers(nowPoint, {posX: last_x, posY: last_y});
 
-                last_x = nowPoint.posX;
-                last_y = nowPoint.posY;
+                last_x = nowPoint.x;
+                last_y = nowPoint.y;
             }
 
             this.graphLine.graphics.endStroke();
         }
 
         drawWireBetweenTowers(to, from, anim) {
-            let x = to.posX, y = to.posY;
+            let x = to.x, y = to.y;
             let l = Math.sqrt((x - from.posX)**2 + (y - from.posY)**2);
 
             const byLine = (lamda) => {

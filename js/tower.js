@@ -4,6 +4,10 @@ class Tower {
         this.x = x; // TODO to normal
         this.y = y;
 
+        let pxPoint = area.getPixelPoint(x,y);
+        this.realX = pxPoint.x;
+        this.realY = pxPoint.y;
+
         this.points = points;
 
         this.typeOfTower = typeOfTower;
@@ -18,6 +22,12 @@ class Tower {
             default:
                 break;
         }
+    }
+
+    setRealCoordinates(x, y){
+        let pxPoint = area.getPixelPoint(x,y);
+        this.realX = pxPoint.x;
+        this.realY = pxPoint.y;
     }
 
     setCoordinates(x, y) {
@@ -53,20 +63,21 @@ class Tower {
 
     drawStandartImpl() {
         if(this.cache != null) {
-            this.setTextCoordinates(this.x, this.y);
-            this.setTowerCoordinates(this.x, this.y);
+            this.setTextCoordinates(this.realX, this.realY);
+     //       this.setTowerCoordinates(this.realX, this.realY);
         } else {
             this.cache = {};
 
             let shape = new createjs.Shape();
-            shape.graphics.beginStroke("#ff0000").drawCircle(0, 0, conf.radiusTower);
+            shape.graphics.beginStroke("#ff0000").drawCircle(this.realX, this.realY, conf.radiusTower);
 
             this.cache.circle = shape;
 
             this.cache.text = new createjs.Text("12", "20px Arial", "#ff7700");
             this.cache.text.textBaseline = "middle";
             this.cache.text.textAlign = "center";
-
+            this.cache.text.x = this.realX;
+            this.cache.text.y = this.realY;
             this.map.appendOnMap(this.cache.circle);
             this.map.appendOnMap(this.cache.text);
         }

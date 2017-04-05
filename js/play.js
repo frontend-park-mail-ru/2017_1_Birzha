@@ -20,7 +20,8 @@ window.PlayPage =
         }
 
         initScene(nameUser) {
-            this.userObject = new UserObject(this.base, nameUser || "Wonder");
+            this.userObject = new UserObject(this.base, null, nameUser || "Wonder");
+            this.upd();
         }
 
         upd() {
