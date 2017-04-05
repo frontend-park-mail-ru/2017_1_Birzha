@@ -8,16 +8,29 @@
     }).catch(error => "Error");
 
     const Router = window.Router;
-    const MainView = window.mainView;
+    const MenuView = window.menuView;
     const LoginView = window.loginView;
+    const RegistrationView = window.registrationView;
+    const LeaderboardView = window.leaderboardView;
+    const GameView = window.gameView;
+    const AboutView = window.aboutView;
 
     let router = new Router(window.document.documentElement);
 
-    let mainView = new MainView(document.querySelector('.menu-view'));
+    let menuView = new MenuView(document.querySelector('.menu-view'));
     let loginView = new LoginView(document.querySelector('.login-view'));
+    let registrationView = new RegistrationView(document.querySelector('.registration-view'));
+    let aboutView = new AboutView(document.querySelector('.about-view'));
+    let leaderboardView = new LeaderboardView(document.querySelector('.leaderboard-view'));
+    let gameView = new GameView(document.querySelector('.game-view'));
 
-    router.register('/', mainView);
+    router.register('/', menuView);
+    router.register('/main', menuView);
     router.register('/login', loginView);
+    router.register('/about', aboutView);
+    router.register('/logout', registrationView);
+    router.register('/leaderboard', leaderboardView);
+    router.register('/game', gameView);
 
     router.start();
 
@@ -38,7 +51,8 @@
                     attrs: {
                         type: 'click',
                         class: 'btn btn-success btn-block',
-                        id: 'playPressed'
+                        id: 'playPressed',
+                        href: '/game'
                     }
                 },
                 {
@@ -46,7 +60,8 @@
                     attrs: {
                         type: 'submit',
                         class: 'btn btn-info btn-block',
-                        id: 'leaderboardPressed'
+                        id: 'leaderboardPressed',
+                        href: '/leaderboard'
                     }
                 },
                 {
@@ -54,7 +69,8 @@
                     attrs: {
                         type: 'submit',
                         class: 'btn btn-danger btn-block',
-                        id: 'logoutPressed'
+                        id: 'logoutPressed',
+                        href: '/login'
                     }
                 }
             ]
@@ -197,13 +213,6 @@
     const aboutPage = document.getElementById('about');
     const FlagRegistered = document.getElementById('Registered');
 
-    const buttonPlay = document.querySelector('#playPressed');
-    const buttonLogout = document.getElementById('logoutPressed');
-    const buttonLeader = document.getElementById('leaderboardPressed');
-    const AboutReference = document.getElementById('aboutReference');
-    const AcyclicReference = document.getElementById('AcyclicReference');
-    const RegisterReference = document.getElementById('RegisterPageId');
-
     let loginWarningElement = document.getElementById("login_warning");
     let registrationWarningElement = document.getElementById("registration_warning");
 
@@ -219,39 +228,6 @@
     gamePage.hidden = true;
     aboutPage.hidden = true;
 
-    buttonPlay.addEventListener('click', function (event) {
-        event.preventDefault();
-        changeScreen(gamePage);
-    });
-
-    buttonLogout.addEventListener('click', function (event) {
-        event.preventDefault();
-        changeScreen(loginPage);
-    });
-
-    buttonLeader.addEventListener('click', function (event) {
-        event.preventDefault();
-        changeScreen(leaderPage);
-    });
-
-    AcyclicReference.addEventListener('click', function (event) {
-        event.preventDefault();
-        changeScreen(menuPage);
-    });
-
-    AboutReference.addEventListener('click', function (event) {
-
-        event.preventDefault();
-
-        FlagRegistered.innerHTML = 'Nick_name'; // TODO Nick name
-        changeScreen(aboutPage);
-    });
-
-    RegisterReference.addEventListener('click', function (event) {
-
-        FlagRegistered.innerHTML = '';
-        changeScreen(registrationPage);
-    });
 
     changeScreen(menuPage);
 

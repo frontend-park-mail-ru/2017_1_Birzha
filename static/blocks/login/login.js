@@ -45,10 +45,12 @@
 					</div>
 					<div class="js-controls">
 					</div>
-					<div class="create_new_account_link" style="margin-top: 10px;" id="RegisterPageId">
+					<div class="create_new_account_link" style="margin-top: 10px;" id="RegisterPageId" >
+					    <a href="/main">
                             Create new account
+                         </a>
                      </div>
-				</form>
+				    </form>
 				<div class="col-md-3"></div>
 			`;
         }

@@ -2,11 +2,11 @@
 
     const BaseView = window.BaseView;
 
-    class mainView extends BaseView {
+    class menuView extends BaseView {
 
 
 
     }
 
-    window.mainView = mainView;
+    window.menuView = menuView;
 })();
