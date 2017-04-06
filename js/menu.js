@@ -29,11 +29,11 @@ window.MenuPage  =
 
             this.menuGraph = new GraphTree(this.base);
             let cellPos = area.getCellPosition(cenX, cenY);
-            children.push(this.menuGraph.addNewVertexToCurrent({x: cellPos.x + 3, y: cellPos.y + 4}));
-            children.push(this.menuGraph.addNewVertexByMove(5, 5));
-            children.push(this.menuGraph.addNewVertexByNode({x: 5, y: 10}, this.menuGraph.getCurrentVertex));
-            children.push(this.menuGraph.addNewVertexByMove(7, 13));
-            children.push(this.menuGraph.addNewVertexByMove(7, -5));
+            children.push(this.menuGraph.addNewVertexToCurrent({x: cellPos.x - 2, y: cellPos.y - 2}));
+            children.push(this.menuGraph.addNewVertexByMove(5, 3));
+            children.push(this.menuGraph.addNewVertexByNode({x: 5, y: 6}, this.menuGraph.getCurrentVertex));
+            children.push(this.menuGraph.addNewVertexByMove(-3, -3));
+            children.push(this.menuGraph.addNewVertexByMove(2, 6));
             this.children = children;
 
             this.menuShapes = [
@@ -63,7 +63,7 @@ window.MenuPage  =
             ];
 
             createjs.Ticker.addEventListener("tick", this.tick.bind(this));
-            createjs.Ticker.setInterval(100);
+            createjs.Ticker.setInterval(200);
             createjs.Ticker.setFPS(40);
         }
 
@@ -89,8 +89,8 @@ window.MenuPage  =
                 this.children.forEach(function (item, index) {
                     menuShapes[index].angle += window.randomInteger(-20, 20) * (Math.PI / 180); // randomInteger(0, 360) * (Math.PI / 180);
 
-                    item.data.x += Math.cos(menuShapes[index].angle);
-                    item.data.y += Math.sin(menuShapes[index].angle);
+                    item.data.x = 1.2*Math.cos(menuShapes[index].angle) | 0;
+                    item.data.y = 1.2*Math.sin(menuShapes[index].angle) | 0;
                 });
 
                 this.menuGraph.showNodes();

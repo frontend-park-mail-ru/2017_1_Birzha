@@ -33,6 +33,9 @@ class Tower {
     setCoordinates(x, y) {
         this.x = x;
         this.y = y;
+        let pxPoint = area.getPixelPoint(x,y);
+        this.realX = pxPoint.x;
+        this.realY = pxPoint.y;
     }
 
     setTextCoordinates(x, y, text) {
@@ -63,13 +66,14 @@ class Tower {
 
     drawStandartImpl() {
         if(this.cache != null) {
+            debugger;
             this.setTextCoordinates(this.realX, this.realY);
-     //       this.setTowerCoordinates(this.realX, this.realY);
+            this.setTowerCoordinates(this.realX, this.realY);
         } else {
             this.cache = {};
 
             let shape = new createjs.Shape();
-            shape.graphics.beginStroke("#ff0000").drawCircle(this.realX, this.realY, conf.radiusTower);
+            shape.graphics.beginStroke("#ff0000").drawCircle(0, 0, conf.radiusTower);
 
             this.cache.circle = shape;
 
@@ -78,6 +82,9 @@ class Tower {
             this.cache.text.textAlign = "center";
             this.cache.text.x = this.realX;
             this.cache.text.y = this.realY;
+            this.setTextCoordinates(this.realX, this.realY);
+            this.setTowerCoordinates(this.realX, this.realY);
+
             this.map.appendOnMap(this.cache.circle);
             this.map.appendOnMap(this.cache.text);
         }

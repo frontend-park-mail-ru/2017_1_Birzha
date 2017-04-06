@@ -29,10 +29,11 @@ window.GraphTree =
 
         addNewVertexByMove(dx, dy) {
             let data = this.currentVertex.data;
-            data.posX += dx;
-            data.posX += dy;
-
-            this.currentVertex = this.tree.addNode(data, this.currentVertex);
+            let newData = {
+                x: data.x + dx,
+                y: data.y + dy
+            };
+            this.currentVertex = this.tree.addNode(newData, this.currentVertex);
             return this.currentVertex;
         }
 
