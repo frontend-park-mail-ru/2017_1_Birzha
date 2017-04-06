@@ -1,5 +1,8 @@
 (function () {
     window.conf = {};
+    let Button = window.Button;
+    let url = window.location.pathname;
+    alert(url);
 
     fetch('/static/conf/dev.conf.json').then(function (data) {
         return data.json();
@@ -224,7 +227,12 @@
     };
     aboutPage.innerHTML = template();
 
-
-    changeScreen(menuPage);
-
+    leaderPage.hidden = true;
+    gamePage.hidden = true;
+    aboutPage.hidden = true;
+    menuPage.hidden = true;
+    loginPage.hidden = true;
+    registrationPage.hidden = true;
+    //changeScreen(menuPage);
+    router.startPage(url);
 })();

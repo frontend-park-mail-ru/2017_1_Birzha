@@ -55,6 +55,7 @@
          * @return {boolean} - если есть маршрурт
          */
         go(path) {
+            //alert(path);
             let view = this._getViewByRoute(path);
 
             if (!view) {
@@ -74,6 +75,11 @@
 
             this.currentView = view;
             return true;
+        }
+
+        startPage(url){
+            let view = this._getViewByRoute(url);
+            view.show();
         }
 
     }
