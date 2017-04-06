@@ -224,10 +224,6 @@
     };
     aboutPage.innerHTML = template();
 
-    leaderPage.hidden = true;
-    gamePage.hidden = true;
-    aboutPage.hidden = true;
-
 
     changeScreen(menuPage);
 

@@ -46,7 +46,7 @@
 					<div class="js-controls">
 					</div>
 					<div class="create_new_account_link" style="margin-top: 10px;" id="RegisterPageId" >
-					    <a href="/main">
+					    <a href="/logout">
                             Create new account
                          </a>
                      </div>
