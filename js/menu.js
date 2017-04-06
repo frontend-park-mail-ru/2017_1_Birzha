@@ -1,7 +1,7 @@
 window.MenuPage  =
-    class MenuPage extends window.BasePage {
-        constructor(map, callBackIfRun) {
-            super(map);
+    class MenuPage extends BasePage {
+        constructor(world, callBackIfRun) {
+            super(world);
             this.callbackIfRun = callBackIfRun;
 
             this.children = [];
@@ -13,10 +13,9 @@ window.MenuPage  =
         }
 
         startPage(resource) {
-            console.log(resource);
-            let cenX = this.base.basicCenter.x, cenY = this.base.basicCenter.y;
+            let cenX = this.world.basicCenter.x, cenY = this.world.basicCenter.y;
 
-            this.buttonMenu = this.base.newImage(resource.getResult("playButton"));
+            this.buttonMenu = this.world.newImage(resource.getResult("playButton"));
             this.buttonMenu.x = cenX - this.buttonMenu.image.width / 2;
             this.buttonMenu.y = cenY - this.buttonMenu.image.height / 2;
 
@@ -25,10 +24,12 @@ window.MenuPage  =
             };
             this.buttonMenu.on('click', onClickRun.bind(this));
 
+            /*
             let children = [];
 
-            this.menuGraph = new GraphTree(this.base);
-            let cellPos = area.getCellPosition(cenX, cenY);
+            this.menuGraph = new GraphTree(this.world);
+
+            let cellPos = this.world.area.getCellPosition(cenX, cenY);
             children.push(this.menuGraph.addNewVertexToCurrent({x: cellPos.x + 3, y: cellPos.y + 4}));
             children.push(this.menuGraph.addNewVertexByMove(5, 5));
             children.push(this.menuGraph.addNewVertexByNode({x: 5, y: 10}, this.menuGraph.getCurrentVertex));
@@ -37,31 +38,31 @@ window.MenuPage  =
             this.children = children;
 
             this.menuShapes = [
-                {angle: 0, left: 0, right: this.base.getWidth / 2.5, top: 0, down: this.base.getHeight / 2.5},
-                {angle: 100, left: 0, right: this.base.getWidth / 2.5, top: 0, down: this.base.getHeight / 2.5},
+                {angle: 0, left: 0, right: this.world.getWidth / 2.5, top: 0, down: this.world.getHeight / 2.5},
+                {angle: 100, left: 0, right: this.world.getWidth / 2.5, top: 0, down: this.world.getHeight / 2.5},
                 {
                     angle: 300,
-                    left: this.base.getWidth / 1.5,
-                    right: this.base.getWidth,
+                    left: this.world.getWidth / 1.5,
+                    right: this.world.getWidth,
                     top: 0,
-                    down: this.base.getHeight / 2.5
+                    down: this.world.getHeight / 2.5
                 },
                 {
                     angle: 40,
                     left: 0,
-                    right: this.base.getWidth / 2.5,
-                    top: this.base.getHeight / 1.5,
-                    down: this.base.getHeight
+                    right: this.world.getWidth / 2.5,
+                    top: this.world.getHeight / 1.5,
+                    down: this.world.getHeight
                 },
                 {
                     angle: 200,
-                    left: this.base.getWidth / 1.5,
-                    right: this.base.getWidth,
-                    top: this.base.getHeight / 1.5,
-                    down: this.base.getHeight
+                    left: this.world.getWidth / 1.5,
+                    right: this.world.getWidth,
+                    top: this.world.getHeight / 1.5,
+                    down: this.world.getHeight
                 }
             ];
-
+            */
             createjs.Ticker.addEventListener("tick", this.tick.bind(this));
             createjs.Ticker.setInterval(100);
             createjs.Ticker.setFPS(40);
@@ -71,11 +72,11 @@ window.MenuPage  =
             createjs.Ticker.setPaused(true);
             createjs.Ticker.removeEventListener("tick", this.tick);
 
-            this.menuGraph.destruct();
-            this.base.stage.removeChild(this.buttonMenu);
-            this.base.stage.clear();
+            // this.menuGraph.destruct();
+            this.world.stage.removeChild(this.buttonMenu);
+            this.world.stage.clear();
 
-            this.base.update();
+            this.world.update();
         }
 
         tick(event) {
@@ -83,7 +84,7 @@ window.MenuPage  =
             const randomInteger = window.randomInteger;
             if (!createjs.Ticker.getPaused()) {
                 this.ticker++;
-
+                /*
                 let menuShapes = this.menuShapes;
 
                 this.children.forEach(function (item, index) {
@@ -94,7 +95,8 @@ window.MenuPage  =
                 });
 
                 this.menuGraph.showNodes();
-                this.base.update();
+                */
+                this.world.update();
             }
         }
     }

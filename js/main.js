@@ -1,33 +1,37 @@
 'use strict';
 
+const RES_OK = 0;
+const RES_ROLLBACK = 1;
+const RES_ERROR = 2;
+
 window.conf = {
+    defaultStartUnit: 100,
+    userSize: 5,
     radiusTower: 28,
     betweenTowersPadding: 15
 };
 
+window.towerType = {
+    DEFAULT: 0
+};
+
 (function (window) {
-    const World = window.World;
-    const Area = window.Area;
-    const MenuPage = window.MenuPage;
-    const PlayPage = window.PlayPage;
-    const Loader = window.Loader;
-
-    window.area = new Area();
-
     let needFilesForProjectManifest = [
         {id: "playButton", src: "./img/play.png"}
     ];
 
     const startGame = function() {
         menuPage.stopPage();
-        debugger;
+
         const run = function() {
             new PlayPage(world).startPage(null);
             world.update();
         };
         run();
-        //  userService = new UserService(run);
+        //  userService = new Connection(run);
     };
+
+    let area = new Area();
 
     let world = new World(area);
     let menuPage = new MenuPage(world, startGame);

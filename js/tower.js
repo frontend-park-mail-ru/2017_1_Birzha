@@ -1,22 +1,24 @@
-class Tower {
-    constructor(map, x, y, typeOfTower, points) {
-        this.map = map;
-        this.x = x; // TODO to normal
-        this.y = y;
+'use strict';
 
-        let pxPoint = area.getPixelPoint(x,y);
+class Tower {
+    constructor(world, pointX, pointY, typeOfTower, units) {
+        this.world = world;
+        this.pointX = pointX; // TODO to normal
+        this.pointY = pointY;
+
+        let pxPoint = this.world.area.getPixelPoint(pointX, pointY);
         this.realX = pxPoint.x;
         this.realY = pxPoint.y;
 
-        this.points = points;
-
         this.typeOfTower = typeOfTower;
         this.cache = null;
+
+        this.units = units
     }
 
     draw() {
         switch(this.typeOfTower) {
-            case 0:
+            case towerType.DEFAULT:
                 this.drawStandartImpl();
                 break;
             default:
@@ -25,25 +27,25 @@ class Tower {
     }
 
     setRealCoordinates(x, y){
-        let pxPoint = area.getPixelPoint(x,y);
+        let pxPoint = this.world.area.getPixelPoint(x, y);
         this.realX = pxPoint.x;
         this.realY = pxPoint.y;
     }
 
-    setCoordinates(x, y) {
-        this.x = x;
-        this.y = y;
+    setCell(pointX, pointY) {
+        this.pointX = pointX;
+        this.pointY = pointY;
     }
 
-    setTextCoordinates(x, y, text) {
+    setTextCoordinates(x, y) {
         if(this.cache == null)
             return;
 
         this.cache.text.x = x;
         this.cache.text.y = y;
 
-        if(text)
-            this.cache.text.text = text;
+        if(this.units)
+            this.cache.text.text = this.units;
     }
 
     setTowerCoordinates(x, y) {
@@ -56,32 +58,34 @@ class Tower {
 
     destruct() {
         if(this.cache) {
-            this.map.stage.removeChild(this.cache.circle);
-            this.map.stage.removeChild(this.cache.text);
+            this.world.stage.removeChild(this.cache.circle);
+            this.world.stage.removeChild(this.cache.text);
         }
     }
 
     drawStandartImpl() {
-        if(this.cache != null) {
-            this.setTextCoordinates(this.realX, this.realY);
-     //       this.setTowerCoordinates(this.realX, this.realY);
-        } else {
+        if(this.cache == null) {
             this.cache = {};
 
             let shape = new createjs.Shape();
-            shape.graphics.beginStroke("#ff0000").drawCircle(this.realX, this.realY, conf.radiusTower);
+            shape.graphics.beginStroke("#ff0000").drawCircle(0, 0, conf.radiusTower);
 
             this.cache.circle = shape;
 
-            this.cache.text = new createjs.Text("12", "20px Arial", "#ff7700");
+            this.cache.text = new createjs.Text(this.units, "20px Arial", "#ff7700");
             this.cache.text.textBaseline = "middle";
             this.cache.text.textAlign = "center";
-            this.cache.text.x = this.realX;
-            this.cache.text.y = this.realY;
-            this.map.appendOnMap(this.cache.circle);
-            this.map.appendOnMap(this.cache.text);
+
+            this.setTextCoordinates(this.realX, this.realY);
+            this.setTowerCoordinates(this.realX, this.realY);
+
+            this.world.appendOnMap(this.cache.circle);
+            this.world.appendOnMap(this.cache.text);
         }
+
+        this.setTextCoordinates(this.realX, this.realY);
+        this.setTowerCoordinates(this.realX, this.realY);
     }
 }
 
-window.Town = Tower;
+window.Tower = Tower;

@@ -15,8 +15,8 @@ window.Area =
             document.body = document.createElement("body");
             document.body.appendChild(this.canvas);
 
-            this.map = new createjs.Stage(this.canvas.id);
-            createjs.Touch.enable(this.map);
+            this.world = new createjs.Stage(this.canvas.id);
+            createjs.Touch.enable(this.world);
             this.width = this.canvas.width;
             this.height = this.canvas.height;
 
@@ -24,7 +24,7 @@ window.Area =
             this.borderSize = 8;
 
             this.initArea();
-            this.map.stage.update();
+            this.world.stage.update();
 
         }
 
@@ -39,7 +39,7 @@ window.Area =
                     cell.graphics.beginFill("#fffbf7").drawRect(i * rectSize, j * rectSize, rectSize, rectSize).beginFill("#dbffd0").drawRect(i * rectSize + borderSize, j * rectSize + borderSize, rectSize - borderSize, rectSize - borderSize).endFill();
                 }
             }
-            this.map.stage.addChild(cell);
+            this.world.stage.addChild(cell);
         }
 
         getExactPosition(x, y) {
@@ -74,8 +74,8 @@ window.Area =
 
             let cell = new createjs.Shape();
             cell.graphics.beginFill("#beffb1").drawRect(x + borderSize, y + borderSize, rectSize - borderSize, rectSize - borderSize).endFill();
-            this.map.stage.addChild(cell);
-            this.map.stage.update();
+            this.world.stage.addChild(cell);
+            this.world.stage.update();
         }
     }
 ;
