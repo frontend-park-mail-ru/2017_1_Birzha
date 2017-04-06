@@ -1,38 +1,58 @@
 class UserInterface {
     constructor(world, packCallback) {
         this.world = world; // get area
-        this.world.setCallBack("stagemousemove", this.eventMove.bind(this));
+        document.addEventListener("mousemove", this.eventMove.bind(this));
 
         this.probablyLine = this.world.newLine("black");
 
         this.probablyCircle = this.world.newShape(null, conf.userSize, "DeepSkyBlue", false);
-        this.probablyCircle.on("click", this.eventPutNewVertex.bind(this));
+        this.world.canvas.addEventListener("mousedown", this.eventPutNewVertex.bind(this));
 
         this.packCallback = packCallback;
+        this.world.setOffsetForCenter(this.probablyCircle.x, this.probablyCircle.y);
     }
 
     eventMove(event) {
-        this.probablyCircle.x = event.stageX;
-        this.probablyCircle.y = event.stageY;
+        let pxPoint = this.packCallback["getRealPosition"]();
+
+        this.last_mv = this.last_mv || {x: 0, y: 0};
+
+        let mv = {
+            x: this.last_mv.x - event.movementX ,
+            y: this.last_mv.y - event.movementY
+        };
+        if(pxPoint.x - mv.x < 0 || pxPoint.x - mv.x > this.world.width)
+            return;
+        if(pxPoint.y - mv.y < 0 || pxPoint.y - mv.y > this.world.height)
+            return;
+        this.probablyCircle.x = pxPoint.x - mv.x;
+        this.probablyCircle.y = pxPoint.y - mv.y;
+        //
         this.probablyLine.graphics.clear();
         this.probablyLine.graphics.setStrokeStyle(1).beginStroke("#00ff00");
-
-        let {x, y} = this.packCallback["getRealPosition"]();
-        this.probablyLine.graphics.moveTo(x, y);
-
-        this.probablyLine.graphics.lineTo(event.stageX, event.stageY);
+        this.probablyLine.graphics.moveTo(pxPoint.x, pxPoint.y);
+        this.probablyLine.graphics.lineTo(this.probablyCircle.x, this.probablyCircle.y);
         this.probablyLine.graphics.endStroke();
 
-        this.world.update();
+        this.last_mv.x = mv.x;
+        this.last_mv.y = mv.y;
+
+    //    this.world.setOffsetForCenter(this.probablyCircle.x, this.probablyCircle.y);
+        this.world.update(); // TODO tick
     }
 
     eventPutNewVertex(event) {
-        let newX = parseInt(event.target.x), newY = parseInt(event.target.y);
+        let pxPoint = this.packCallback["getRealPosition"]();
+        let newX = pxPoint.x - this.last_mv.x , newY = pxPoint.y - this.last_mv.y;
         let newPos = this.world.area.getCellPosition(newX, newY);
 
         this.packCallback["addTower"](newPos);
 
-        this.world.update();
+        this.positionX = newPos.x;
+        this.positionY = newPos.y;
+        this.last_mv.x = 0;
+        this.last_mv.y = 0;
+
     }
 }
 

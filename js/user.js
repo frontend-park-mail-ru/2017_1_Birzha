@@ -20,6 +20,8 @@ class User extends GameObject {
         this.currentNode = this.myGraph.addNewVertexToCurrent(tower);
 
         this.drawObject();
+        this.world.canvas.requestPointerLock();
+        scrollTo(0,0);
     }
 
     /**

@@ -32,7 +32,11 @@ class PlayPage extends BasePage {
 
     initScene(nameUser) {
         // TODO get position from server
+        window.controls = new Controls();
         this.user = new User(null, this.world, {x: 3, y: 3}, nameUser || "Wonder");
+        window.controls.addPlayerToScoreBoard("Alex", 13412);
+        window.controls.addPlayerToScoreBoard("Alg", 12423);
+        window.controls.addPlayerToScoreBoard("Sergey", 15352);
     }
 
     updateAllUsers(json) {
