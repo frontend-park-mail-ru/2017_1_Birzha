@@ -14,8 +14,12 @@ window.MenuPage  =
 
         startPage(resource) {
             console.log(resource);
-            let cenX = this.base.basicCenter.x, cenY = this.base.basicCenter.y;
+            let cellCenter = this.base.area.getExactPosition(this.base.basicCenter.x, this.base.basicCenter.y);
+            let cenX = cellCenter.x, cenY = cellCenter.y;
 
+            this.base.setOffsetForCenter(cenX, cenY);
+            scrollTo(0,0);
+            document.body.style.overflow = "hidden";
             this.buttonMenu = this.base.newImage(resource.getResult("playButton"));
             this.buttonMenu.x = cenX - this.buttonMenu.image.width / 2;
             this.buttonMenu.y = cenY - this.buttonMenu.image.height / 2;

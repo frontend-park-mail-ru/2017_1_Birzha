@@ -6,11 +6,16 @@ window.Area =
             this.canvas.id = "canvas-area";
             this.canvas.style.position = "absolute";
             this.canvas.style.zIndex = 0;
-            this.canvas.style.top = 0;
-            this.canvas.style.left = 0;
+            this.offset = {
+                x: 0,
+                y: 0
+            };
+            this.rectSize = 100;
+            this.borderSize = 8;
+            this.worldSize = 30;
 
-            this.canvas.height = document.documentElement.clientHeight;
-            this.canvas.width = document.documentElement.clientWidth;
+            this.canvas.height = this.rectSize * this.worldSize;
+            this.canvas.width = this.rectSize  * this.worldSize;
 
             document.body = document.createElement("body");
             document.body.appendChild(this.canvas);
@@ -19,9 +24,6 @@ window.Area =
             createjs.Touch.enable(this.map);
             this.width = this.canvas.width;
             this.height = this.canvas.height;
-
-            this.rectSize = 100;
-            this.borderSize = 8;
 
             this.initArea();
             this.map.stage.update();
@@ -77,5 +79,17 @@ window.Area =
             this.map.stage.addChild(cell);
             this.map.stage.update();
         }
+
+        setOffset(x,y){
+            this.offset.x = x;
+            this.offset.y = y;
+            this.canvas.style.left = x + "px";
+            this.canvas.style.top = y + "px";
+        }
+
+        getRelativeCoord(x, y){
+            return {x: x - this.offset.x, y: y - this.offset.y}
+        }
+
     }
 ;

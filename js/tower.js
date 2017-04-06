@@ -66,7 +66,6 @@ class Tower {
 
     drawStandartImpl() {
         if(this.cache != null) {
-            debugger;
             this.setTextCoordinates(this.realX, this.realY);
             this.setTowerCoordinates(this.realX, this.realY);
         } else {

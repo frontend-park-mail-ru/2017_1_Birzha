@@ -10,8 +10,14 @@ window.World =
             this.canvas.style.left = 0;
             this.canvas.style.background = "transparent";
 
-            this.canvas.height = document.documentElement.clientHeight;
-            this.canvas.width = document.documentElement.clientWidth;
+            this.canvas.height = area.canvas.height;
+            this.canvas.width = area.canvas.width;
+            this.canvas.style.top = area.canvas.style.top;
+            this.canvas.style.left = area.canvas.style.left;
+            this.offset = {
+                x: 0,
+                y: 0
+            };
 
             document.body.appendChild(this.canvas);
 
@@ -19,7 +25,8 @@ window.World =
             createjs.Touch.enable(this.map);
             this.width = this.canvas.width;
             this.height = this.canvas.height;
-
+            this.clientHeight = document.documentElement.clientHeight;
+            this.clientWidth = document.documentElement.clientWidth;
             this.area = area;
         }
 
@@ -87,6 +94,23 @@ window.World =
 
             this.map.addChild(image);
             return image;
+        }
+
+        setOffset(x,y){
+            this.offset.x = x;
+            this.offset.y = y;
+            this.canvas.style.left = x + "px";
+            this.canvas.style.top = y + "px";
+            area.setOffset(x,y);
+        }
+
+        getRelativeCoord(x, y){
+            return {x: x - this.offset.x, y: y - this.offset.y}
+        }
+
+        setOffsetForCenter(x,y){
+            this.setOffset(-(x - (this.clientWidth / 2 | 0)), -(y - (this.clientHeight / 2 | 0)));
+            this.area.setOffset(-(x - (this.clientWidth / 2 | 0)), -(y - (this.clientHeight / 2 | 0)));
         }
 
     }

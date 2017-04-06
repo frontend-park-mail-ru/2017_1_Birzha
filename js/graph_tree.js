@@ -46,7 +46,6 @@ window.GraphTree =
         }
 
         setNode(keyAndValues, nowPoint) {
-            debugger;
 
             let points = keyAndValues.points;
             let coordinatesX = keyAndValues.x, coordinatesY = keyAndValues.y;
@@ -84,7 +83,6 @@ window.GraphTree =
                 if (!node)
                     break;
 
-                debugger;
 
                 let nowPoint = area.getPixelPoint(node.data.x, node.data.y);
 
