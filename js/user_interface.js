@@ -9,7 +9,6 @@ class UserInterface {
         this.world.canvas.addEventListener("mousedown", this.eventPutNewVertex.bind(this));
 
         this.packCallback = packCallback;
-        this.world.setOffsetForCenter(this.probablyCircle.x, this.probablyCircle.y);
     }
 
     eventMove(event) {
@@ -37,7 +36,7 @@ class UserInterface {
         this.last_mv.x = mv.x;
         this.last_mv.y = mv.y;
 
-    //    this.world.setOffsetForCenter(this.probablyCircle.x, this.probablyCircle.y);
+        this.world.setOffsetForCenter(this.probablyCircle.x, this.probablyCircle.y);
         this.world.update(); // TODO tick
     }
 
@@ -52,6 +51,8 @@ class UserInterface {
         this.positionY = newPos.y;
         this.last_mv.x = 0;
         this.last_mv.y = 0;
+
+   //     this.world.setOffsetForCenter(this.positionX, this.positionY);
 
     }
 }

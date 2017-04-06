@@ -101,7 +101,7 @@ window.World =
             this.offset.y = y;
             this.canvas.style.left = x + "px";
             this.canvas.style.top = y + "px";
-            area.setOffset(x,y);
+            this.area.setOffset(x,y);
         }
 
         getRelativeCoord(x, y){

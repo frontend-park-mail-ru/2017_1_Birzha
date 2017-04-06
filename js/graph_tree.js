@@ -1,7 +1,7 @@
 window.GraphTree =
     class GraphTree {
         constructor(map) {
-            this.map = map;
+            this.world = map;
 
             this.tree = new Tree;
             this.currentVertex = null;
@@ -29,48 +29,38 @@ window.GraphTree =
 
         addNewVertexByMove(dx, dy) {
             let data = this.currentVertex.data;
-            let newData = {
-                x: data.x + dx,
-                y: data.y + dy
-            };
-            this.currentVertex = this.tree.addNode(newData, this.currentVertex);
+            data.posX += dx;
+            data.posX += dy;
+
+            this.currentVertex = this.tree.addNode(data, this.currentVertex);
             return this.currentVertex;
         }
 
         destruct() {
-            this.map.stage.removeChild(this.graphLine);
+            this.world.stage.removeChild(this.graphLine);
             console.log(this.shapes);
             this.shapes.forEach((value, key) => {
-                value.destruct();
+                key.destruct();
             });
         }
 
-        setNode(keyAndValues, nowPoint) {
+        setNode(tower) {
+            let coordinatesX = tower.pointX, coordinatesY = tower.pointY;
 
-            let points = keyAndValues.points;
-            let coordinatesX = keyAndValues.x, coordinatesY = keyAndValues.y;
-            let posX = keyAndValues.x, posY = keyAndValues.y;
-
-            let type = keyAndValues.type || 0;
-
-            let town;
-            if(this.shapes.has(keyAndValues)) {
-                town = this.shapes.get(keyAndValues);
-            } else {
-                town = new Tower(this.map, posX, posY, type, points);
-                this.shapes.set(keyAndValues, town);
+            if(!this.shapes.has(tower)) {
+                this.shapes.set(tower, 1 /* default */);
             }
 
-            town.setRealCoordinates(coordinatesX, coordinatesY);
-            town.draw();
+            tower.setRealCoordinates(coordinatesX, coordinatesY);
+            tower.draw();
         }
 
         showNodes() {
-            this.graphLine = this.graphLine || this.map.newLine("red");
+            this.graphLine = this.graphLine || this.world.newLine("red");
             this.graphLine.graphics.clear();
 
             let setBack = function (toNode, fromNode) {
-                let pxPoint = area.getPixelPoint(toNode.data.x, toNode.data.y);
+                let pxPoint = this.world.area.getPixelPoint(toNode.data.pointX, toNode.data.pointY);
                 this.graphLine.graphics.moveTo(pxPoint.x, pxPoint.y);
             };
 
@@ -83,8 +73,9 @@ window.GraphTree =
                 if (!node)
                     break;
 
+                // debugger;
 
-                let nowPoint = area.getPixelPoint(node.data.x, node.data.y);
+                let nowPoint = this.world.area.getPixelPoint(node.data.pointX, node.data.pointY);
 
                 if (node === this.tree.root) {
                     last_x = nowPoint.x;
@@ -99,6 +90,7 @@ window.GraphTree =
 
                 this.setNode(node.data);
 
+                debugger;
                 this.drawWireBetweenTowers(nowPoint, {posX: last_x, posY: last_y});
 
                 last_x = nowPoint.x;
