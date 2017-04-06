@@ -1,4 +1,5 @@
 'use strict';
+
 window.ServerConnect =
     class ServerConnect {
         /**

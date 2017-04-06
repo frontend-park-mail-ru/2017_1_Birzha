@@ -4,11 +4,12 @@ window.EnemyObject =
             super(map);
             this.name = nameUser;
 
-            this.posCenter = map.basicCenter;
-            this.posCenter = area.getCellPosition(this.posCenter.x, this.posCenter.y);
-            point = area.getCellPosition(point.x, point.y);
-            this.positionX = point.x || this.posCenter.x;
-            this.positionY = point.y || this.posCenter.y;
+            let posCenter = map.basicCenter;
+            posCenter = area.getCellPosition(posCenter.x, posCenter.y);
+
+            point = point || {x: posCenter.x, y: posCenter.y};
+            this.positionX = point.x;
+            this.positionY = point.y;
 
             this.userSize = 5; // CONST
 
@@ -20,10 +21,9 @@ window.EnemyObject =
         }
 
         drawObject() {
-            let pxPos = area.getPixelPoint(this.positionX, this.positionY);
             this.userCircle = this.map.newShape({
-                x: pxPos.x,
-                y: pxPos.y
+                x: this.positionX,
+                y: this.positionY
             }, this.userSize, color || "DeepSkyBlue");
         }
 
