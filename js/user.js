@@ -26,7 +26,11 @@ class User extends GameObject {
         this.world.canvas.requestPointerLock();
 
         //update camera
-        this.world.setOffsetForCenter(point.x, point.y);
+        this.world.area.markSelectedCell(point.x, point.y);
+        let pxPoint = this.world.area.getPixelPoint(point.x, point.y);
+        this.world.setOffsetForCenter(pxPoint.x, pxPoint.y);
+        this.world.area.world.stage.update();
+        this.world.update();
         scrollTo(0,0);
     }
 
