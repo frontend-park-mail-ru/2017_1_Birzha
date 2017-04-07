@@ -13,7 +13,7 @@ window.MenuPage  =
         }
 
         startPage(resource) {
-            let cellCenter = this.world.area.getExactPosition(this.world.basicCenter.x, this.world.basicCenter.y);
+            let cellCenter = this.world.area.getExactPosition(this.world.area.fullSize.x/2, this.world.area.fullSize.y/2);
             let cenX = cellCenter.x, cenY = cellCenter.y;
             this.world.setOffsetForCenter(cenX, cenY);
             scrollTo(0,0);
@@ -22,21 +22,16 @@ window.MenuPage  =
             this.buttonMenu = this.world.newImage(resource.getResult("playButton"));
             this.buttonMenu.x = cenX - this.buttonMenu.image.width / 2;
             this.buttonMenu.y = cenY - this.buttonMenu.image.height / 2;
+            this.world.update();
+            this.world.area.world.stage.update();
 
             const onClickRun = (event) => {
                 this.callbackIfRun();
             };
             this.buttonMenu.on('click', onClickRun.bind(this));
-
-            createjs.Ticker.addEventListener("tick", this.tick.bind(this));
-            createjs.Ticker.setInterval(100);
-            createjs.Ticker.setFPS(40);
         }
 
         stopPage() {
-            createjs.Ticker.setPaused(true);
-            createjs.Ticker.removeEventListener("tick", this.tick);
-
             // this.menuGraph.destruct();
             this.world.stage.removeChild(this.buttonMenu);
             this.world.stage.clear();

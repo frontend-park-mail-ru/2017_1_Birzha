@@ -9,6 +9,9 @@ class UserInterface {
         this.world.canvas.addEventListener("mousedown", this.eventPutNewVertex.bind(this));
 
         this.packCallback = packCallback;
+
+        this.world.update();
+        this.world.area.world.stage.update();
     }
 
     eventMove(event) {
@@ -20,9 +23,9 @@ class UserInterface {
             x: this.last_mv.x - event.movementX ,
             y: this.last_mv.y - event.movementY
         };
-        if(pxPoint.x - mv.x < 0 || pxPoint.x - mv.x > this.world.width)
+        if(pxPoint.x - mv.x < 0 || pxPoint.x - mv.x > this.world.area.fullSize.x)
             return;
-        if(pxPoint.y - mv.y < 0 || pxPoint.y - mv.y > this.world.height)
+        if(pxPoint.y - mv.y < 0 || pxPoint.y - mv.y > this.world.area.fullSize.y)
             return;
         this.probablyCircle.x = pxPoint.x - mv.x;
         this.probablyCircle.y = pxPoint.y - mv.y;
@@ -46,15 +49,15 @@ class UserInterface {
         let newPos = this.world.area.getCellPosition(newX, newY);
 
         this.packCallback["addTower"](newPos);
+        this.world.update();
+        this.world.area.world.stage.update();
 
         this.positionX = newPos.x;
         this.positionY = newPos.y;
         this.last_mv.x = 0;
         this.last_mv.y = 0;
 
-   //     this.world.setOffsetForCenter(this.positionX, this.positionY);
-
     }
 }
 
-window.UserInterface = UserInterface
+window.UserInterface = UserInterface;

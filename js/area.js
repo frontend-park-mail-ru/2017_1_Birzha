@@ -12,10 +12,14 @@ window.Area =
             };
             this.rectSize = 100;
             this.borderSize = 8;
-            this.worldSize = 30;
+            this.worldSize = 100;
+            this.fullSize = {
+                x: this.rectSize * this.worldSize,
+                y: this.rectSize * this.worldSize,
+            };
 
-            this.canvas.height = this.rectSize * this.worldSize;
-            this.canvas.width = this.rectSize  * this.worldSize;
+            this.canvas.height = document.documentElement.clientHeight;
+            this.canvas.width = document.documentElement.clientWidth;
 
             document.body = document.createElement("body");
             document.body.appendChild(this.canvas);
@@ -33,16 +37,45 @@ window.Area =
         initArea() {
             let rectSize = this.rectSize;
             let borderSize = this.borderSize;
-            let xCount = (this.width / rectSize | 0) + 1;
-            let yCount = (this.height / rectSize | 0) + 1;
-            let cell = new createjs.Shape();
-            for (let i = 0; i < xCount; i++) {
-                for (let j = 0; j < yCount; j++) {
-                    cell.graphics.beginFill("#fffbf7").drawRect(i * rectSize, j * rectSize, rectSize, rectSize).beginFill("#dbffd0").drawRect(i * rectSize + borderSize, j * rectSize + borderSize, rectSize - borderSize, rectSize - borderSize).endFill();
+            let xCount = document.documentElement.clientWidth / this.rectSize | 0;
+            let yCount = document.documentElement.clientHeight / this.rectSize | 0;
+
+            this.cells = [];
+
+            for (let i = 0; i < this.worldSize; i++) {
+                let t = [];
+                for (let j = 0; j < this.worldSize; j++) {
+                    let cell = new createjs.Shape();
+                    cell.graphics
+                        .setStrokeStyle(this.borderSize).beginStroke("#fffbf7")
+                        .drawRect(j * rectSize + borderSize/2, i * rectSize + borderSize/2, rectSize, rectSize)
+                        .endStroke()
+                        .beginFill("#dbffd0")
+                        .drawRect(j * rectSize + borderSize, i * rectSize + borderSize, rectSize - borderSize, rectSize - borderSize)
+                        .endFill();
+                    if(j < xCount + 5 && i < yCount + 5){
+                        cell.visible = true;
+                    } else {
+                        cell.visible = false;
+                    }
+                    t.push(cell);
+                    this.world.stage.addChildAt(cell);
                 }
+                this.cells.push(t);
             }
-            this.world.stage.addChild(cell);
+
+            this.rowEnds = {
+                start: 0,
+                end: yCount + 5
+            };
+            this.columnEnds = {
+                start: 0,
+                end: xCount + 5
+            };
+
+
         }
+
 
         getExactPosition(x, y) {
             let cx = x / this.rectSize | 0;
@@ -80,16 +113,53 @@ window.Area =
             this.world.stage.update();
         }
 
+
+        setVisibles(x,y){
+            let xCount = (document.documentElement.clientWidth / this.rectSize / 2 | 0) + 5;
+            let yCount = (document.documentElement.clientHeight / this.rectSize / 2 | 0) + 5;
+
+            if(x - xCount>0)
+                this.columnEnds.start = x - xCount;
+            else
+                this.columnEnds.start = 0;
+
+            if(x + xCount<this.worldSize)
+                this.columnEnds.end = x + xCount;
+            else
+                this.columnEnds.end = this.worldSize;
+
+            if(y - yCount>0)
+                this.rowEnds.start = y - yCount;
+            else
+                this.rowEnds.start = 0;
+
+            if(y + yCount<this.worldSize)
+                this.rowEnds.end = y + yCount;
+            else
+                this.rowEnds.end = this.worldSize;
+
+            for(let i = 0; i<this.worldSize; i++){
+                for(let j = 0; j<this.worldSize; j++){
+                    if(i<this.rowEnds.start || i>this.rowEnds.end)
+                        this.cells[i][j].visible = false;
+                    else if (j < this.columnEnds.start || j > this.columnEnds.end) {
+                        this.cells[i][j].visible = false;
+                    } else this.cells[i][j].visible = true;
+                }
+            }
+        }
+
         setOffset(x,y){
             this.offset.x = x;
             this.offset.y = y;
-            this.canvas.style.left = x + "px";
-            this.canvas.style.top = y + "px";
+            this.world.setTransform(x,y);
+            this.world.stage.update();
         }
 
         getRelativeCoord(x, y){
             return {x: x - this.offset.x, y: y - this.offset.y}
         }
+
 
     }
 ;

@@ -99,8 +99,7 @@ window.World =
         setOffset(x,y){
             this.offset.x = x;
             this.offset.y = y;
-            this.canvas.style.left = x + "px";
-            this.canvas.style.top = y + "px";
+            this.map.setTransform(x,y);
             this.area.setOffset(x,y);
         }
 
@@ -111,6 +110,9 @@ window.World =
         setOffsetForCenter(x,y){
             this.setOffset(-(x - (this.clientWidth / 2 | 0)), -(y - (this.clientHeight / 2 | 0)));
             this.area.setOffset(-(x - (this.clientWidth / 2 | 0)), -(y - (this.clientHeight / 2 | 0)));
+
+            let cellPoint = this.area.getCellPosition(x,y);
+            this.area.setVisibles(cellPoint.x, cellPoint.y);
         }
 
     }
