@@ -1,0 +1,9 @@
+.login-form {
+    padding-top:10px;
+}
+.registration-form {
+    padding-top: 20px;
+}
+.registration-form__button_red{
+    color: red;
+}

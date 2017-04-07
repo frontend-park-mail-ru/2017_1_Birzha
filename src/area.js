@@ -1,11 +1,12 @@
 'use strict';
 
 class Area {
-    constructor() {
+    constructor(elementDOM) {
         this.canvas = document.createElement("canvas");
         this.canvas.id = "canvas-area";
         this.canvas.style.position = "absolute";
         this.canvas.style.zIndex = 0;
+        this.canvas.style.left = "0px";
         this.offset = {
             x: 0,
             y: 0
@@ -21,8 +22,8 @@ class Area {
             x: this.rectSize * this.worldSize,
             y: this.rectSize * this.worldSize
         };
-        document.body = document.createElement("body");
-        document.body.appendChild(this.canvas);
+
+        elementDOM.appendChild(this.canvas);
 
         this.world = new createjs.Stage(this.canvas.id);
         createjs.Touch.enable(this.world);

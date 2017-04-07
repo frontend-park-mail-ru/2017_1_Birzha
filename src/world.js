@@ -1,7 +1,7 @@
 'use strict';
 
 class World {
-    constructor(area) {
+    constructor(elementDOM, area) {
         this.canvas = document.createElement("canvas");
         this.canvas.id = "canvas-game";
         this.canvas.style.position = "absolute";
@@ -9,6 +9,7 @@ class World {
         this.canvas.style.top = 0;
         this.canvas.style.left = 0;
         this.canvas.style.background = "transparent";
+        this.canvas.style.left = "0px";
 
         this.canvas.height = area.canvas.height;
         this.canvas.width = area.canvas.width;
@@ -19,7 +20,7 @@ class World {
             y: 0
         };
 
-        document.body.appendChild(this.canvas);
+        elementDOM.appendChild(this.canvas);
 
         this.map = new createjs.Stage(this.canvas.id);
         createjs.Touch.enable(this.map);

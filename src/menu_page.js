@@ -4,6 +4,7 @@ import BasePage from './base_page';
 
 class MenuPage extends BasePage {
     constructor(world, callBackIfRun) {
+        debugger;
         super(world);
         this.callbackIfRun = callBackIfRun;
 
@@ -16,6 +17,8 @@ class MenuPage extends BasePage {
     }
 
     startPage(resource) {
+        debugger;
+
         let cellCenter = this.world.area.getExactPosition(this.world.area.fullSize.x/2, this.world.area.fullSize.y/2);
         let cenX = cellCenter.x, cenY = cellCenter.y;
         this.world.setOffsetForCenter(cenX, cenY);
