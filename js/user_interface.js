@@ -28,7 +28,9 @@ class UserInterface {
         if(pxPoint.y - mv.y < 0 || pxPoint.y - mv.y > this.world.area.fullSize.y)
             return;
 
-        let fullLength = conf.reactSize * 2 + conf.borderSize * 4;
+
+        let cellPos = this.world.area.getCellPosition(pxPoint.x - mv.x, pxPoint.y - mv.y);
+        let fullLength = conf.rectSize * 2 + conf.borderSize * 4;
         if(fullLength < Math.abs(mv.x) || (fullLength < Math.abs(mv.y))) {
             return;
         }
@@ -55,6 +57,7 @@ class UserInterface {
         let newPos = this.world.area.getCellPosition(newX, newY);
 
         this.packCallback["addTower"](newPos);
+        this.world.area.markSelectedCell(newPos.x, newPos.y);
         this.world.update();
         this.world.area.world.stage.update();
 
@@ -62,9 +65,6 @@ class UserInterface {
         this.positionY = newPos.y;
         this.last_mv.x = 0;
         this.last_mv.y = 0;
-
-   //     this.world.setOffsetForCenter(this.positionX, this.positionY);
-
     }
 }
 

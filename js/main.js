@@ -5,7 +5,7 @@ const RES_ROLLBACK = 1;
 const RES_ERROR = 2;
 
 window.conf = {
-    reactSize: 100,
+    rectSize: 100,
     borderSize: 8,
 
     defaultStartUnit: 100,

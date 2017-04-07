@@ -10,13 +10,17 @@ window.Area =
                 x: 0,
                 y: 0
             };
-            this.rectSize = conf.reactSize;
+            this.rectSize = conf.rectSize;
             this.borderSize = conf.borderSize;
             this.worldSize = 100;
 
             this.canvas.height = document.documentElement.clientHeight;
             this.canvas.width = document.documentElement.clientWidth;
 
+            this.fullSize = {
+                x: this.rectSize * this.worldSize,
+                y: this.rectSize * this.worldSize
+            };
             document.body = document.createElement("body");
             document.body.appendChild(this.canvas);
 
