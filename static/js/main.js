@@ -208,21 +208,9 @@
     let loginWarningElement = document.getElementById("login_warning");
     let registrationWarningElement = document.getElementById("registration_warning");
 
-    const pages = [loginPage, registrationPage, menuPage, leaderPage, gamePage, aboutPage];
-    const changeScreen = function (linker) {
-        pages.map((el) => {
-            el.hidden = (el != linker);
-        });
-    };
 
     aboutPage.innerHTML = template();
 
-    leaderPage.hidden = true;
-    gamePage.hidden = true;
-    aboutPage.hidden = true;
-    menuPage.hidden = true;
-    loginPage.hidden = true;
-    registrationPage.hidden = true;
 
     router.startPage(url);
 })();

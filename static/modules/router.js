@@ -85,6 +85,10 @@
         }
 
         startPage(url){
+            for(var key in this.routes){
+                let view = this._getViewByRoute(key);
+                view.hide();
+            }
             let view = this._getViewByRoute(url);
             view.show();
             let obj = { page: 1 };
