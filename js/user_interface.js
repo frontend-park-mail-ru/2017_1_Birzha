@@ -73,4 +73,4 @@ class UserInterface {
     }
 }
 
-window.UserInterface = UserInterface;
+export default UserInterface;

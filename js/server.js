@@ -39,4 +39,4 @@ class ServerConnect {
     }
 }
 
-window.ServerConnect = ServerConnect;
+export default ServerConnect;

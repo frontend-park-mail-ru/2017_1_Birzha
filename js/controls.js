@@ -1,13 +1,9 @@
-/**
- * Created by algys on 05.04.17.
- */
-
 class Controls{
     constructor(){
         this.initScoreBoard();
     }
 
-    initScoreBoard(){
+    initScoreBoard() {
         this.scoreBoard = document.createElement("div");
         this.scoreBoard.style.position = "absolute";
         this.scoreBoard.style.zIndex = 2;
@@ -65,4 +61,5 @@ class Controls{
 
 
 }
-window.Controls = Controls;
+
+export default Controls;

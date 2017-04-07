@@ -1,5 +1,12 @@
 'use strict';
 
+import User from './user';
+import Tower from './tower';
+
+import Controls from './controls';
+
+import BasePage from './base_page';
+
 class PlayPage extends BasePage {
     constructor(world) {
         super(world);
@@ -7,7 +14,6 @@ class PlayPage extends BasePage {
          this.userService = userService;
          this.userService.eventReceive = this.updateAllUsers.bind(this);
          */
-
 
         this.enemies = [];
         this.user = null;
@@ -20,8 +26,6 @@ class PlayPage extends BasePage {
     startPage(connection, resource) {
         // if(connection === null)
         //    return RES_ERROR;
-
-
         this.connection = connection;
         this.resource = resource;
 
@@ -61,4 +65,4 @@ class PlayPage extends BasePage {
     }
 }
 
-window.PlayPage = PlayPage;
+export default PlayPage;

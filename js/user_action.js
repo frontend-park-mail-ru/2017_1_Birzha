@@ -19,4 +19,4 @@ class UserAction {
     }
 }
 
-window.UserMap = UserAction;
+export default UserAction;

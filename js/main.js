@@ -1,5 +1,15 @@
 'use strict';
 
+import Area from './area';
+import World from './world';
+
+import Loader from './loader';
+
+import MenuPage from './menu_page';
+import PlayPage from './play_page';
+
+import Connection from './connection';
+
 const RES_OK = 0;
 const RES_ROLLBACK = 1;
 const RES_ERROR = 2;

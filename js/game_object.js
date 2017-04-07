@@ -1,4 +1,3 @@
-
 class GameObject {
     constructor(world, clientID) {
         this.world = world;
@@ -14,4 +13,4 @@ class GameObject {
     }
 }
 
-window.GameObject = GameObject;
+export default GameObject;

@@ -123,4 +123,4 @@ class Tower {
     }
 }
 
-window.Tower = Tower;
+export default Tower;

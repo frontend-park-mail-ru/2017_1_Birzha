@@ -1,3 +1,11 @@
+import GraphTree from './graph_tree';
+
+import UserAction from './user_action';
+import UserInterface from './user_interface';
+
+import GameObject from './game_object';
+
+import Tower from './tower'
 class User extends GameObject {
     constructor(connection, world, point, clientID) {
         super(world, clientID);
@@ -47,7 +55,6 @@ class User extends GameObject {
             this.currentNode = this.myGraph.addNewVertexToCurrent(tower);
             this.addTowerToMap(pointNewTower, this.currentNode);
         } else {
-            debugger;
             if (placeTower.constructor.name == "NodeImpl") {
                 let newUnits = this.currentNode.data.units;
 
@@ -107,4 +114,4 @@ class User extends GameObject {
     }
 }
 
-window.UserObject = User;
+export default User;

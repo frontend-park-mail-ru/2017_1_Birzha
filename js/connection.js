@@ -1,3 +1,5 @@
+import ServerConnect from './server'
+
 class Connection {
     constructor(finishConnect) {
         this.socket = new ServerConnect("ws://192.168.0.56:8080", finishConnect);
@@ -27,5 +29,5 @@ class Connection {
     }
 }
 
-window.UserService = Connection;
+export default Connection;
 

@@ -1,3 +1,5 @@
+import GameObject from './game_object';
+
 class Enemy extends GameObject {
     constructor(world, point, nameUser) {
         super(world, point, nameUser);
@@ -17,4 +19,4 @@ class Enemy extends GameObject {
     }
 }
 
-window.Enemy = Enemy;
+export default Enemy;
