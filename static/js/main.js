@@ -100,7 +100,7 @@
                     text: 'Login',
                     attrs: {
                         type: 'submit',
-                        class: 'btn btn-default'
+                        class: 'btn btn-default login-form__button login-form__button_red'
                     }
                 }
             ]
@@ -138,7 +138,7 @@
                     text: 'Register',
                     attrs: {
                         type: 'submit',
-                        class: 'btn btn-default'
+                        class: 'btn btn-default registration-form__button registration-form__button_red'
                     }
                 }
             ]
@@ -214,6 +214,7 @@
             el.hidden = (el != linker);
         });
     };
+
     aboutPage.innerHTML = template();
 
     leaderPage.hidden = true;

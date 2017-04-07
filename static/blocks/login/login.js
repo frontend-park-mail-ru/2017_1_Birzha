@@ -29,7 +29,7 @@
         _getFields () {
             let { fields = [] } = this.data;
 
-            return fields.map(field => { return `<div style="padding-top: 20px;"><input type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" class="form-control"></div>` }).join(' ');
+            return fields.map(field => { return `<div class="login-form"><input type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" class="form-control login-form__input"></div>` }).join(' ');
         }
 
 
@@ -39,7 +39,7 @@
         _updateHtml () {
             this.el.innerHTML = `
                 <div class="col-md-3"></div>
-				    <form class="form-horizontal col-md-6">
+				    <form class="form-horizontal col-md-6 login-form">
 					<h1>${this.data.title || ''}</h1>
 					<div class="form-group form-input">
 						${this._getFields()}

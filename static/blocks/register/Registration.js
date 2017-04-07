@@ -30,7 +30,7 @@
         _getFields () {
             let { fields = [] } = this.data;
 
-            return fields.map(field => { return `<div style="padding-top: 20px;"><input type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" class="form-control"></div>` }).join(' ');
+            return fields.map(field => { return `<div class="registration-form"><input type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" class="form-control registration-form__input"></div>` }).join(' ');
         }
 
         /**

@@ -17,6 +17,10 @@
     "pug-cli": "^1.0.0-alpha6"
   },
   "devDependencies": {
-    "jasmine": "^2.5.3"
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-latest": "^6.24.0",
+    "jasmine": "^2.5.3",
+    "webpack": "^2.3.3"
   }
 }

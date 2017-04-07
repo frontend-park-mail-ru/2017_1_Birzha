@@ -15,7 +15,8 @@
 
     <!-- Custom styles for this template -->
     <link href="./static/css/cover.css" rel="stylesheet">
-
+    <!-- Our CSS -->
+    <link href="./static/css/our.css" rel="stylesheet">
 
     <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
     <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
@@ -50,7 +51,7 @@
 
                 <div class="masthead clearfix">
                     <div class="inner">
-                        <h3 class="masthead-brand" id="AcyclicReference"><a href="/main"> ACyclyc </a></h3>
+                        <h3 class="masthead-brand" id="AcyclicReference"><a href="/main"> Cyclyc </a></h3>
                         <ul class="nav masthead-nav">
                             <li id="Registered">Player_nick</li>
                             <li id="aboutReference"><a href="/about"> About </a></li>
@@ -69,17 +70,6 @@
                     <div class="col-md-3">
 
                     </div>
-                    <canvas id="cyclic-canvas" width="700" height="400" style="z-index: -1" ></canvas>
-                    <script>
-                        const startGame = function() {
-                            mmenuPage.stopPage();
-                            new PlayPage(world).startPage(null);
-                            world.update();
-                        };
-                        world = new World("cyclic-canvas");
-                        mmenuPage = new MenuPage(world, startGame);
-                        mmenuPage.startPage();
-                    </script>
                 </div>
 
                 <div id="login" class="inner cover login-view view">
@@ -92,7 +82,7 @@
                         <h1 class="cover-heading">Leaderboard</h1>
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
-                            <table  class="table table-bordered table-condensed">
+                            <table  class="table table-bordered table-condensed Leader-table">
                                 <thead>
                                 <tr>
                                     <th>Nickname</th>
