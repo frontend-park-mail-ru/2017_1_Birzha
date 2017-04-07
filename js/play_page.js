@@ -32,8 +32,13 @@ class PlayPage extends BasePage {
 
     initScene(nameUser) {
         // TODO get position from server
-        window.controls = new Controls();
         this.user = new User(null, this.world, {x: 3, y: 3}, nameUser || "Wonder");
+
+        let bonus = new Tower(this.world, 5, 5, towerType.BONUS, 100);
+        bonus.draw();
+        this.world.arrayMap[5][5] = bonus;
+
+        window.controls = new Controls();
         window.controls.addPlayerToScoreBoard("Alex", 13412);
         window.controls.addPlayerToScoreBoard("Alg", 12423);
         window.controls.addPlayerToScoreBoard("Sergey", 15352);

@@ -1,7 +1,8 @@
 class User extends GameObject {
-    constructor(connection, world, point, nameUser) {
-        super(world, nameUser);
+    constructor(connection, world, point, clientID) {
+        super(world, clientID);
 
+        this.arrayMap = world.arrayMap;
         this.userInterface = new UserInterface(world, {
             "getRealPosition": this.myRealPosition.bind(this),
             "addTower": this.addNewTower.bind(this)
@@ -16,11 +17,16 @@ class User extends GameObject {
         /**************/
         this.myGraph = new GraphTree(world);
 
-        let tower = new Tower(this.world, point.x, point.y, towerType.DEFAULT, conf.defaultStartUnit);
+        let tower = this.generateMyTower(point, conf.defaultStartUnit);
+
         this.currentNode = this.myGraph.addNewVertexToCurrent(tower);
+        this.addTowerToMap(point, this.currentNode);
 
         this.drawObject();
         this.world.canvas.requestPointerLock();
+
+        //update camera
+        this.world.setOffsetForCenter(point.x, point.y);
         scrollTo(0,0);
     }
 
@@ -29,12 +35,33 @@ class User extends GameObject {
      * @param pointNewTower
      */
     addNewTower(pointNewTower) {
-        let tower = new Tower(this.world, pointNewTower.x, pointNewTower.y, towerType.DEFAULT, this.currentNode.data.units / 2);
-        this.currentNode = this.myGraph.addNewVertexToCurrent(tower);
+        let placeTower = this.getFromMap(pointNewTower);
 
-        this.positionRealX = pointNewTower.x;
-        this.positionRealY = pointNewTower.y;
+        if (placeTower == null) {
+            let tower = this.generateMyTower(pointNewTower, this.currentNode.data.units / 2);
 
+            this.currentNode = this.myGraph.addNewVertexToCurrent(tower);
+            this.addTowerToMap(pointNewTower, this.currentNode);
+        } else {
+            debugger;
+            if (placeTower.constructor.name == "NodeImpl") {
+                let newUnits = this.currentNode.data.units;
+
+                this.currentNode.data.units /= 2;
+                placeTower.data.units += newUnits;
+
+                this.currentNode = this.myGraph.setCurrentVertex(placeTower);
+            } else {
+                // bonus
+                let bonusUnits = placeTower.units;
+                let tower = this.generateMyTower(pointNewTower, bonusUnits);
+
+                placeTower.destruct();
+                this.currentNode = this.myGraph.addNewVertexToCurrent(tower);
+
+                this.addTowerToMap(pointNewTower, this.currentNode);
+            }
+        }
         this.drawObject();
     }
 
@@ -54,6 +81,25 @@ class User extends GameObject {
 
     drawObject() {
         this.myGraph.showNodes();
+    }
+
+    generateMyTower(point, units) {
+        let tower = new Tower(this.world, point.x, point.y, towerType.DEFAULT, units);
+        tower.client_id = this.clientID;
+        return tower;
+    }
+
+    addTowerToMap(point, tower) {
+        this.world.arrayMap[point.x][point.y] = tower;
+    }
+
+    getFromMap(point) {
+        // put only nodes
+        let r = this.world.arrayMap[point.x][point.y];
+        if(!r)
+            return null;
+
+        return r;
     }
 }
 

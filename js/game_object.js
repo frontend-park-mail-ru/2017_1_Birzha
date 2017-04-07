@@ -1,8 +1,8 @@
 
 class GameObject {
-    constructor(world, point, nameUser) {
+    constructor(world, clientID) {
         this.world = world;
-        this.name = nameUser;
+        this.clientID = clientID;
     }
 
     drawObject() {

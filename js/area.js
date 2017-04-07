@@ -10,13 +10,9 @@ window.Area =
                 x: 0,
                 y: 0
             };
-            this.rectSize = 100;
-            this.borderSize = 8;
+            this.rectSize = conf.reactSize;
+            this.borderSize = conf.borderSize;
             this.worldSize = 100;
-            this.fullSize = {
-                x: this.rectSize * this.worldSize,
-                y: this.rectSize * this.worldSize,
-            };
 
             this.canvas.height = document.documentElement.clientHeight;
             this.canvas.width = document.documentElement.clientWidth;
@@ -75,7 +71,6 @@ window.Area =
 
 
         }
-
 
         getExactPosition(x, y) {
             let cx = x / this.rectSize | 0;
@@ -159,7 +154,6 @@ window.Area =
         getRelativeCoord(x, y){
             return {x: x - this.offset.x, y: y - this.offset.y}
         }
-
 
     }
 ;

@@ -27,12 +27,8 @@ window.GraphTree =
             return this.tree.addNode(data, node)
         }
 
-        addNewVertexByMove(dx, dy) {
-            let data = this.currentVertex.data;
-            data.posX += dx;
-            data.posX += dy;
-
-            this.currentVertex = this.tree.addNode(data, this.currentVertex);
+        setCurrentVertex(current) {
+            this.currentVertex = current;
             return this.currentVertex;
         }
 
@@ -59,16 +55,26 @@ window.GraphTree =
             this.graphLine = this.graphLine || this.world.newLine("red");
             this.graphLine.graphics.clear();
 
-            let setBack = function (toNode, fromNode) {
-                let pxPoint = this.world.area.getPixelPoint(toNode.data.pointX, toNode.data.pointY);
-                this.graphLine.graphics.moveTo(pxPoint.x, pxPoint.y);
+            let setBack = (node, parentNode) => {
+                let pxPoint = this.world.area.getPixelPoint(parentNode.data.pointX, parentNode.data.pointY);
+                // this.graphLine.graphics.moveTo(pxPoint.x, pxPoint.y);
+
+                this.was_change = true;
+                this.last_last_x = pxPoint.x;
+                this.last_last_y = pxPoint.y;
             };
 
             let iter = this.tree.iterator(setBack.bind(this));
 
-            let last_x, last_y;
+            this.last_x = 0;
+            this.last_y = 0;
+
+            this.was_change = false;
+            this.last_last_x = 0;
+            this.last_last_y = 0;
 
             for (;;) {
+                this.was_change = false;
                 let node = iter.nextNode();
                 if (!node)
                     break;
@@ -78,11 +84,11 @@ window.GraphTree =
                 let nowPoint = this.world.area.getPixelPoint(node.data.pointX, node.data.pointY);
 
                 if (node === this.tree.root) {
-                    last_x = nowPoint.x;
-                    last_y = nowPoint.y;
+                    this.last_x = nowPoint.x;
+                    this.last_y = nowPoint.y;
 
                     this.graphLine.graphics.setStrokeStyle(1).beginStroke("#00ff00");
-                    this.graphLine.graphics.moveTo(last_x, last_y);
+                    this.graphLine.graphics.moveTo(this.last_x, this.last_y);
 
                     this.setNode(node.data);
                     continue;
@@ -90,11 +96,16 @@ window.GraphTree =
 
                 this.setNode(node.data);
 
-                debugger;
-                this.drawWireBetweenTowers(nowPoint, {posX: last_x, posY: last_y});
+                // debugger;
+                this.drawWireBetweenTowers(nowPoint, {posX: this.last_x, posY: this.last_y});
 
-                last_x = nowPoint.x;
-                last_y = nowPoint.y;
+                if(this.was_change) {
+                    this.last_x = this.last_last_x; // nowPoint.x;
+                    this.last_y = this.last_last_y; // nowPoint.y;
+                } else {
+                    this.last_x = nowPoint.x;
+                    this.last_y = nowPoint.y;
+                }
             }
 
             this.graphLine.graphics.endStroke();

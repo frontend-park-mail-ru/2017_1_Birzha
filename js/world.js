@@ -21,14 +21,19 @@ window.World =
 
             document.body.appendChild(this.canvas);
 
-            this.map = new createjs.Stage(this.canvas.id);
-            createjs.Touch.enable(this.map);
-            this.width = this.canvas.width;
-            this.height = this.canvas.height;
-            this.clientHeight = document.documentElement.clientHeight;
-            this.clientWidth = document.documentElement.clientWidth;
-            this.area = area;
+        this.map = new createjs.Stage(this.canvas.id);
+        createjs.Touch.enable(this.map);
+        this.width = this.canvas.width;
+        this.height = this.canvas.height;
+        this.clientHeight = document.documentElement.clientHeight;
+        this.clientWidth = document.documentElement.clientWidth;
+        this.area = area;
+
+        this.arrayMap = [];
+        for(let i = 0; i < this.area.rectSize; i++) {
+            this.arrayMap.push(new Array(this.area.rectSize));
         }
+    }
 
         get stage() {
             return this.map;
@@ -115,5 +120,5 @@ window.World =
             this.area.setVisibles(cellPoint.x, cellPoint.y);
         }
 
-    }
-;
+};
+window.World = World;

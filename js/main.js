@@ -5,14 +5,19 @@ const RES_ROLLBACK = 1;
 const RES_ERROR = 2;
 
 window.conf = {
+    reactSize: 100,
+    borderSize: 8,
+
     defaultStartUnit: 100,
+
     userSize: 5,
     radiusTower: 28,
     betweenTowersPadding: 15
 };
 
 window.towerType = {
-    DEFAULT: 0
+    DEFAULT: 0,
+    BONUS: 1
 };
 
 (function (window) {

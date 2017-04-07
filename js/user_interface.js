@@ -27,6 +27,12 @@ class UserInterface {
             return;
         if(pxPoint.y - mv.y < 0 || pxPoint.y - mv.y > this.world.area.fullSize.y)
             return;
+
+        let fullLength = conf.reactSize * 2 + conf.borderSize * 4;
+        if(fullLength < Math.abs(mv.x) || (fullLength < Math.abs(mv.y))) {
+            return;
+        }
+
         this.probablyCircle.x = pxPoint.x - mv.x;
         this.probablyCircle.y = pxPoint.y - mv.y;
         //
@@ -56,6 +62,8 @@ class UserInterface {
         this.positionY = newPos.y;
         this.last_mv.x = 0;
         this.last_mv.y = 0;
+
+   //     this.world.setOffsetForCenter(this.positionX, this.positionY);
 
     }
 }

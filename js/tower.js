@@ -11,13 +11,27 @@ class Tower {
         this.typeOfTower = typeOfTower;
         this.cache = null;
 
-        this.units = units
+        this.units = units;
+
+        this._client_id = null;
     }
+
+    get client_id() {
+        return this._client_id;
+    }
+
+    set client_id(value) {
+        this._client_id = value;
+    }
+
 
     draw() {
         switch(this.typeOfTower) {
             case towerType.DEFAULT:
                 this.drawStandartImpl();
+                break;
+            case towerType.BONUS:
+                this.drawBonus();
                 break;
             default:
                 break;
@@ -67,6 +81,29 @@ class Tower {
 
             let shape = new createjs.Shape();
             shape.graphics.beginStroke("#ff0000").drawCircle(0, 0, conf.radiusTower);
+
+            this.cache.circle = shape;
+
+            this.cache.text = new createjs.Text(this.units, "20px Arial", "#ff7700");
+            this.cache.text.textBaseline = "middle";
+            this.cache.text.textAlign = "center";
+
+            this.setTextCoordinates(this.realX, this.realY);
+            this.setTowerCoordinates(this.realX, this.realY);
+
+            this.world.appendOnMap(this.cache.circle);
+            this.world.appendOnMap(this.cache.text);
+        }
+
+        this.setTextCoordinates(this.realX, this.realY);
+        this.setTowerCoordinates(this.realX, this.realY);
+    }
+
+    drawBonus() {
+        if(this.cache == null) {
+            this.cache = {};
+            let shape = new createjs.Shape();
+            shape.graphics.beginStroke("#000000").drawCircle(0, 0, conf.radiusTower);
 
             this.cache.circle = shape;
 
