@@ -30,10 +30,11 @@ class UserInterface {
 
 
         let cellPos = this.world.area.getCellPosition(pxPoint.x - mv.x, pxPoint.y - mv.y);
-        let fullLength = conf.rectSize * 2 + conf.borderSize * 4;
+        let fullLength = conf.rectSize * 2 + conf.borderSize * 6;
         if(fullLength < Math.abs(mv.x) || (fullLength < Math.abs(mv.y))) {
-            return;
-        }
+            this.world.area.markCurrentCell(cellPos.x, cellPos.y, 1);
+        } else
+            this.world.area.markCurrentCell(cellPos.x, cellPos.y, 0);
 
         this.probablyCircle.x = pxPoint.x - mv.x;
         this.probablyCircle.y = pxPoint.y - mv.y;
@@ -52,6 +53,10 @@ class UserInterface {
     }
 
     eventPutNewVertex(event) {
+        let fullLength = conf.rectSize * 2 + conf.borderSize * 6;
+        if(fullLength < Math.abs(this.last_mv.x) || (fullLength < Math.abs(this.last_mv.y))) {
+            return;
+        }
         let pxPoint = this.packCallback["getRealPosition"]();
         let newX = pxPoint.x - this.last_mv.x , newY = pxPoint.y - this.last_mv.y;
         let newPos = this.world.area.getCellPosition(newX, newY);

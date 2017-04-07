@@ -112,6 +112,30 @@ window.Area =
             this.world.stage.update();
         }
 
+        markCurrentCell(x, y, type) {
+            let rectSize = this.rectSize;
+            let borderSize = this.borderSize;
+            x *= rectSize;
+            y *= rectSize;
+
+            let color = "#ffa895";
+            switch (type){
+                case 0:
+                    color = "#beffb1";
+                    break;
+                case 1:
+                    color = "#ffa895";
+                    break;
+            }
+            if(this.currentCell){
+                this.world.stage.removeChild(this.currentCell);
+            }
+            this.currentCell = new createjs.Shape();
+            this.currentCell.graphics.beginFill(color).drawRect(x + borderSize, y + borderSize, rectSize - borderSize, rectSize - borderSize).endFill();
+            this.world.stage.addChild(this.currentCell);
+            this.world.stage.update();
+        }
+
 
         setVisibles(x,y){
             let xCount = (document.documentElement.clientWidth / this.rectSize / 2 | 0) + 5;
