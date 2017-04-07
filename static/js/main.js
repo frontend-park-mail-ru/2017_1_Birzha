@@ -118,16 +118,6 @@
                     placeholder: 'Login'
                 },
                 {
-                    name: 'firstName',
-                    type: 'text',
-                    placeholder: 'Firstname'
-                },
-                {
-                    name: 'lastName',
-                    type: 'text',
-                    placeholder: 'Lastname'
-                },
-                {
                     name: 'email',
                     type: 'email',
                     placeholder: 'Email'

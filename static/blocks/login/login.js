@@ -29,8 +29,9 @@
         _getFields () {
             let { fields = [] } = this.data;
 
-            return fields.map(field => { return `<input type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" class="form-control">` }).join(' ');
+            return fields.map(field => { return `<div style="padding-top: 20px;"><input type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" class="form-control"></div>` }).join(' ');
         }
+
 
         /**
          * Обновить html компонента

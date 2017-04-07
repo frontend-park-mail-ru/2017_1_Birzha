@@ -55,8 +55,11 @@
          * @return {boolean} - если есть маршрурт
          */
         go(path) {
-            if(path === '/back'){
+            if(path == '/back'){
                 window.history.back();
+                let back = location.pathname;
+                this.go(back);
+                return true;
             }
 
             let view = this._getViewByRoute(path);
@@ -84,6 +87,8 @@
         startPage(url){
             let view = this._getViewByRoute(url);
             view.show();
+            let obj = { page: 1 };
+            window.history.pushState(obj, '', url);
         }
 
     }

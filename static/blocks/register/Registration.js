@@ -30,7 +30,7 @@
         _getFields () {
             let { fields = [] } = this.data;
 
-            return fields.map(field => { return `<input type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" class="form-control">` }).join(' ');
+            return fields.map(field => { return `<div style="padding-top: 20px;"><input type="${field.type}" name="${field.name}" placeholder="${field.placeholder}" class="form-control"></div>` }).join(' ');
         }
 
         /**
@@ -45,8 +45,8 @@
 					</div>
 					<div class="js-controls">
 					</div>
-					<div id="BackButton">
-					    <a href="/back">Back</a>
+					<div id="BackButton" style="padding-top: 20px;">
+					    <a href="/login">Back</a>
 					</div>
 				</form>
 			`;
