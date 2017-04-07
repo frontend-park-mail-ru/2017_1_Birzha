@@ -10,8 +10,8 @@ window.Area =
                 x: 0,
                 y: 0
             };
-            this.rectSize = 100;
-            this.borderSize = 8;
+            this.rectSize = conf.reactSize;
+            this.borderSize = conf.borderSize;
             this.worldSize = 30;
 
             this.canvas.height = this.rectSize * this.worldSize;

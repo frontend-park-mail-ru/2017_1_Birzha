@@ -22,6 +22,7 @@ window.Tree =
                 stopNodeImpl: node.parentNode,
                 callBackIfDown: callbackDown,
                 nextNode: function () {
+                    // debugger;
                     if (!this.currentNode) {
                         return null;
                     }
@@ -29,8 +30,10 @@ window.Tree =
                     let return_value = this.currentNode;
                     let lastValueStack = this.stackImpl[this.stackImpl.length - 1];
 
-                    if (!(this.currentNode.nextNode.length > lastValueStack)) {
+                    if (this.currentNode.nextNode.length <= lastValueStack) {
                         this.stackImpl.pop();
+                        if(this.currentNode.parentNode != null)
+                            this.callBackIfDown(this.currentNode, this.currentNode.parentNode);
 
                         this.currentNode = (function down(node, stack, stop_value, callback) {
                             if (node == null) {
@@ -49,7 +52,7 @@ window.Tree =
                                 if (callback) {
                                     callback(node, node.parentNode); // call system function
                                 }
-                                return down(node.parentNode, stack, stop_value);
+                                return down(node.parentNode, stack, stop_value, callback);
                             }
 
                         })(this.currentNode.parentNode, this.stackImpl, this.stopNodeImpl, this.callBackIfDown);

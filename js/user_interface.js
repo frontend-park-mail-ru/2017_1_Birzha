@@ -12,6 +12,7 @@ class UserInterface {
     }
 
     eventMove(event) {
+        // debugger;
         let pxPoint = this.packCallback["getRealPosition"]();
 
         this.last_mv = this.last_mv || {x: 0, y: 0};
@@ -20,10 +21,17 @@ class UserInterface {
             x: this.last_mv.x - event.movementX ,
             y: this.last_mv.y - event.movementY
         };
+
         if(pxPoint.x - mv.x < 0 || pxPoint.x - mv.x > this.world.width)
             return;
         if(pxPoint.y - mv.y < 0 || pxPoint.y - mv.y > this.world.height)
             return;
+
+        let fullLength = conf.reactSize * 2 + conf.borderSize * 4;
+        if(fullLength < Math.abs(mv.x) || (fullLength < Math.abs(mv.y))) {
+            return;
+        }
+
         this.probablyCircle.x = pxPoint.x - mv.x;
         this.probablyCircle.y = pxPoint.y - mv.y;
         //
@@ -37,6 +45,7 @@ class UserInterface {
         this.last_mv.y = mv.y;
 
         this.world.setOffsetForCenter(this.probablyCircle.x, this.probablyCircle.y);
+
         this.world.update(); // TODO tick
     }
 
