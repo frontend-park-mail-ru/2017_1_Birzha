@@ -2,7 +2,6 @@
     window.conf = {};
     let Button = window.Button;
     let url = window.location.pathname;
-    alert(url);
 
     fetch('/static/conf/dev.conf.json').then(function (data) {
         return data.json();
@@ -233,6 +232,6 @@
     menuPage.hidden = true;
     loginPage.hidden = true;
     registrationPage.hidden = true;
-    //changeScreen(menuPage);
+
     router.startPage(url);
 })();

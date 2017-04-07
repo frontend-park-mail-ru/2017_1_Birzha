@@ -55,7 +55,10 @@
          * @return {boolean} - если есть маршрурт
          */
         go(path) {
-            //alert(path);
+            if(path === '/back'){
+                window.history.back();
+            }
+
             let view = this._getViewByRoute(path);
 
             if (!view) {
@@ -67,7 +70,8 @@
             }
 
             view.show();
-            window.history.pushState({ page: 1 }, 'Title 1', path);
+            let obj = { page: 1 };
+            window.history.pushState(obj, '', path);
 
             if(this.currentView) {
                 this.currentView.hide();

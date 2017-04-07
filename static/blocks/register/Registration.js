@@ -46,7 +46,7 @@
 					<div class="js-controls">
 					</div>
 					<div id="BackButton">
-					    <a href="/login">Back</a>
+					    <a href="/back">Back</a>
 					</div>
 				</form>
 			`;
