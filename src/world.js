@@ -3,6 +3,7 @@
 class World {
     constructor(elementDOM, area) {
         this.canvas = document.createElement("canvas");
+
         this.canvas.id = "canvas-game";
         this.canvas.style.position = "absolute";
         this.canvas.style.zIndex = 1;

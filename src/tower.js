@@ -1,5 +1,5 @@
 class Tower {
-    constructor(world, pointX, pointY, typeOfTower, units) {
+    constructor(world, pointX, pointY, typeOfTower, units, clientId, nick) {
         this.world = world;
         this.pointX = pointX; // TODO to normal
         this.pointY = pointY;
@@ -24,18 +24,62 @@ class Tower {
         this._client_id = value;
     }
 
+    get point() {
+        return {
+            x: this.pointX,
+            y: this.pointY
+        }
+    }
 
-    draw() {
+    decUnits(value) {
+        this.units -= value;
+    }
+
+    setPerforming(flag) {
+        // debugger;
+
+        if(this.cache == null)
+            return;
+
+        if(flag)
+            Tower.setShapeTower(this.cache.circle.graphics, "#00ff00", true);
+        else {
+            let style = this.getStyle();
+            Tower.setShapeTower(this.cache.circle.graphics, style.color, style.fill);
+        }
+    }
+
+    getStyle() {
+        let color = null;
+        let fill = null;
+
         switch(this.typeOfTower) {
             case towerType.DEFAULT:
-                this.drawStandartImpl();
+                color = "#ff0000";
+                fill = false;
                 break;
             case towerType.BONUS:
-                this.drawBonus();
+                color = "#cccccc";
+                fill = true;
+                break;
+            case towerType.ENEMY:
+                color = "#000000";
+                fill = true;
                 break;
             default:
-                break;
+                console.log("wtf!!");
+                return;
         }
+
+        return {
+            color: color,
+            fill: fill
+        };
+    }
+
+    draw() {
+        let style = this.getStyle();
+        this.drawStandartImpl(style.color, style.fill);
     }
 
     setRealCoordinates(x, y){
@@ -75,35 +119,19 @@ class Tower {
         }
     }
 
-    drawStandartImpl() {
-        if(this.cache == null) {
-            this.cache = {};
-
-            let shape = new createjs.Shape();
-            shape.graphics.beginStroke("#ff0000").drawCircle(0, 0, conf.radiusTower);
-
-            this.cache.circle = shape;
-
-            this.cache.text = new createjs.Text(this.units, "20px Arial", "#ff7700");
-            this.cache.text.textBaseline = "middle";
-            this.cache.text.textAlign = "center";
-
-            this.setTextCoordinates(this.realX, this.realY);
-            this.setTowerCoordinates(this.realX, this.realY);
-
-            this.world.appendOnMap(this.cache.circle);
-            this.world.appendOnMap(this.cache.text);
-        }
-
-        this.setTextCoordinates(this.realX, this.realY);
-        this.setTowerCoordinates(this.realX, this.realY);
+    static setShapeTower(graphics, color, fill) {
+        if(fill)
+            graphics.clear().beginFill(color).drawCircle(0, 0, conf.radiusTower);
+        else
+            graphics.clear().beginStroke(color).drawCircle(0, 0, conf.radiusTower)
     }
 
-    drawBonus() {
+    drawStandartImpl(color, fill) {
         if(this.cache == null) {
             this.cache = {};
+
             let shape = new createjs.Shape();
-            shape.graphics.beginStroke("#000000").drawCircle(0, 0, conf.radiusTower);
+            Tower.setShapeTower(shape.graphics, color, fill);
 
             this.cache.circle = shape;
 

@@ -12,6 +12,8 @@ class UserInterface {
 
         this.world.update();
         this.world.area.world.stage.update();
+
+        this.last_mv = {x: 0, y: 0};
     }
 
     eventMove(event) {
@@ -53,6 +55,8 @@ class UserInterface {
     }
 
     eventPutNewVertex(event) {
+        this.world.canvas.requestPointerLock();
+
         let fullLength = conf.rectSize * 2 + conf.borderSize * 6;
         if(fullLength < Math.abs(this.last_mv.x) || (fullLength < Math.abs(this.last_mv.y))) {
             return;
@@ -63,8 +67,8 @@ class UserInterface {
 
         this.packCallback["addTower"](newPos);
         this.world.area.markSelectedCell(newPos.x, newPos.y);
+
         this.world.update();
-        this.world.area.world.stage.update();
 
         this.positionX = newPos.x;
         this.positionY = newPos.y;

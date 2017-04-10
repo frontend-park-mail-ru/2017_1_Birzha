@@ -6,9 +6,10 @@ import UserInterface from './user_interface';
 import GameObject from './game_object';
 
 import Tower from './tower'
+
 class User extends GameObject {
-    constructor(connection, world, point, clientID) {
-        super(world, clientID);
+    constructor(connection, world, point, clientId, userNick, units) {
+        super(world, clientId, userNick);
 
         this.arrayMap = world.arrayMap;
         this.userInterface = new UserInterface(world, {
@@ -18,20 +19,21 @@ class User extends GameObject {
 
         this.userAction = new UserAction(connection);
 
+        console.log("My nick: " + userNick);
+
         /*** Events ***/
-        // connection.eventListen("bonus", (json) => {
-        //     // parse json and call newBonus
+        // connection.eventListen(DATATYPE_HELLO, (json) => {
+        //     console.log("My nick: " + json["nickname"]);
         // });
         /**************/
         this.myGraph = new GraphTree(world);
 
-        let tower = this.generateMyTower(point, conf.defaultStartUnit);
+        let tower = this.generateMyTower(point, units || conf.defaultStartUnit);
 
         this.currentNode = this.myGraph.addNewVertexToCurrent(tower);
         this.addTowerToMap(point, this.currentNode);
 
         this.drawObject();
-        this.world.canvas.requestPointerLock();
 
         //update camera
         this.world.area.markSelectedCell(point.x, point.y);
@@ -42,6 +44,10 @@ class User extends GameObject {
         scrollTo(0,0);
     }
 
+    setPerforming(flag) {
+        this.currentNode.data.setPerforming(flag);
+    }
+
     /**
      *
      * @param pointNewTower
@@ -49,12 +55,21 @@ class User extends GameObject {
     addNewTower(pointNewTower) {
         let placeTower = this.getFromMap(pointNewTower);
 
-        if (placeTower == null) {
-            let tower = this.generateMyTower(pointNewTower, this.currentNode.data.units / 2);
+        this.setPerforming(false); // TODO if error
 
-            this.currentNode = this.myGraph.addNewVertexToCurrent(tower);
+        if (placeTower == null) {
+            let countInNewUnits = parseInt(this.currentNode.data.units / 2); // TODO /2 /4 / 6
+            this.currentNode.data.decUnits(countInNewUnits);
+
+            let tower = this.generateMyTower(pointNewTower, countInNewUnits);
+
+            let newNode = this.myGraph.addNewVertexToCurrent(tower);
             this.addTowerToMap(pointNewTower, this.currentNode);
-        } else {
+
+            this.userAction.createTown(this.currentNode.data.point, pointNewTower, countInNewUnits);
+
+            this.currentNode = newNode;
+        } else { // TODO work fight
             if (placeTower.constructor.name == "NodeImpl") {
                 let newUnits = this.currentNode.data.units;
 
@@ -67,12 +82,15 @@ class User extends GameObject {
                 let bonusUnits = placeTower.units;
                 let tower = this.generateMyTower(pointNewTower, bonusUnits);
 
+                this.userAction.createTown(this.currentNode.data.point, pointNewTower, bonusUnits);
+
                 placeTower.destruct();
                 this.currentNode = this.myGraph.addNewVertexToCurrent(tower);
 
                 this.addTowerToMap(pointNewTower, this.currentNode);
             }
         }
+
         this.drawObject();
     }
 
@@ -95,8 +113,10 @@ class User extends GameObject {
     }
 
     generateMyTower(point, units) {
-        let tower = new Tower(this.world, point.x, point.y, towerType.DEFAULT, units);
-        tower.client_id = this.clientID;
+        let tower = new Tower(this.world, point.x, point.y, towerType.DEFAULT,
+            units, this.clientId, this.nickName);
+
+        tower.client_id = this.nickName;
         return tower;
     }
 

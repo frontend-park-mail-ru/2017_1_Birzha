@@ -1,7 +1,8 @@
 class GameObject {
-    constructor(world, clientID) {
+    constructor(world, clientId, nickName) {
         this.world = world;
-        this.clientID = clientID;
+        this.clientId = clientId;
+        this.nickName = nickName;
     }
 
     drawObject() {

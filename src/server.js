@@ -9,15 +9,25 @@ class ServerConnect {
         this.statusServer = false; // TODO change
 
         this.socket = new WebSocket(server);
-        this.socket.onopen = opened;
+
+        this.opened = opened;
+
+        this.socket.onopen = () => {
+            opened(RES_OK);
+        };
+
+        this.socket.onerror = () => {
+            opened(RES_ERROR);
+        }
     }
 
     /**
      * @param json_data as Object
      * @param callback  as function
      */
-    sendData(json_data, callback) {
+    sendData(json_data) {
         let needSend = ServerConnect.toJson(json_data);
+        console.log("Send: " + needSend);
         this.socket.send(needSend);
     }
 

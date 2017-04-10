@@ -4,7 +4,6 @@ import BasePage from './base_page';
 
 class MenuPage extends BasePage {
     constructor(world, callBackIfRun) {
-        debugger;
         super(world);
         this.callbackIfRun = callBackIfRun;
 
@@ -14,11 +13,11 @@ class MenuPage extends BasePage {
         this.menuShapes = null;
 
         this.ticker = 0;
+
+        this.enableRotation = false;
     }
 
     startPage(resource) {
-        debugger;
-
         let cellCenter = this.world.area.getExactPosition(this.world.area.fullSize.x/2, this.world.area.fullSize.y/2);
         let cenX = cellCenter.x, cenY = cellCenter.y;
         this.world.setOffsetForCenter(cenX, cenY);
@@ -34,24 +33,23 @@ class MenuPage extends BasePage {
         const onClickRun = (event) => {
             this.callbackIfRun();
         };
+
         this.buttonMenu.on('click', onClickRun.bind(this));
     }
 
     stopPage() {
-        // this.menuGraph.destruct();
         this.world.stage.removeChild(this.buttonMenu);
         this.world.stage.clear();
 
         this.world.update();
     }
 
-    tick(event) {
-        // console.log(createjs.Ticker.getMeasuredFPS());
-        const randomInteger = window.randomInteger;
-        if (!createjs.Ticker.getPaused()) {
-            this.ticker++;
-            this.world.update();
-        }
+    setEnableRotation(flag) {
+        this.enableRotation = flag;
+
+        // debugger;
+        // this.buttonMenu.rotate(10);
+        this.world.update();
     }
 }
 
