@@ -67,7 +67,7 @@ debugger;
             data['method'] = data['method'] || 'GET';
 
         data['headers'] = data['headers'] || {"Content-Type": "application/json"};
-        data['credentials'] = 'same-origin';
+        data['credentials'] = 'include';
         data['mode'] = data['mode'] || 'CORS';
         data['cache'] = data['cache'] || 'default';
 
