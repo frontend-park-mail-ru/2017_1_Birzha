@@ -47,8 +47,8 @@ class Router {
     go(path) {
         if(path == '/back'){
             window.history.back();
-            let back = location.pathname;
-            this.go(back);
+            //let back = location.pathname;
+            //this.go(back);
             return true;
         }
 
@@ -83,6 +83,10 @@ class Router {
         view.show();
         let obj = { page: 1 };
         window.history.pushState(obj, '', url);
+        window.onpopstate = function (event) {
+            console.log(location.pathname);
+            this.go(location.pathname);
+        }.bind(this);
     }
 
 }
