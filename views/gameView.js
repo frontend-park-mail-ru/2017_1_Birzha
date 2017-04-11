@@ -11,10 +11,17 @@ class GameView extends BaseView {
         super.show();
 
         let div = document.getElementById("site-interface");
-        div.style.display = "none";
+        div.style.visibility = 'hidden';
 
         startGame(this.node);
     }
+    hide() {
+        super.hide();
+        let div = document.getElementById("site-interface");
+        div.style.visibility = "visible";
+
+    }
+
 }
 
 export default GameView;
