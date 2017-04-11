@@ -23,8 +23,6 @@ import RegistrationForm from '../blocks/register/registration';
         window.confServer = result;
     }).catch(error => "Error");
 
-
-
     let router = new Router(window.document.documentElement);
 
     let menuView = new MenuView(document.querySelector('.menu-view'));
@@ -35,7 +33,7 @@ import RegistrationForm from '../blocks/register/registration';
     let gameView = new GameView(document.querySelector('.game-view'));
 
     router.register('/', loginView);
-    router.register('/main', loginView);
+    router.register('/main', menuView);
     router.register('/login', loginView);
     router.register('/about', aboutView);
     router.register('/logout', registrationView);
@@ -158,6 +156,28 @@ import RegistrationForm from '../blocks/register/registration';
     registration.appendChild(registrationForm.el);
     menu.appendChild(menuForm.el);
 
+    let getMe = function() {
+        let user = null;
+        new Request(confServer['server'])
+            .addResponse(function (response) {
+                console.log(response);
+                response.json().then(function(data){
+                    user = data;
+                });
+            }.bind(this))
+            .addJson(null)
+            .error(function (err) {
+                console.log("[ERROR] Error response in login");
+                ifError("Ошибка сервера!");
+            })
+            .request("/user", {
+                method: 'GET'
+            });
+        return user;
+    };
+
+    let user = null;
+
     loginForm.on('submit', event => {
         event.preventDefault();
 
@@ -166,9 +186,16 @@ import RegistrationForm from '../blocks/register/registration';
         };
 
         new Request(confServer['server'])
-            .addResponse(function (json) {
-                console.log(json);
-            })
+            .addResponse(function (response) {
+                debugger;
+                if (response.status !== 200) {
+                    console.log('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                    return;
+                }
+                user = getMe();
+                router.go("/main");
+            }.bind(this))
             .addJson(loginForm.getFormData())
             .error(function (err) {
                 console.log("[ERROR] Error response in login");
@@ -178,6 +205,7 @@ import RegistrationForm from '../blocks/register/registration';
                 method: 'POST'
             });
     });
+
 
     registrationForm.on('submit', event => {
         event.preventDefault();
@@ -196,9 +224,10 @@ import RegistrationForm from '../blocks/register/registration';
         delete regData['password_repeat'];
 
         new Request(confServer['server'])
-            .addResponse(function (json) {
-                console.log(json);
-            })
+            .addResponse(function (response) {
+                console.log(response);
+                router.go("/login");
+            }.bind(this))
             .addJson(regData)
             .error(ifError)
             .request('/user', {

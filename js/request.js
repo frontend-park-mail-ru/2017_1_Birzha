@@ -30,13 +30,7 @@ class Request {
     constructor(server) {
         this.server = server;
 debugger;
-        this.funcs = [function(response) {
-            if(response.status >= 200 && response.status < 300) {
-                return response.json();
-            } else {
-                throw new Error();
-            }
-        }];
+        this.funcs = [];
 
         this.baseCatch = function (error) {
             console.log('[FAIL] ', error);
@@ -71,7 +65,8 @@ debugger;
         data['mode'] = data['mode'] || 'CORS';
         data['cache'] = data['cache'] || 'default';
 
-        data['body'] = this.json;
+        if(this.json != "null")
+            data['body'] = this.json;
 
         let fetchPromise = fetch(this.server + path, data);
 
