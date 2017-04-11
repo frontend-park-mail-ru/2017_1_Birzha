@@ -10,6 +10,7 @@ import AboutView from '../views/aboutView';
 
 import LoginForm from '../blocks/login/login';
 import Menu from '../blocks/menu/menu';
+import About from '../blocks/about/about'
 import RegistrationForm from '../blocks/register/registration';
 
 (function () {
@@ -33,8 +34,8 @@ import RegistrationForm from '../blocks/register/registration';
     let leaderBoardView = new LeaderBoardView(document.querySelector('.leaderboard-view'));
     let gameView = new GameView(document.querySelector('.game-view'));
 
-    router.register('/', menuView);
-    router.register('/main', menuView);
+    router.register('/', loginView);
+    router.register('/main', loginView);
     router.register('/login', loginView);
     router.register('/about', aboutView);
     router.register('/logout', registrationView);
@@ -211,8 +212,8 @@ import RegistrationForm from '../blocks/register/registration';
     let loginWarningElement = document.getElementById("login_warning");
     let registrationWarningElement = document.getElementById("registration_warning");
 
-
-    aboutPage.innerHTML = template();
+    let about = new About();
+    aboutPage.innerHTML = about.getElement();
 
 
     router.startPage(url);

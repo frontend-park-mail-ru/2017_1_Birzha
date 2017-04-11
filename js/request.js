@@ -29,7 +29,7 @@ const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
 class Request {
     constructor(server) {
         this.server = server;
-
+debugger;
         this.funcs = [function(response) {
             if(response.status >= 200 && response.status < 300) {
                 return response.json();
@@ -62,11 +62,12 @@ class Request {
 
     request(path, data) {
         data = data || {};
-
+debugger;
         if(!(data['method'] && (data['method'] in ALLOWED_METHODS)))
             data['method'] = data['method'] || 'GET';
 
         data['headers'] = data['headers'] || {"Content-Type": "application/json"};
+        data['credentials'] = 'same-origin';
         data['mode'] = data['mode'] || 'CORS';
         data['cache'] = data['cache'] || 'default';
 
