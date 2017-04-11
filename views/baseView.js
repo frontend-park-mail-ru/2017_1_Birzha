@@ -9,10 +9,12 @@ class BaseView {
      */
     show() {
         this.node.hidden = false;
+        this.node.style.display = "contents";
     }
 
     hide() {
         this.node.hidden = true;
+        //this.node.style.display = "none";
     }
 }
 

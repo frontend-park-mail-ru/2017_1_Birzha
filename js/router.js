@@ -63,9 +63,10 @@ class Router {
         }
 
         view.show();
-        let obj = { page: 1 };
-        window.history.pushState(obj, '', path);
-
+        let back = location.pathname;
+        if(back != path) {
+            window.history.pushState(null, '', path);
+        }
         if(this.currentView) {
             this.currentView.hide();
         }
@@ -81,8 +82,9 @@ class Router {
         }
         let view = this._getViewByRoute(url);
         view.show();
-        let obj = { page: 1 };
-        window.history.pushState(obj, '', url);
+        //let obj = { page: 1 };
+        window.history.pushState(null, '', url);
+
         window.onpopstate = function (event) {
             console.log(location.pathname);
             this.go(location.pathname);

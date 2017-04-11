@@ -47,10 +47,6 @@ import RegistrationForm from '../blocks/register/registration';
     let registration = document.querySelector('#registration');
     let menu = document.querySelector('#menu');
 
-    let loginPage = document.querySelector('#login');
-    let registrationPage = document.querySelector('#registrationPage');
-    const menuPage = document.querySelector('#menuPage');
-
     let menuForm = new Menu({
         el: document.createElement('div'),
         data: {
