@@ -26,6 +26,7 @@ class Room {
                 this.pid = pID;
 
                 this.runGame(this);
+                this.waitPage.setEnableRotation(false);
             }
 
             console.log("Get [room.js]: " + roomId);
@@ -40,7 +41,6 @@ class Room {
 
     iAmReady() {
         this.connection.send(READY_FOR_GAME_START);
-
         this.waitPage.setEnableRotation(true);
     }
 

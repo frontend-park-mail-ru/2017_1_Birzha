@@ -32,9 +32,10 @@ window.STATUS_READY = 2;
 
 window.conf = {
     ip: [ {host: "172.16.83.124", port: 8081, path: "/game "},
-          {host: "192.168.43.107", port: 8081, path: "/game"}
+          {host: "192.168.43.107", port: 8081, path: "/game"},
+          {host: "172.16.90.18", port: 8081, path: "/game"}
     ],
-    baseIP: 1,
+    baseIP: 2,
 
     countUsersInRoom: 2,
 

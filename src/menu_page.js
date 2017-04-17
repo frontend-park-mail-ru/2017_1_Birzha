@@ -25,10 +25,20 @@ class MenuPage extends BasePage {
         document.body.style.overflow = "hidden";
 
         this.buttonMenu = this.world.newImage(resource.getResult("playButton"));
-        this.buttonMenu.x = cenX - this.buttonMenu.image.width / 2;
-        this.buttonMenu.y = cenY - this.buttonMenu.image.height / 2;
+        this.buttonMenu.x = cenX;
+        this.buttonMenu.y = cenY;
+        this.buttonMenu.regX = this.buttonMenu.image.width / 2;
+        this.buttonMenu.regY = this.buttonMenu.image.height / 2;
+
         this.world.update();
         this.world.area.world.stage.update();
+
+        debugger;
+        this.buttonAnimate = function(event){
+            debugger;
+            this.buttonMenu.rotation += 2;
+            this.world.update();
+        };
 
         const onClickRun = (event) => {
             this.callbackIfRun();
@@ -45,10 +55,15 @@ class MenuPage extends BasePage {
     }
 
     setEnableRotation(flag) {
-        this.enableRotation = flag;
-
-        // debugger;
-        // this.buttonMenu.rotate(10);
+        debugger;
+        if(flag && !createjs.Ticker.hasEventListener("tick")) {
+            createjs.Ticker.addEventListener("tick", this.buttonAnimate.bind(this));
+            createjs.Ticker.setInterval(10);
+            createjs.Ticker.setFPS(60);
+        } else {
+            createjs.Ticker.removeEventListener("tick", this.buttonAnimate);
+            createjs.Ticker.paused = true;
+        }
         this.world.update();
     }
 }
