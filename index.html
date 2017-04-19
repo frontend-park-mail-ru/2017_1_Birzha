@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>ACyclyc</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./css/cover.css" rel="stylesheet">
+    <!-- Our CSS -->
+    <link href="./css/our.css" rel="stylesheet">
+
+    <script src="./lib/easeljs-0.8.2.min.js"></script>
+    <script src="./lib/tweenjs-0.6.2.min.js"></script>
+    <script src="./lib/preloadjs-0.6.2.min.js"></script>
+</head>
+<body>
+
+<div id="game" class="game-view view"></div>
+
+<div id="site-interface" class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+                <div class="masthead clearfix">
+                    <div class="inner">
+                        <h3 class="masthead-brand" id="AcyclicReference"><a href="/main"> Cyclyc </a></h3>
+                        <ul class="nav masthead-nav">
+                            <li id="Registered">Player_nick</li>
+                            <li id="aboutReference"><a href="/about"> About </a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="menuPage" class="menu-view view">
+
+                    <div class="col-md-1"></div>
+
+                    <div id="menu">
+
+                    </div>
+
+                    <div class="col-md-1">
+
+                    </div>
+                </div>
+
+                <div id="login" class="inner cover login-view view">
+                </div>
+                <div id="login_warning"></div>
+
+                <div id="leaderboard" class="leaderboard-view view">
+
+
+                </div>
+
+                <div id="about" class="about-view view">
+
+                </div>
+
+                <div id="registrationPage" class="registration-view view">
+
+                    <div class="col-md-3"></div>
+
+                    <div id="registration" class="inner cover">
+
+                    </div>
+
+                    <div class="col-md-3"></div>
+
+                    <div id="registration_warning"></div>
+                </div>
+
+                <div class="mastfoot" style="left: 362px">
+                    <div class="inner">
+                        <p>Acyclyc, 2017. All rights reserved</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./lib/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+
+<script src="static/templates/template.pug.js"></script>
+<script src="static/templates/Main.pug.js"></script>
+<script src="static/templates/Login.pug.js"></script>
+<script src="static/templates/Registration.pug.js"></script>
+<script src="static/templates/LeaderBoard.pug.js"></script>
+<script src="bin/bundle.js"></script>
+
+</body>
+</html>

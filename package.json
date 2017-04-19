@@ -5,15 +5,30 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run pug && node server.js",
-    "pug": "./node_modules/.bin/pug -c -D -E pug.js -n chat_tmpl static/blocks/**/*.pug"
+    "start": "webpack & node server.js",
+    "pug": "pug -c -D -E pug.js -n MainTemplate static/templates/Main.pug"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "4.x.x",
+    "gulp-install": "^1.1.0",
     "pug": "^2.0.0-beta11",
-    "pug-cli": "^1.0.0-alpha6"
+    "pug-cli": "^1.0.0-alpha6",
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.3.2",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-latest": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "webpack": "^2.3.3"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }

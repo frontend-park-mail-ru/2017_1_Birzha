@@ -1,0 +1,13 @@
+.col-md-3
+form(class="form-horizontal col-md-6 login-form")
+    h1 Login
+    div(class="form-group form-input")
+        .login-form
+            input(class="form-control login-form__input", type="text", placeholder="Login...", name="login")
+        .login-form
+            input(class="form-control login-form__input", type="password", placeholder="password", name="password")
+        .js-controls
+            button(class="btn btn-default login-form__button login-form__button_red", type="submit") Login
+        .create_new_account_link(style="margin-top: 10px", id="RegisterPageId")
+            a(href="/logout") Create new account
+.col-md-3

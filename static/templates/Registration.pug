@@ -1,0 +1,16 @@
+form(class="form-horizontal col-md-6 login-form")
+    h1 Login
+    div(class="form-group form-input")
+        .login-form
+            input(class="form-control login-form__input", type="text", placeholder="Login...", name="login")
+        .login-form
+            input(class="form-control registration-form__input", type="email", placeholder="email", name="email")
+        .login-form
+            input(class="form-control login-form__input", type="password", placeholder="password", name="password")
+        .login-form
+            input(class="form-control registration-form__input", type="password", placeholder="Repeat", name="password_repeat")
+        .js-controls
+            button(class="btn btn-default registration-form__button registration-form__button_red", type="submit") Register
+        .create_new_account_link(style="margin-top: 10px", id="RegisterPageId")
+            a(href="/login") Back
+

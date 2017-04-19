@@ -1,0 +1,59 @@
+.login-form {
+    padding-top:10px;
+}
+.registration-form {
+    padding-top: 20px;
+}
+.registration-form__button_red{
+    color: red;
+}
+.menuPage__myButton{
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #062F4F; /* Green */
+    border: none;
+    border-radius: 50px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 40px;
+    transition-duration: 0.4s;
+}
+.menuPage__myButton:hover{
+    background-color: #5bc0de;
+    color: black;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.menuPage__myButton_red{
+    background-color: #813772;
+}
+
+.menuPage__myButton_yellow{
+    background-color: #B82601;
+}
+.menuPage__myButton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.menuPage__myButton span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.menuPage__myButton:hover span {
+    padding-right: 25px;
+}
+
+.menuPage__myButton:hover span:after {
+    opacity: 1;
+    right: 0;
+}
