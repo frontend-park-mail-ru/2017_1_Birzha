@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -439,7 +439,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _tree = __webpack_require__(29);
+var _tree = __webpack_require__(30);
 
 var _tree2 = _interopRequireDefault(_tree);
 
@@ -606,6 +606,40 @@ exports.default = GraphTree;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var About = function () {
+    function About(names) {
+        _classCallCheck(this, About);
+
+        this.about = template();
+    }
+
+    _createClass(About, [{
+        key: 'getElement',
+        value: function getElement() {
+            return this.about;
+        }
+    }]);
+
+    return About;
+}();
+
+exports.default = About;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -740,7 +774,7 @@ var LoginForm = function () {
 exports.default = LoginForm;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -831,7 +865,7 @@ var Menu = function () {
 exports.default = Menu;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -970,7 +1004,7 @@ var RegistrationForm = function () {
 exports.default = RegistrationForm;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1079,7 +1113,7 @@ var Request = function () {
 exports.default = Request;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1205,7 +1239,7 @@ var Router = function () {
 exports.default = Router;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1242,7 +1276,7 @@ var AboutView = function (_BaseView) {
 exports.default = AboutView;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1260,7 +1294,7 @@ var _baseView = __webpack_require__(0);
 
 var _baseView2 = _interopRequireDefault(_baseView);
 
-var _main = __webpack_require__(23);
+var _main = __webpack_require__(24);
 
 var _main2 = _interopRequireDefault(_main);
 
@@ -1306,7 +1340,7 @@ var GameView = function (_BaseView) {
 exports.default = GameView;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1343,7 +1377,7 @@ var LeaderBoardView = function (_BaseView) {
 exports.default = LeaderBoardView;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1380,7 +1414,7 @@ var LoginView = function (_BaseView) {
 exports.default = LoginView;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1417,7 +1451,7 @@ var MenuView = function (_BaseView) {
 exports.default = MenuView;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1454,57 +1488,57 @@ var RegistrationView = function (_BaseView) {
 exports.default = RegistrationView;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _router = __webpack_require__(10);
+var _router = __webpack_require__(11);
 
 var _router2 = _interopRequireDefault(_router);
 
-var _request = __webpack_require__(9);
+var _request = __webpack_require__(10);
 
 var _request2 = _interopRequireDefault(_request);
 
-var _menuView = __webpack_require__(15);
+var _menuView = __webpack_require__(16);
 
 var _menuView2 = _interopRequireDefault(_menuView);
 
-var _loginView = __webpack_require__(14);
+var _loginView = __webpack_require__(15);
 
 var _loginView2 = _interopRequireDefault(_loginView);
 
-var _registrationView = __webpack_require__(16);
+var _registrationView = __webpack_require__(17);
 
 var _registrationView2 = _interopRequireDefault(_registrationView);
 
-var _leaderboardView = __webpack_require__(13);
+var _leaderboardView = __webpack_require__(14);
 
 var _leaderboardView2 = _interopRequireDefault(_leaderboardView);
 
-var _gameView = __webpack_require__(12);
+var _gameView = __webpack_require__(13);
 
 var _gameView2 = _interopRequireDefault(_gameView);
 
-var _aboutView = __webpack_require__(11);
+var _aboutView = __webpack_require__(12);
 
 var _aboutView2 = _interopRequireDefault(_aboutView);
 
-var _login = __webpack_require__(6);
+var _login = __webpack_require__(7);
 
 var _login2 = _interopRequireDefault(_login);
 
-var _menu = __webpack_require__(7);
+var _menu = __webpack_require__(8);
 
 var _menu2 = _interopRequireDefault(_menu);
 
-var _registration = __webpack_require__(8);
+var _registration = __webpack_require__(9);
 
 var _registration2 = _interopRequireDefault(_registration);
 
-var _about = __webpack_require__(34);
+var _about = __webpack_require__(6);
 
 var _about2 = _interopRequireDefault(_about);
 
@@ -1658,7 +1692,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 })();
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1851,7 +1885,7 @@ var Area = function () {
 exports.default = Area;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1863,7 +1897,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _server = __webpack_require__(27);
+var _server = __webpack_require__(28);
 
 var _server2 = _interopRequireDefault(_server);
 
@@ -1944,7 +1978,7 @@ var Connection = function () {
 exports.default = Connection;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2031,7 +2065,7 @@ var Controls = function () {
 exports.default = Controls;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2143,7 +2177,7 @@ var Enemy = function (_GameObject) {
 exports.default = Enemy;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2185,7 +2219,7 @@ var Loader = function () {
 exports.default = Loader;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2195,31 +2229,31 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _area = __webpack_require__(18);
+var _area = __webpack_require__(19);
 
 var _area2 = _interopRequireDefault(_area);
 
-var _world = __webpack_require__(33);
+var _world = __webpack_require__(34);
 
 var _world2 = _interopRequireDefault(_world);
 
-var _loader = __webpack_require__(22);
+var _loader = __webpack_require__(23);
 
 var _loader2 = _interopRequireDefault(_loader);
 
-var _menu_page = __webpack_require__(24);
+var _menu_page = __webpack_require__(25);
 
 var _menu_page2 = _interopRequireDefault(_menu_page);
 
-var _play_page = __webpack_require__(25);
+var _play_page = __webpack_require__(26);
 
 var _play_page2 = _interopRequireDefault(_play_page);
 
-var _connection = __webpack_require__(19);
+var _connection = __webpack_require__(20);
 
 var _connection2 = _interopRequireDefault(_connection);
 
-var _room = __webpack_require__(26);
+var _room = __webpack_require__(27);
 
 var _room2 = _interopRequireDefault(_room);
 
@@ -2328,7 +2362,7 @@ function startGame(elementDOM) {
 exports.default = startGame;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2340,7 +2374,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _system = __webpack_require__(28);
+var _system = __webpack_require__(29);
 
 var _base_page = __webpack_require__(3);
 
@@ -2424,7 +2458,7 @@ var MenuPage = function (_BasePage) {
 exports.default = MenuPage;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2436,7 +2470,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _user = __webpack_require__(30);
+var _user = __webpack_require__(31);
 
 var _user2 = _interopRequireDefault(_user);
 
@@ -2444,7 +2478,7 @@ var _tower = __webpack_require__(2);
 
 var _tower2 = _interopRequireDefault(_tower);
 
-var _controls = __webpack_require__(20);
+var _controls = __webpack_require__(21);
 
 var _controls2 = _interopRequireDefault(_controls);
 
@@ -2452,7 +2486,7 @@ var _base_page = __webpack_require__(3);
 
 var _base_page2 = _interopRequireDefault(_base_page);
 
-var _enemy = __webpack_require__(21);
+var _enemy = __webpack_require__(22);
 
 var _enemy2 = _interopRequireDefault(_enemy);
 
@@ -2618,7 +2652,7 @@ var PlayPage = function (_BasePage) {
 exports.default = PlayPage;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2700,7 +2734,7 @@ var Room = function () {
 exports.default = Room;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2780,7 +2814,7 @@ var ServerConnect = function () {
 exports.default = ServerConnect;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2798,7 +2832,7 @@ function randomInteger(min, max) {
 exports.randomInteger = randomInteger;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2920,7 +2954,7 @@ NodeImpl.prototype.addNode = function (node) {
 exports.default = Tree;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2938,11 +2972,11 @@ var _graph_tree = __webpack_require__(5);
 
 var _graph_tree2 = _interopRequireDefault(_graph_tree);
 
-var _user_action = __webpack_require__(31);
+var _user_action = __webpack_require__(32);
 
 var _user_action2 = _interopRequireDefault(_user_action);
 
-var _user_interface = __webpack_require__(32);
+var _user_interface = __webpack_require__(33);
 
 var _user_interface2 = _interopRequireDefault(_user_interface);
 
@@ -3110,7 +3144,7 @@ var User = function (_GameObject) {
 exports.default = User;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3182,7 +3216,7 @@ var UserAction = function () {
 exports.default = UserAction;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3283,7 +3317,7 @@ var UserInterface = function () {
 exports.default = UserInterface;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3441,40 +3475,6 @@ var World = function () {
 }();
 
 exports.default = World;
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var About = function () {
-    function About(names) {
-        _classCallCheck(this, About);
-
-        this.about = template();
-    }
-
-    _createClass(About, [{
-        key: 'getElement',
-        value: function getElement() {
-            return this.about;
-        }
-    }]);
-
-    return About;
-}();
-
-exports.default = About;
 
 /***/ })
 /******/ ]);

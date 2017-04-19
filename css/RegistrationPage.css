@@ -1,0 +1,17 @@
+.registration-form{
+    font-family: "Gill Sans";
+}
+.registration-form__button{
+    width: 100%;
+    margin-top: 20px;
+    background-color: #B82601;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+    transition-duration: 0.4s;
+}
