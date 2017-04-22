@@ -23,7 +23,10 @@ class World {
 
         elementDOM.appendChild(this.canvas);
 
-        this.map = new createjs.Stage(this.canvas.id);
+        this.stage = new createjs.Stage(this.canvas.id);
+        this.map = new createjs.Container();
+        this.stage.addChild(this.map);
+
         createjs.Touch.enable(this.map);
         this.width = this.canvas.width;
         this.height = this.canvas.height;
@@ -35,10 +38,7 @@ class World {
         for(let i = 0; i < this.area.rectSize; i++) {
             this.arrayMap.push(new Array(this.area.rectSize));
         }
-    }
-
-    get stage() {
-        return this.map;
+        this.zoom = this.area.zoom;
     }
 
     get basicCenter() {
@@ -62,7 +62,7 @@ class World {
     }
 
     appendOnMap(child) {
-        this.map.stage.addChild(child); // TODO normal coor
+        this.map.addChild(child); // TODO normal coor
     }
 
     /** Fabric draw **/
@@ -73,7 +73,7 @@ class World {
         let pos = position || {x: 0, y: 0};
 
         circle.graphics.beginFill(color).drawCircle(pos.x, pos.y, radius);
-        this.map.stage.addChild(circle);
+        this.map.addChild(circle);
         return circle;
     }
 
@@ -120,6 +120,22 @@ class World {
 
         let cellPoint = this.area.getCellPosition(x,y);
         this.area.setVisibles(cellPoint.x, cellPoint.y);
+    }
+
+    setZoom(zoom){
+        debugger;
+        this.map.scaleX = this.map.scaleY = zoom;
+        this.area.world.scaleX = this.area.world.scaleY = zoom;
+     //   this.stage.canvas.style.zoom = zoom;
+     //   this.area.stage.canvas.style.zoom = zoom;
+        // this.stage.canvas.height /= zoom;
+        // this.stage.canvas.width /= zoom;
+        // this.area.stage.canvas.height /= zoom;
+        // this.area.stage.canvas.width /= zoom;
+        this.stage.update();
+        this.area.stage.update();
+        this.zoom = zoom;
+        this.area.zoom = zoom;
     }
 
 }

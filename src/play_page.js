@@ -63,19 +63,22 @@ class PlayPage extends BasePage {
         }
 
         this.connection.addEventListen(DATATYPE_NEWBONUS, (json) => {
-            let x = json["x"];
-            let y = json["y"];
-            let value = json["value"];
+            let bonuses = json["bonuses"];
+            bonuses.forEach((item) => {
+                let x = item.x;
+                let y = item.y;
+                let value = item.value;
 
-            let bonus = new Tower(this.world, x, y, towerType.BONUS, value);
-            bonus.draw();
-            this.world.arrayMap[x][y] = bonus;
+                let bonus = new Tower(this.world, x, y, towerType.BONUS, value);
+                bonus.draw();
+            });
         });
 
-        window.controls = new Controls();
-        window.controls.addPlayerToScoreBoard("Alex", 13412);
-        window.controls.addPlayerToScoreBoard("Alg", 12423);
-        window.controls.addPlayerToScoreBoard("Sergey", 15352);
+        let controls = new Controls();
+        controls.scoreBoard.addPlayerToScoreBoard("Alex", 13412);
+        controls.scoreBoard.addPlayerToScoreBoard("Alg", 12423);
+        controls.scoreBoard.addPlayerToScoreBoard("Sergey", 15352);
+        controls.scoreBoard.addPlayerToScoreBoard("Daniyar", 15352);
 
         this.connection.addEventListen(DATATYPE_PLAYERMOVE, (json) => {
             // debugger;

@@ -33,6 +33,11 @@ class GraphTree {
         return this.currentVertex;
     }
 
+    goFromCurrentVertex(node){
+        node.nextNode.push(this.currentVertex);
+        return node;
+    }
+
     destruct() {
         this.world.stage.removeChild(this.graphLine);
         console.log(this.shapes);

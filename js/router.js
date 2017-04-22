@@ -31,10 +31,8 @@ class Router {
     }
 
     start() {
-
         this.node
             .addEventListener('click', event => this.onRouteChange(event));
-
 
         this.currentView = this._getViewByRoute(location.pathname);
     }
@@ -47,8 +45,6 @@ class Router {
     go(path) {
         if(path == '/back'){
             window.history.back();
-            //let back = location.pathname;
-            //this.go(back);
             return true;
         }
 

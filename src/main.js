@@ -33,9 +33,11 @@ window.STATUS_READY = 2;
 window.conf = {
     ip: [ {host: "172.16.83.124", port: 8081, path: "/game "},
           {host: "192.168.43.107", port: 8081, path: "/game"},
-          {host: "172.16.90.18", port: 8081, path: "/game"}
+          {host: "172.16.90.18", port: 8081, path: "/game"},
+          {host: "172.20.10.3", port: 8081, path: "/game"},
+          {host: "localhost", port: 8081, path: "/game"}
     ],
-    baseIP: 2,
+    baseIP: 4,
 
     countUsersInRoom: 2,
 
@@ -71,7 +73,7 @@ function startGame(elementDOM) {
             return;
         }
 
-        world.canvas.requestPointerLock(); // for lock user
+   //     world.canvas.requestPointerLock(); // for lock user
 
         room.iAmReady();
     };

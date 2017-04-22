@@ -25,14 +25,16 @@ class Area {
 
         elementDOM.appendChild(this.canvas);
 
-        this.world = new createjs.Stage(this.canvas.id);
+        this.stage = new createjs.Stage(this.canvas.id);
+        this.world = new createjs.Container();
+        this.stage.addChild(this.world);
         createjs.Touch.enable(this.world);
         this.width = this.canvas.width;
         this.height = this.canvas.height;
 
         this.initArea();
-        this.world.stage.update();
-
+        this.stage.update();
+        this.zoom = 1;
     }
 
     initArea() {
@@ -60,7 +62,7 @@ class Area {
                     cell.visible = false;
                 }
                 t.push(cell);
-                this.world.stage.addChildAt(cell);
+                this.world.addChildAt(cell);
             }
             this.cells.push(t);
         }
@@ -109,8 +111,8 @@ class Area {
 
         let cell = new createjs.Shape();
         cell.graphics.beginFill("#beffb1").drawRect(x + borderSize, y + borderSize, rectSize - borderSize, rectSize - borderSize).endFill();
-        this.world.stage.addChild(cell);
-        this.world.stage.update();
+        this.world.addChild(cell);
+        this.stage.update();
     }
 
     markCurrentCell(x, y, type) {
@@ -129,12 +131,12 @@ class Area {
                 break;
         }
         if(this.currentCell){
-            this.world.stage.removeChild(this.currentCell);
+            this.world.removeChild(this.currentCell);
         }
         this.currentCell = new createjs.Shape();
         this.currentCell.graphics.beginFill(color).drawRect(x + borderSize, y + borderSize, rectSize - borderSize, rectSize - borderSize).endFill();
-        this.world.stage.addChild(this.currentCell);
-        this.world.stage.update();
+        this.world.addChild(this.currentCell);
+        this.stage.update();
     }
 
 
@@ -164,9 +166,9 @@ class Area {
 
         for(let i = 0; i<this.worldSize; i++){
             for(let j = 0; j<this.worldSize; j++){
-                if(i<this.rowEnds.start || i>this.rowEnds.end)
+                if(i<this.rowEnds.start || i>this.rowEnds.end+1)
                     this.cells[i][j].visible = false;
-                else if (j < this.columnEnds.start || j > this.columnEnds.end) {
+                else if (j < this.columnEnds.start || j > this.columnEnds.end+1) {
                     this.cells[i][j].visible = false;
                 } else this.cells[i][j].visible = true;
             }
@@ -177,7 +179,7 @@ class Area {
         this.offset.x = x;
         this.offset.y = y;
         this.world.setTransform(x,y);
-        this.world.stage.update();
+        this.stage.update();
     }
 
     getRelativeCoord(x, y){

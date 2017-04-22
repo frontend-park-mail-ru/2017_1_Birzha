@@ -15,16 +15,13 @@ class UserAction {
             return;
 
         this.connection.send(GAME_UPDATE_MY_MOVE, {
-            moves: {
-                create: [
-                    {
-                        xfrom: from.x,
-                        yfrom: from.y,
-                        xto: to.x,
-                        yto: to.y,
-                        unitsCount: unitCounts
-                    }
-                ]
+            move: {
+                xfrom: from.x,
+                yfrom: from.y,
+                xto: to.x,
+                yto: to.y,
+                unitsCount: unitCounts,
+                type: 1
             }
         });
 

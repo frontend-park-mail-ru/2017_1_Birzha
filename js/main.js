@@ -13,6 +13,8 @@ import Menu from '../blocks/menu/menu';
 import About from '../blocks/about/about'
 import RegistrationForm from '../blocks/register/registration';
 
+import Auth from './auth'
+
 (function () {
     window.confServer = {};
     let url = window.location.pathname;
@@ -23,6 +25,7 @@ import RegistrationForm from '../blocks/register/registration';
         window.confServer = result;
     }).catch(error => "Error");
 
+    let auth = new Auth();
     let router = new Router(window.document.documentElement);
 
     let menuView = new MenuView(document.querySelector('.menu-view'));
@@ -152,83 +155,43 @@ import RegistrationForm from '../blocks/register/registration';
     registration.appendChild(registrationForm.el);
     menu.appendChild(menuForm.el);
 
-    let getMe = function() {
-        let user = null;
-        new Request(confServer['server'])
-            .addResponse(function (response) {
-                console.log(response);
-                response.json().then(function(data){
-                    user = data;
-                });
-            }.bind(this))
-            .addJson(null)
-            .error(function (err) {
-                console.log("[ERROR] Error response in login");
-                ifError("Ошибка сервера!");
-            })
-            .request("/user", {
-                method: 'GET'
-            });
-        return user;
-    };
-
-    let user = null;
-
     loginForm.on('submit', event => {
         event.preventDefault();
+        let loginData = loginForm.getFormData();
 
-        const ifError = function(error) {
-            loginWarningElement.innerHTML = "error";
-        };
-
-        new Request(confServer['server'])
-            .addResponse(function (response) {
-                debugger;
-                if (response.status !== 200) {
-                    console.log('Looks like there was a problem. Status Code: ' +
-                        response.status);
-                    return;
-                }
-                user = getMe();
+        auth.auth(loginData,
+            ()=>{
+                console.log("Success login !");
                 router.go("/main");
-            }.bind(this))
-            .addJson(loginForm.getFormData())
-            .error(function (err) {
-                console.log("[ERROR] Error response in login");
-                ifError("Ошибка сервера!");
-            })
-            .request('/login', {
-                method: 'POST'
-            });
+            },
+            ()=>{
+                console.log("Fail login !");
+            }
+        );
     });
 
 
     registrationForm.on('submit', event => {
         event.preventDefault();
-
         const ifError = function(error) {
             registrationWarningElement.innerHTML = error;
         };
-
         let regData = registrationForm.getFormData();
-
         if(regData['password'] !== regData['password_repeat']) {
             ifError("Password is not equals!");
             return;
         }
-
         delete regData['password_repeat'];
 
-        new Request(confServer['server'])
-            .addResponse(function (response) {
-                console.log(response);
+        auth.register(regData,
+            ()=>{
+                console.log("Success login !");
                 router.go("/login");
-            }.bind(this))
-            .addJson(regData)
-            .error(ifError)
-            .request('/user', {
-                method: 'PUT'
-            });
+            },
+            ()=>{
+                console.log("Fail login !");
+            }
+        );
 
     });
 

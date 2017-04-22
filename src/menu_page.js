@@ -1,6 +1,7 @@
 import { randomInteger } from './system';
 
 import BasePage from './base_page';
+import Controls from './controls';
 
 class MenuPage extends BasePage {
     constructor(world, callBackIfRun) {
@@ -35,7 +36,7 @@ class MenuPage extends BasePage {
 
         debugger;
         this.buttonAnimate = function(event){
-            debugger;
+        //    debugger;
             this.buttonMenu.rotation += 2;
             this.world.update();
         };
@@ -55,7 +56,7 @@ class MenuPage extends BasePage {
     }
 
     setEnableRotation(flag) {
-        debugger;
+    //    debugger;
         if(flag && !createjs.Ticker.hasEventListener("tick")) {
             createjs.Ticker.addEventListener("tick", this.buttonAnimate.bind(this));
             createjs.Ticker.setInterval(10);
