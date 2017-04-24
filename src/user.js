@@ -48,6 +48,7 @@ class User extends GameObject {
     }
 
     setPerforming(flag) {
+        debugger;
         this.currentNode.data.setPerforming(flag);
     }
 
@@ -78,8 +79,8 @@ class User extends GameObject {
                 placeTower.data.units += newUnits;
 
             //    this.currentNode = this.myGraph.addNewVertexToCurrent(placeTower);
-            //    this.currentNode = this.myGraph.goFromCurrentVertex(placeTower);
-                this.currentNode = this.myGraph.setCurrentVertex(placeTower);
+                this.currentNode = this.myGraph.goFromCurrentVertex(placeTower);
+            //    this.currentNode = this.myGraph.setCurrentVertex(placeTower);
             } else {
                 // bonus
                 let bonusUnits = placeTower.units;
@@ -98,7 +99,7 @@ class User extends GameObject {
     }
 
     setCurrentNode(pointCurrentTower){
-        debugger;
+   //     debugger;
         let tower = this.getFromMap(pointCurrentTower);
         if(tower.data.client_id === this.clientId) {
             this.currentNode = tower;

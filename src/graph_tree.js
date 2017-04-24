@@ -58,71 +58,43 @@ class GraphTree {
     }
 
     showNodes() {
+        let currentNode = this.tree.rootNode;
+        let marker = new Set();
+
         this.graphLine = this.graphLine || this.world.newLine("red");
         this.graphLine.graphics.clear();
+        this.graphLine.graphics.setStrokeStyle(1).beginStroke("#00ff00");
 
-        let setBack = (node, parentNode) => {
-            let pxPoint = this.world.area.getPixelPoint(parentNode.data.pointX, parentNode.data.pointY);
-            // this.graphLine.graphics.moveTo(pxPoint.x, pxPoint.y);
-
-            this.was_change = true;
-            this.last_last_x = pxPoint.x;
-            this.last_last_y = pxPoint.y;
-        };
-
-        let iter = this.tree.iterator(setBack.bind(this));
-
-        this.last_x = 0;
-        this.last_y = 0;
-
-        this.was_change = false;
-        this.last_last_x = 0;
-        this.last_last_y = 0;
-
-        for (;;) {
-            this.was_change = false;
-            let node = iter.nextNode();
-            if (!node)
-                break;
-
-            // debugger;
-
-            let nowPoint = this.world.area.getPixelPoint(node.data.pointX, node.data.pointY);
-
-            if (node === this.tree.root) {
-                this.last_x = nowPoint.x;
-                this.last_y = nowPoint.y;
-
-                this.graphLine.graphics.setStrokeStyle(1).beginStroke("#00ff00");
-                this.graphLine.graphics.moveTo(this.last_x, this.last_y);
-
-                this.setNode(node.data);
-                continue;
+        this.go = (function (current, marker) {
+            if(current === null){
+                return;
             }
-
-            this.setNode(node.data);
-
-            // debugger;
-            this.drawWireBetweenTowers(nowPoint, {posX: this.last_x, posY: this.last_y});
-
-            if(this.was_change) {
-                this.last_x = this.last_last_x; // nowPoint.x;
-                this.last_y = this.last_last_y; // nowPoint.y;
-            } else {
-                this.last_x = nowPoint.x;
-                this.last_y = nowPoint.y;
-            }
-        }
+            marker.add(current);
+            this.setNode(current.data);
+            current.nextNode.forEach((item)=>{
+                if(!marker.has(item)) {
+                    this.go(item, marker);
+                } else {
+                    this.drawWireBetweenTowers(current.data.point, item.data.point);
+                }
+            });
+            if(current.parentNode)
+                this.drawWireBetweenTowers(current.data.point, current.parentNode.data.point);
+        });
+        this.go.bind(this)(currentNode, marker);
 
         this.graphLine.graphics.endStroke();
     }
 
     drawWireBetweenTowers(to, from, anim) {
+        debugger;
+        to = this.world.area.getPixelPoint(to.x, to.y);
+        from = this.world.area.getPixelPoint(from.x, from.y);
         let x = to.x, y = to.y;
-        let l = Math.sqrt((x - from.posX)**2 + (y - from.posY)**2);
+        let l = Math.sqrt((x - from.x)**2 + (y - from.y)**2);
 
         const byLine = (lamda) => {
-            return {posX: (from.posX + lamda * x) / (1 + lamda), posY: (from.posY + lamda * y) / (1 + lamda)};
+            return {x: (from.x + lamda * x) / (1 + lamda), y: (from.y + lamda * y) / (1 + lamda)};
         };
 
         let radius = conf.radiusTower + conf.betweenTowersPadding;
@@ -131,8 +103,8 @@ class GraphTree {
         let fromPoint = byLine(1 / lamda);
         let toPoint = byLine(lamda);
 
-        this.graphLine.graphics.moveTo(fromPoint.posX, fromPoint.posY);
-        this.graphLine.graphics.lineTo(toPoint.posX, toPoint.posY);
+        this.graphLine.graphics.moveTo(fromPoint.x, fromPoint.y);
+        this.graphLine.graphics.lineTo(toPoint.x, toPoint.y);
         this.graphLine.graphics.moveTo(x, y);
     }
 }
