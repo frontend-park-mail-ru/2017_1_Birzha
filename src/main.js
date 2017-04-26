@@ -35,7 +35,7 @@ window.conf = {
           {host: "192.168.43.107", port: 8081, path: "/game"},
           {host: "172.16.90.18", port: 8081, path: "/game"},
           {host: "172.20.10.3", port: 8081, path: "/game"},
-          {host: "localhost", port: 8081, path: "/game"}
+          {host: "192.168.1.2", port: 8081, path: "/game"}
     ],
     baseIP: 4,
 

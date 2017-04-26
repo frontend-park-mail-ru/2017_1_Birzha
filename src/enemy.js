@@ -46,6 +46,7 @@ class Enemy extends GameObject {
     /* example: {"xfrom":3,"yfrom":1,"xto":5,"yto":2,"unitsCount":50,"parentUnitsCount":0} */
     createNewEnemyVertex(info) {
         // debugger;
+        let pointFrom = { x: info["xfrom"], y: info["yfrom"] };
         let pointTo = { x: info["xto"], y: info["yto"] };
         let genUnits = info["unitsCount"];
 
@@ -53,6 +54,8 @@ class Enemy extends GameObject {
 
         let tower = this.generateEnemyTower(pointTo, genUnits);
 
+        let fromNode = this.world.arrayMap[pointFrom.x][pointFrom.y];
+        this.enemyGraph.setCurrentVertex(fromNode);
         this.currentNode = this.enemyGraph.addNewVertexToCurrent(tower);
         this.addTowerToMap(pointTo, this.currentNode);
 
@@ -60,8 +63,10 @@ class Enemy extends GameObject {
     }
 
     setPerforming(flag) {
-        if(this.currentNode != null)
-            this.currentNode.data.setPerforming(flag);
+        this.enemyGraph.shapes.forEach((val, item)=>{
+            debugger;
+            item.setPerforming(flag);
+        });
     }
 }
 

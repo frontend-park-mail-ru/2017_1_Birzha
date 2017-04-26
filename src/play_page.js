@@ -81,22 +81,28 @@ class PlayPage extends BasePage {
         controls.scoreBoard.addPlayerToScoreBoard("Daniyar", 15352);
 
         this.connection.addEventListen(DATATYPE_PLAYERMOVE, (json) => {
-            // debugger;
-            if(json["type"] != 1)
+            debugger;
+            if(json["move"]["type"] !== 1)
                 return;
-
-            if(!(json["playerid"] in this.enemiesObject)) {
-                /* dont draw me */
-                console.log("No Draw and update!");
-                return;
-            }
 
             this.nowPerforming.setPerforming(false);
+            if(!(json["playerid"] in this.enemiesObject)) {
+                /* dont draw me */
+                this.nowPerforming = this.enemiesObject[json["nextid"]];
+                console.log("No Draw and update!");
+            } else {
+                if(json["nextid"] === this.user.clientId)
+                    this.nowPerforming = this.user;
+                else
+                    this.nowPerforming = this.enemiesObject[json["nextid"]];
 
-            console.log("Draw: " + this.enemiesObject[json["playerid"]]);
+                console.log("Draw: " + this.enemiesObject[json["playerid"]]);
 
-            this.enemiesObject[json["playerid"]].createNewEnemyVertex(json["moves"]["create"][0]); /* TODO kostyl*/
-            this.enemiesObject[json["playerid"]].drawObject();
+                this.enemiesObject[json["playerid"]].createNewEnemyVertex(json["move"]);
+                /* TODO kostyl*/
+                this.enemiesObject[json["playerid"]].drawObject();
+            }
+            this.nowPerforming.setPerforming(true);
             this.world.update();
         });
 

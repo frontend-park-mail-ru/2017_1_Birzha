@@ -47,6 +47,7 @@ class Tower {
             let style = this.getStyle();
             Tower.setShapeTower(this.cache.circle.graphics, style.color, style.fill);
         }
+
     }
 
     getStyle() {

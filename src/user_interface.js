@@ -119,23 +119,27 @@ class UserInterface {
             this.world.canvas.requestPointerLock();
             return;
         }
-        if(event.type === 'click' && event.which === 1 && this.currentMode === 'choosing'){
-            this.chooseNewVertex(event);
-            this.currentMode = 'moving';
-            return;
+
+        if(this.packCallback["getPerforming"]()) {
+            if (event.type === 'click' && event.which === 1 && this.currentMode === 'choosing') {
+                this.chooseNewVertex(event);
+                this.currentMode = 'moving';
+                return;
+            }
+            if (event.type === 'click' && event.which === 1 && this.currentMode === 'moving') {
+                this.putNewVertex(event);
+                return;
+            }
         }
-        if(event.type === 'click' && event.which === 1 && this.currentMode === 'moving'){
-            this.putNewVertex(event);
-            return;
-        }
-        if(event.type === 'mousemove' && this.pointerLockStatus){
-            this.eventMove(event);
-            return;
-        }
-        if(event.type === 'click' && event.which === 3 && this.currentMode === 'moving'){
+
+        if (event.type === 'click' && event.which === 3 && this.currentMode === 'moving') {
             this.probablyLine.graphics.clear();
             this.currentMode = 'choosing';
         }
+        if(event.type === 'mousemove' && this.pointerLockStatus){
+            this.eventMove(event);
+        }
+
     }
 }
 
