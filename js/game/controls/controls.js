@@ -1,6 +1,6 @@
-import ScoreBoard from './score_board'
-import MenuBoard from './menu_board'
-import ZoomBoard from './zoom_board'
+import ScoreBoard from './boards/score_board'
+import MenuBoard from './boards/menu_board'
+import ZoomBoard from './boards/zoom_board'
 
 class Controls{
     constructor(){

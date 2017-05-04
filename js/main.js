@@ -1,23 +1,26 @@
 import Router from './router';
-import Request from './request';
 
-import MenuView from '../views/menuView'
-import LoginView from '../views/loginView'
-import RegistrationView from '../views/registrationView';
-import LeaderBoardView from '../views/leaderboardView';
-import GameView from '../views/gameView';
-import AboutView from '../views/aboutView';
+import MenuView from './views/menuView'
+import LoginView from './views/loginView'
+import RegistrationView from './views/registrationView';
+import LeaderBoardView from './views/leaderboardView';
+import GameView from './views/gameView';
+import AboutView from './views/aboutView';
 
-import LoginForm from '../blocks/login/login';
-import Menu from '../blocks/menu/menu';
-import About from '../blocks/about/about'
-import RegistrationForm from '../blocks/register/registration';
+import LoginForm from './blocks/login/login';
+import Menu from './blocks/menu/menu';
+import About from './blocks/about/about'
+import RegistrationForm from './blocks/register/registration';
 
-import Auth from './auth'
+import Auth from './auth';
+
+import serviceWorkerLoader from '../worker_loader';
 
 (function () {
     window.confServer = {};
     let url = window.location.pathname;
+
+    serviceWorkerLoader();
 
     fetch('js/conf/dev.conf.json').then(function (data) {
         return data.json();
@@ -36,14 +39,26 @@ import Auth from './auth'
     let gameView = new GameView(document.querySelector('.game-view'));
 
     router.register('/', loginView);
-    router.register('/main', menuView);
     router.register('/login', loginView);
     router.register('/about', aboutView);
     router.register('/logout', registrationView);
     router.register('/leaderboard', leaderBoardView);
-    router.register('/game', gameView);
 
     router.start();
+
+    auth.checkAuth(
+        ()=>{
+            console.log("Already login !");
+            router.register('/', menuView);
+            router.register('/main', menuView);
+            router.register('/game', gameView);
+            router.go("/main");
+        },
+        ()=>{
+            console.log("Unauthorized !");
+            router.start();
+        }
+    );
 
     let login = document.querySelector('#login');
     let registration = document.querySelector('#registration');
@@ -65,7 +80,7 @@ import Auth from './auth'
                 {
                     text: 'LeaderBoard',
                     attrs: {
-                        type: 'submit',
+                        type: 'click',
                         class: 'btn btn-info btn-block',
                         id: 'leaderboardPressed',
                         href: '/leaderboard'
@@ -84,6 +99,7 @@ import Auth from './auth'
         }
     });
 
+
     let loginForm = new LoginForm({
         el: document.createElement('div'),
         data: {
@@ -92,12 +108,12 @@ import Auth from './auth'
                 {
                     name: 'login',
                     type: 'text',
-                    placeholder: 'Login...'
+                    placeholder: 'Login'
                 },
                 {
                     name: 'password',
                     type: 'password',
-                    placeholder: ''
+                    placeholder: 'Password'
                 }
             ],
             controls: [
@@ -151,9 +167,17 @@ import Auth from './auth'
     });
 
 
+
     login.appendChild(loginForm.el);
     registration.appendChild(registrationForm.el);
     menu.appendChild(menuForm.el);
+
+    let btnLogout = document.getElementById("logoutPressed");
+    debugger;
+    btnLogout.onclick = (event)=>{
+        event.preventDefault();
+        auth.logout();
+    };
 
     loginForm.on('submit', event => {
         event.preventDefault();
@@ -162,6 +186,9 @@ import Auth from './auth'
         auth.auth(loginData,
             ()=>{
                 console.log("Success login !");
+                router.register('/', menuView);
+                router.register('/main', menuView);
+                router.register('/game', gameView);
                 router.go("/main");
             },
             ()=>{

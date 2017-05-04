@@ -31,7 +31,7 @@ app.get('/game', function (req, res){
 });
 
 app.get(/.*/, function (req, res){
-    res.send('hello 404');
+    res.sendfile('./index.html');
 });
 
 app.listen(process.env.PORT || 3000, '0.0.0.0', function () {

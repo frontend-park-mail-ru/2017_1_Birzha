@@ -1,7 +1,7 @@
-import GameObject from './game_object';
-import GraphTree from './graph_tree';
+import GameObject from '../game_object';
+import GraphTree from '../../graph/graph_tree';
 
-import Tower from './tower';
+import Tower from '../models/tower';
 
 /*
 example info: {"nickname":"Nick2696","id":5784,"units":0,"beginX":50,"beginY":95,"readyForGameStart":true}

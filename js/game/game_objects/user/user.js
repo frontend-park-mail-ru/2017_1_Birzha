@@ -1,11 +1,11 @@
-import GraphTree from './graph_tree';
+import GraphTree from '../../graph/graph_tree';
 
 import UserAction from './user_action';
 import UserInterface from './user_interface';
 
-import GameObject from './game_object';
+import GameObject from '../game_object';
 
-import Tower from './tower'
+import Tower from '../models/tower'
 
 class User extends GameObject {
     constructor(connection, world, point, clientId, userNick, units) {
@@ -57,7 +57,8 @@ class User extends GameObject {
 
     /**
      *
-     * @param pointNewTower
+     * @param
+     *
      */
     addNewTower(pointNewTower) {
         let placeTower = this.getFromMap(pointNewTower);

@@ -2,6 +2,7 @@ class BaseView {
 
     constructor(node) {
         this.node = node;
+        this.node.hidden = true;
     }
 
     /**

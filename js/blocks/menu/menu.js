@@ -50,6 +50,7 @@ class Menu {
      * @param {function} callback - коллбек
      */
     on (type, callback) {
+        debugger;
         this.el.addEventListener(type, callback);
     }
 

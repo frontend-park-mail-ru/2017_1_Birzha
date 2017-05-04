@@ -6,7 +6,7 @@ import Request from './request'
 
 class Auth{
     constructor(){
-        this.isAuth = false;
+        this.logged = false;
     }
 
     getMe(){
@@ -14,6 +14,13 @@ class Auth{
         new Request('http://'+conf.ip[conf.baseIP].host+':'+conf.ip[conf.baseIP].port+'/api')
             .addResponse(function (response) {
                 console.log(response);
+                if (response.status !== 200) {
+                    console.log('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                    this.logged = false;
+                    return;
+                }
+                this.logged = true;
                 response.json().then(function(data){
                     user = data;
                 });
@@ -30,7 +37,6 @@ class Auth{
 
     auth(data, success, error){
         let status = false;
-        debugger;
         new Request('http://'+conf.ip[conf.baseIP].host+':'+conf.ip[conf.baseIP].port+'/api')
             .addResponse(function (response) {
                 if (response.status !== 200) {
@@ -39,7 +45,7 @@ class Auth{
                     error();
                     return;
                 }
-                this.isAuth = true;
+                this.logged = true;
                 success();
             }.bind(this))
             .addJson(data)
@@ -49,6 +55,36 @@ class Auth{
             }.bind(this))
             .request('/login', {
                 method: 'POST'
+            });
+
+        return status;
+    }
+
+
+    checkAuth(success, error){
+        let status = false;
+        if(this.logged){
+            success();
+            return true;
+        }
+        new Request('http://'+conf.ip[conf.baseIP].host+':'+conf.ip[conf.baseIP].port+'/api')
+            .addResponse(function (response) {
+                if (response.status !== 200) {
+                    console.log('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                    error();
+                    return;
+                }
+                this.logged = true;
+                success();
+            }.bind(this))
+            .addJson(null)
+            .error(function (err) {
+                console.log("[ERROR] Error response in login");
+                error();
+            }.bind(this))
+            .request('/login', {
+                method: 'GET'
             });
 
         return status;
@@ -86,6 +122,7 @@ class Auth{
                     error();
                     return;
                 }
+                this.logged = false;
                 success();
             }.bind(this))
             .addJson(null)
@@ -99,7 +136,7 @@ class Auth{
     }
 
     isAuth() {
-        return this.isAuth;
+        return this.logged;
     }
 }
 

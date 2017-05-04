@@ -92,7 +92,6 @@ class UserInterface {
     chooseNewVertex() {
         let newX = this.probablyCircle.x, newY = this.probablyCircle.y;
         let newPos = this.world.area.getCellPosition(newX, newY);
-     //   debugger;
         let i = this.packCallback['getClientId']();
         if(this.world.arrayMap[newPos.x][newPos.y]) {
             if (this.world.arrayMap[newPos.x][newPos.y].data.client_id !== this.packCallback['getClientId']()) {

@@ -1,21 +1,22 @@
 'use strict';
 
-import Area from './area';
-import World from './world';
+import Area from './game_area/area';
+import World from './game_area/world';
 
-import Loader from './loader';
+import Loader from './ulits/loader';
 
-import MenuPage from './menu_page';
-import PlayPage from './play_page';
+import MenuPage from './pages/menu_page';
+import PlayPage from './pages/play_page';
 
-import Connection from './connection';
-import Room from './room';
+import Connection from './services/connection';
+import Room from './services/room';
 
 window.DATATYPE_ROOMINFO = 1;
 window.DATATYPE_PLAYERMOVE = 2;
 window.DATATYPE_NEWBONUS = 3;
 window.DATATYPE_ERROR = 4;
 window.DATATYPE_HELLO = 5;
+window.DATATYPE_ROOM_DESTRUCT= 6;
 
 window.READY_FOR_ROOM_SEARCH = 1;
 window.READY_FOR_GAME_START = 2;
@@ -33,11 +34,11 @@ window.STATUS_READY = 2;
 window.conf = {
     ip: [ {host: "172.16.83.124", port: 8081, path: "/game "},
           {host: "192.168.43.107", port: 8081, path: "/game"},
-          {host: "172.16.90.18", port: 8081, path: "/game"},
+          {host: "172.16.90.2", port: 8081, path: "/game"},
           {host: "172.20.10.3", port: 8081, path: "/game"},
-          {host: "192.168.1.2", port: 8081, path: "/game"}
+          {host: "localhost", port: 8081, path: "/game"}
     ],
-    baseIP: 4,
+    baseIP: 2,
 
     countUsersInRoom: 2,
 
@@ -97,6 +98,9 @@ function startGame(elementDOM) {
 
         let playPage = new PlayPage(world, connectionService, null); // TODO loading
 
+        let ifstop = ()=>{
+            menuPage.startPage();
+        };
         connectionService.addEventListen(DATATYPE_HELLO, (json) => {
             let id = json["id"];
             let nickname = json["nickname"];
@@ -105,13 +109,12 @@ function startGame(elementDOM) {
                 alert("error");
                 return;
             }
-
             room = new Room(connectionService, menuPage, id, nickname, (room) => {
                 room.deleteListenRoomInfo();
 
                 menuPage.stopPage(); // destruct room choose
 
-                playPage.startPage(room);
+                playPage.startPage(room, ifstop);
 
                 world.update();
             });

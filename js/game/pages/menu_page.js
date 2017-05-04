@@ -1,7 +1,7 @@
-import { randomInteger } from './system';
+import { randomInteger } from '../ulits/system';
 
 import BasePage from './base_page';
-import Controls from './controls';
+import Controls from '../controls/controls';
 
 class MenuPage extends BasePage {
     constructor(world, callBackIfRun) {

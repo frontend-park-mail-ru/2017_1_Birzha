@@ -1,6 +1,6 @@
 import BaseView from './baseView';
 
-import startGame from '../src/main'
+import startGame from '../game/init'
 
 class GameView extends BaseView {
     constructor(node) {

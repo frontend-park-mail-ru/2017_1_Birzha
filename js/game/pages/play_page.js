@@ -1,15 +1,15 @@
 'use strict';
 
-import User from './user';
-import Tower from './tower';
+import User from '../game_objects/user/user';
+import Tower from '../game_objects/models/tower';
 
-import Controls from './controls';
+import Controls from '../controls/controls';
 
 import BasePage from './base_page';
-import Enemy from './enemy';
+import Enemy from '../game_objects/enemy/enemy';
 
 class PlayPage extends BasePage {
-    constructor(world, connection, resource) {
+    constructor(world, connection, resource, router) {
         super(world);
 
         this.enemiesData = [];
@@ -19,6 +19,7 @@ class PlayPage extends BasePage {
 
         this.connection = connection;
         this.resource = resource;
+        this.router = router;
 
         this.nowPerforming = null;
     }
@@ -37,7 +38,8 @@ class PlayPage extends BasePage {
         return me;
     }
 
-    startPage(room) {
+    startPage(room, ifstop) {
+        this.stop = ifstop;
         let perfomingPlayer = room.pid;
 
         let meData = this.splitUsers(room.players, room.meId);
@@ -106,6 +108,12 @@ class PlayPage extends BasePage {
             this.world.update();
         });
 
+        this.connection.addEventListen(DATATYPE_ROOM_DESTRUCT, (json) => {
+            debugger;
+            alert("Room is destructed !");
+            this.stopPage();
+        });
+
         /* was kicked */
         this.connection.addEventListen(DATATYPE_ERROR, (json) => {
             alert("You was kicked!");
@@ -134,9 +142,17 @@ class PlayPage extends BasePage {
 
             } else { alert("wtf!!!!"); }
         });
+        window.onbeforeunload = ()=>{
+            this.connection.disconnect();
+        };
     }
 
     stopPage() {
+        this.world.stage.removeAllChildren();
+        this.world.stage.clear();
+
+        this.world.update();
+        this.stop();
         // TODO remove game scene and work with menupage
     }
 

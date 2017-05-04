@@ -4,11 +4,6 @@ class Router {
         this.routes = {};
     }
 
-    /**
-     * Регистрация маршрута
-     * @param {string} route
-     * @param {BaseView} view
-     */
     register(route, view) {
         this.routes[route] = view;
     }
@@ -50,8 +45,14 @@ class Router {
 
         let view = this._getViewByRoute(path);
 
-        if (!view) {
+        if(!path)
             return false;
+
+        if (!view) {
+            debugger;
+            view = this.routes['/'];
+            location.pathname = '/';
+            path = '/';
         }
 
         if (this.currentView === view) {
@@ -72,11 +73,14 @@ class Router {
     }
 
     startPage(url){
-        for(let key in this.routes){
-            let view = this._getViewByRoute(key);
-            view.hide();
-        }
+        debugger;
         let view = this._getViewByRoute(url);
+        if (!view) {
+            debugger;
+            view = this.routes['/'];
+            location.pathname = '/';
+            url = '/';
+        }
         view.show();
         //let obj = { page: 1 };
         window.history.pushState(null, '', url);
