@@ -9,20 +9,18 @@ class Auth{
         this.logged = false;
     }
 
-    getMe(){
-        let user = null;
+    getMe(success, error){
         new Request('http://'+conf.ip[conf.baseIP].host+':'+conf.ip[conf.baseIP].port+'/api')
             .addResponse(function (response) {
                 console.log(response);
                 if (response.status !== 200) {
                     console.log('Looks like there was a problem. Status Code: ' +
                         response.status);
-                    this.logged = false;
+                    error();
                     return;
                 }
-                this.logged = true;
                 response.json().then(function(data){
-                    user = data;
+                    success(data);
                 });
             }.bind(this))
             .addJson(null)
@@ -32,7 +30,6 @@ class Auth{
             .request("/user", {
                 method: 'GET'
             });
-        return user;
     }
 
     auth(data, success, error){

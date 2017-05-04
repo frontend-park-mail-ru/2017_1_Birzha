@@ -44,21 +44,55 @@ import serviceWorkerLoader from '../worker_loader';
     router.register('/logout', registrationView);
     router.register('/leaderboard', leaderBoardView);
 
-    router.start();
 
-    auth.checkAuth(
-        ()=>{
-            console.log("Already login !");
-            router.register('/', menuView);
-            router.register('/main', menuView);
-            router.register('/game', gameView);
-            router.go("/main");
-        },
-        ()=>{
-            console.log("Unauthorized !");
-            router.start();
+
+    function getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+    function setCookie(name, value, options) {
+        options = options || {};
+
+        let expires = options.expires;
+
+        if (typeof expires === "number" && expires) {
+            let d = new Date();
+            d.setTime(d.getTime() + expires * 1000);
+            expires = options.expires = d;
         }
-    );
+        if (expires && expires.toUTCString) {
+            options.expires = expires.toUTCString();
+        }
+
+        value = encodeURIComponent(value);
+
+        let updatedCookie = name + "=" + value;
+
+        for (let propName in options) {
+            updatedCookie += "; " + propName;
+            let propValue = options[propName];
+            if (propValue !== true) {
+                updatedCookie += "=" + propValue;
+            }
+        }
+
+        document.cookie = updatedCookie;
+    }
+
+    debugger;
+    if(getCookie('logged')==='true'){
+        console.log("Already login !");
+        router.register('/', menuView);
+        router.register('/main', menuView);
+        router.register('/game', gameView);
+        router.go("/main");
+    }
+    document.getElementById('registered').textContent = getCookie('login');
+
+    router.start();
 
     let login = document.querySelector('#login');
     let registration = document.querySelector('#registration');
@@ -91,8 +125,7 @@ import serviceWorkerLoader from '../worker_loader';
                     attrs: {
                         type: 'submit',
                         class: 'btn btn-danger btn-block',
-                        id: 'logoutPressed',
-                        href: '/login'
+                        id: 'logoutPressed'
                     }
                 }
             ]
@@ -176,7 +209,16 @@ import serviceWorkerLoader from '../worker_loader';
     debugger;
     btnLogout.onclick = (event)=>{
         event.preventDefault();
-        auth.logout();
+        setCookie('logged', 'false');
+        setCookie('login', 'Guest');
+        auth.logout(
+            ()=>{
+                router.go('/login');
+            },
+            ()=>{
+                console.log("Error, logout !");
+            }
+        );
     };
 
     loginForm.on('submit', event => {
@@ -186,10 +228,21 @@ import serviceWorkerLoader from '../worker_loader';
         auth.auth(loginData,
             ()=>{
                 console.log("Success login !");
+                document.cookie = "logged=true";
                 router.register('/', menuView);
                 router.register('/main', menuView);
                 router.register('/game', gameView);
                 router.go("/main");
+
+                auth.getMe(
+                    (user)=>{
+                        document.cookie = 'login=' + user.login;
+                        document.getElementById('registered').textContent = user.login;
+                    },
+                    ()=>{
+
+                    }
+                )
             },
             ()=>{
                 console.log("Fail login !");
