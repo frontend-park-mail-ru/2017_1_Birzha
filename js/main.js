@@ -227,15 +227,16 @@ import serviceWorkerLoader from '../worker_loader';
 
         auth.auth(loginData,
             ()=>{
-                console.log("Success login !");
-                document.cookie = "logged=true";
-                router.register('/', menuView);
-                router.register('/main', menuView);
-                router.register('/game', gameView);
-                router.go("/main");
-
+            debugger;
                 auth.getMe(
                     (user)=>{
+                        console.log("Success login !");
+                        router.register('/', menuView);
+                        router.register('/main', menuView);
+                        router.register('/game', gameView);
+                        router.go("/main");
+
+                        document.cookie = "logged=true";
                         document.cookie = 'login=' + user.login;
                         document.getElementById('registered').textContent = user.login;
                     },
